@@ -1,0 +1,141 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "org.flywaydb.flyway" version "7.15.0"
+}
+
+group = 'ru.homework.andry'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'build/generated-sources/jaxb'
+        }
+    }
+}
+
+//task genJaxb {
+//    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+//    ext.schema = "src/main/resources/countries.xsd"
+//    ext.schema = "src/main/resources/employees.xsd"
+//
+//    outputs.dir sourcesDir
+//
+//    doLast() {
+//        project.ant {
+//            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+//                    classpath: configurations.jaxb.asPath
+//            mkdir(dir: sourcesDir)
+//
+//            xjc(destdir: sourcesDir, schema: schema) {
+//                arg(value: "-wsdl")
+//                produces(dir: sourcesDir, includes: "**/*.java")
+//            }
+//        }
+//    }
+//}
+
+task genJaxb {
+    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+    ext.classesDir = "${buildDir}/classes/jaxb"
+    ext.schemaDir = "${projectDir}/src/main/resources"
+
+    outputs.dir classesDir
+
+    doLast() {
+        project.ant {
+            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+                    classpath: configurations.jaxb.asPath
+            mkdir(dir: sourcesDir)
+            mkdir(dir: classesDir)
+
+            xjc(destdir: sourcesDir) {
+                schema(dir: schemaDir, includes: "**/*.xsd")
+                arg(value: "-wsdl")
+                produces(dir: sourcesDir, includes: "**/*.java")
+            }
+
+            javac(destdir: classesDir, source: 1.8, target: 1.8, debug: true,
+                    debugLevel: "lines,vars,source",
+                    classpath: configurations.jaxb.asPath,
+                    includeantruntime: "false") {
+                src(path: sourcesDir)
+                include(name: "**/*.java")
+                include(name: "*.java")
+            }
+
+            copy(todir: classesDir) {
+                fileset(dir: sourcesDir, erroronmissingdir: false) {
+                    exclude(name: "**/*.java")
+                }
+            }
+        }
+    }
+}
+
+/*def dbDriver = project.property('flyway.db.driver')
+def dbUrl = project.property('flyway.db.url')
+def dbUser = project.property('flyway.db.user')
+def dbPassword = project.property('flyway.db.password')
+def dbLocations = project.property('flyway.db.locations')
+*/
+/*def migrateLocations = resources.['classpath:db/migration']
+
+task print {
+    print migrateLocations
+}*/
+
+flyway {
+    driver = 'org.postgresql.Driver'
+    url = 'jdbc:postgresql://localhost:5432/homework'
+    user = 'postgres'
+    password = '5413399'
+   // schemas = 'soap'
+    locations = ['classpath:db/migration']
+    print locations
+/*    locations = [dbLocations]
+    driver = dbDriver
+    url = dbUrl
+    user = dbUser
+    password = dbPassword*/
+}
+
+compileJava.dependsOn genJaxb
+
+configurations {
+    jaxb
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'wsdl4j:wsdl4j'
+    jaxb("org.glassfish.jaxb:jaxb-xjc")
+
+    //implementation 'org.flywaydb:flyway-core'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
