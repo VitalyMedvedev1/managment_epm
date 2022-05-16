@@ -1,1 +1,1 @@
-create schema if not exists SOAP;
+CREATE SCHEMA IF NOT EXISTS SOAP.EMPLOYEE_S;

@@ -15,13 +15,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @SequenceGenerator(schema = "soap", name = "employee_s", sequenceName = "employee_s", allocationSize = 1)
-public class Employees {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_s")
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
+    private int age;
 
     @Enumerated(EnumType.STRING)
     private Position position;

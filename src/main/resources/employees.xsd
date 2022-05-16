@@ -4,18 +4,21 @@
            elementFormDefault="qualified">
 
     <xs:element name="getEmployeesRequest">
-    </xs:element>
-
-    <xs:element name="getEmployeesResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="employees" type="tns:employee"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="employee">
+    <xs:complexType name="GetEmployeesResponse">
         <xs:sequence>
+            <xs:element name="employees" maxOccurs="unbounded" type="tns:employeeResponse"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="employeeResponse">
+        <xs:sequence>
+            <xs:element name="id" type="xs:integer"/>
             <xs:element name="firstname" type="xs:string"/>
             <xs:element name="lastname" type="xs:string"/>
             <xs:element name="age" type="xs:int"/>

@@ -28,27 +28,6 @@ sourceSets {
     }
 }
 
-//task genJaxb {
-//    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
-//    ext.schema = "src/main/resources/countries.xsd"
-//    ext.schema = "src/main/resources/employees.xsd"
-//
-//    outputs.dir sourcesDir
-//
-//    doLast() {
-//        project.ant {
-//            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
-//                    classpath: configurations.jaxb.asPath
-//            mkdir(dir: sourcesDir)
-//
-//            xjc(destdir: sourcesDir, schema: schema) {
-//                arg(value: "-wsdl")
-//                produces(dir: sourcesDir, includes: "**/*.java")
-//            }
-//        }
-//    }
-//}
-
 task genJaxb {
     ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
     ext.classesDir = "${buildDir}/classes/jaxb"
@@ -87,31 +66,13 @@ task genJaxb {
     }
 }
 
-/*def dbDriver = project.property('flyway.db.driver')
-def dbUrl = project.property('flyway.db.url')
-def dbUser = project.property('flyway.db.user')
-def dbPassword = project.property('flyway.db.password')
-def dbLocations = project.property('flyway.db.locations')
-*/
-/*def migrateLocations = resources.['classpath:db/migration']
-
-task print {
-    print migrateLocations
-}*/
-
 flyway {
     driver = 'org.postgresql.Driver'
     url = 'jdbc:postgresql://localhost:5432/homework'
     user = 'postgres'
     password = '5413399'
-   // schemas = 'soap'
-    locations = ['classpath:db/migration']
-    print locations
-/*    locations = [dbLocations]
-    driver = dbDriver
-    url = dbUrl
-    user = dbUser
-    password = dbPassword*/
+    schemas = 'soap'
+    locations = ['classpath:db/migration,db/data']
 }
 
 compileJava.dependsOn genJaxb
@@ -120,19 +81,40 @@ configurations {
     jaxb
 }
 
+ext {
+    projectlombok = '1.18.24'
+    mindrotjbcrypt = '0.4'
+    junit = '4.13.2'
+    javaJwt = '3.19.1'
+    liquibaseCore = '4.9.1'
+    liquibaseGradlePlugin = '2.1.1'
+    preLiquibase = '1.1.1'
+    mapstruct = '1.4.2.Final'
+    springMail = '2.6.7'
+    springContext = '5.3.19'
+    postgreSql = '42.3.4'
+    springOpebApi = '1.6.7'
+}
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'org.projectlombok:lombok:1.18.24'
+    implementation "org.mapstruct:mapstruct:$mapstruct"
     implementation 'wsdl4j:wsdl4j'
     jaxb("org.glassfish.jaxb:jaxb-xjc")
 
-    //implementation 'org.flywaydb:flyway-core'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
+
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
