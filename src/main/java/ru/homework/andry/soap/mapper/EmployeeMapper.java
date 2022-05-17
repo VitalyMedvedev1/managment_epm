@@ -1,23 +1,17 @@
 package ru.homework.andry.soap.mapper;
 
-import io.dliga.micro.employee_web_service.EmployeeResponse;
-import io.dliga.micro.employee_web_service.GetEmployeesResponse;
+import io.dliga.micro.employee_web_service.Employee;
 import org.mapstruct.Mapper;
-import ru.homework.andry.soap.repository.entity.Employee;
+import ru.homework.andry.soap.repository.entity.EmployeeEntity;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = Employee.class)
 public interface EmployeeMapper {
 
-    EmployeeResponse employeeToEmployeeResponse(Employee employee);
+    Employee employeeToEmployeeResponse(EmployeeEntity employee);
 
-    default GetEmployeesResponse employeesToGetEmployeesResponse(List<Employee> employees) {
-        if (employees == null) {
-            return null;
-        }
-        GetEmployeesResponse getEmployeesResponse = new GetEmployeesResponse();
-        employees.forEach(employee -> getEmployeesResponse.getEmployees().add(employeeToEmployeeResponse(employee)));
-        return getEmployeesResponse;
-    }
+    List<EmployeeEntity> employeesToEmployeesEntity(List<Employee> employees);
+
+    List<Employee> employeesEntityToEmployees(List<EmployeeEntity> employees);
 }

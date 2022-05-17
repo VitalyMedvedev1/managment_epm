@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @SequenceGenerator(schema = "soap", name = "employee_s", sequenceName = "employee_s", allocationSize = 1)
-public class Employee {
+public class EmployeeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_s")

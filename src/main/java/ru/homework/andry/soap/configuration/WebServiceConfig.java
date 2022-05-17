@@ -38,7 +38,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultWsdl11EmployeesDefinition(XsdSchema employeesSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("EmployeesPort");
-        wsdl11Definition.setLocationUri("/ws/s");
+        wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://dliga.io/micro/employee-web-service");
         wsdl11Definition.setSchema(employeesSchema);
         return wsdl11Definition;

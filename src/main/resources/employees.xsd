@@ -3,20 +3,36 @@
            targetNamespace="http://dliga.io/micro/employee-web-service"
            elementFormDefault="qualified">
 
-    <xs:element name="getEmployeesRequest">
+    <xs:element name="getEmployeesRequest"/>
+
+    <xs:element name="getEmployeesResponse">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="employees" maxOccurs="unbounded" type="tns:employee"/>
+                <xs:element name="status" maxOccurs="1" type="tns:status"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="GetEmployeesResponse">
-        <xs:sequence>
-            <xs:element name="employees" maxOccurs="unbounded" type="tns:employeeResponse"/>
-        </xs:sequence>
-    </xs:complexType>
+    <xs:element name="createEmployeesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="employees" maxOccurs="unbounded" type="tns:employee"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="employeeResponse">
+    <xs:element name="createEmployeesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="employees" maxOccurs="unbounded" type="tns:employee"/>
+                <xs:element name="status" maxOccurs="1" type="tns:status"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="employee">
         <xs:sequence>
             <xs:element name="id" type="xs:integer"/>
             <xs:element name="firstname" type="xs:string"/>
@@ -33,4 +49,11 @@
             <xs:enumeration value="Analytics"/>
         </xs:restriction>
     </xs:simpleType>
+
+    <xs:complexType name="status">
+        <xs:sequence>
+            <xs:element name="errorCode" type="xs:int"/>
+            <xs:element name="errorMessage" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
