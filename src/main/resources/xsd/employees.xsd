@@ -35,9 +35,9 @@
     <xs:complexType name="employee">
         <xs:sequence>
             <xs:element name="id" minOccurs="0" type="xs:integer"/>
-            <xs:element name="firstname" type="xs:string"/>
-            <xs:element name="lastname" type="xs:string"/>
-            <xs:element name="age" type="xs:int"/>
+            <xs:element name="firstname" type="tns:name"/>
+            <xs:element name="lastname" type="tns:name"/>
+            <xs:element name="age" type="tns:age"/>
             <xs:element name="position" type="tns:position"/>
         </xs:sequence>
     </xs:complexType>
@@ -56,4 +56,16 @@
             <xs:element name="errorMessage" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:simpleType name="name">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-z]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="age">
+        <xs:restriction base="xs:int">
+            <xs:pattern value="[1-9]\d?"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>

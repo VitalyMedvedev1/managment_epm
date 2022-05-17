@@ -3,7 +3,6 @@ package ru.homework.andry.soap.conroller;
 import io.dliga.micro.employee_web_service.CreateEmployeesRequest;
 import io.dliga.micro.employee_web_service.CreateEmployeesResponse;
 import io.dliga.micro.employee_web_service.GetEmployeesResponse;
-import io.spring.guides.gs_producing_web_service.GetCountryRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
