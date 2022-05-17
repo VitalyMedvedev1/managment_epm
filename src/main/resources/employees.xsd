@@ -9,7 +9,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="employees" maxOccurs="unbounded" type="tns:employee"/>
-                <xs:element name="status" maxOccurs="1" type="tns:status"/>
+                <xs:element name="status" type="tns:status"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -26,7 +26,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="employees" maxOccurs="unbounded" type="tns:employee"/>
-                <xs:element name="status" maxOccurs="1" type="tns:status"/>
+                <xs:element name="status" type="tns:status"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -34,7 +34,7 @@
 
     <xs:complexType name="employee">
         <xs:sequence>
-            <xs:element name="id" type="xs:integer"/>
+            <xs:element name="id" minOccurs="0" type="xs:integer"/>
             <xs:element name="firstname" type="xs:string"/>
             <xs:element name="lastname" type="xs:string"/>
             <xs:element name="age" type="xs:int"/>

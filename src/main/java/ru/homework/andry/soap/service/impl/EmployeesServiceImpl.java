@@ -32,7 +32,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
         log.info("Save all employees");
         List<EmployeeEntity> employees = employeeMapper.employeesToEmployeesEntity(request.getEmployees());
-        employeeRepository.saveAll(employees);
+        //employeeRepository.saveAll(employees);
         CreateEmployeesResponse response = new CreateEmployeesResponse();
         Status responseStatus = new Status();
         responseStatus.setErrorCode(0);
