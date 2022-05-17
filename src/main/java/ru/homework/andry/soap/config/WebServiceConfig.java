@@ -1,5 +1,7 @@
-package ru.homework.andry.soap.configuration;
+package ru.homework.andry.soap.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +15,11 @@ import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
+import ru.homework.andry.soap.constant.Values;
 
 import java.util.List;
+
+import static ru.homework.andry.soap.constant.Values.*;
 
 @EnableWs
 @Configuration
@@ -42,8 +47,8 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultWsdl11EmployeesDefinition(XsdSchema employeesSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("EmployeesPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://dliga.io/micro/employee-web-service");
+        wsdl11Definition.setLocationUri(ROOT_WS_URL);
+        wsdl11Definition.setTargetNamespace(NAMESPACE_URI);
         wsdl11Definition.setSchema(employeesSchema);
         return wsdl11Definition;
     }

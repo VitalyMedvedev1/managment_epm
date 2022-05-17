@@ -38,7 +38,12 @@
             <xs:element name="firstname" type="tns:name"/>
             <xs:element name="lastname" type="tns:name"/>
             <xs:element name="age" type="tns:age"/>
+            <xs:element name="salary" type="tns:salary"/>
             <xs:element name="position" type="tns:position"/>
+            <xs:element name="project" type="xs:string"/>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="level" type="xs:string"/>
+            <xs:element name="language" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -66,6 +71,12 @@
     <xs:simpleType name="age">
         <xs:restriction base="xs:int">
             <xs:pattern value="[1-9]\d?"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="salary">
+        <xs:restriction base="xs:int">
+            <xs:pattern value="\d+"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

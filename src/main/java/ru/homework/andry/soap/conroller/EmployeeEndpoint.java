@@ -15,17 +15,20 @@ import ru.homework.andry.soap.service.EmployeesService;
 public class EmployeeEndpoint {
 
     private static final String NAMESPACE_URI = "http://dliga.io/micro/employee-web-service";
+    private static final String LOCAL_GET_EMPLOYEE_PART = "getEmployeesRequest";
+    private static final String LOCAL_CREATE_EMPLOYEE_PART = "createEmployeesRequest";
     private final EmployeesService employeesService;
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getEmployeesRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = LOCAL_GET_EMPLOYEE_PART)
     @ResponsePayload
     public GetEmployeesResponse find() {
         return employeesService.findAll();
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createEmployeesRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = LOCAL_CREATE_EMPLOYEE_PART)
     @ResponsePayload
     public CreateEmployeesResponse save(@RequestPayload CreateEmployeesRequest request) {
         return employeesService.saveAll(request);
     }
+
 }
