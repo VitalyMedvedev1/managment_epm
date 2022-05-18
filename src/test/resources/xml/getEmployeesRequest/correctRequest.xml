@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<gs:createEmployeesRequest xmlns:gs="http://dliga.io/micro/employee-web-service">
+    <gs:employees>
+        <gs:firstname>F</gs:firstname>
+        <gs:lastname>BORISOV</gs:lastname>
+        <gs:age>1</gs:age>
+        <gs:position>Manager</gs:position>
+    </gs:employees>
+</gs:createEmployeesRequest>

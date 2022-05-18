@@ -1,3 +1,4 @@
+/*
 package ru.homework.andry.soap.validation;
 
 import org.junit.jupiter.api.Test;
@@ -32,3 +33,4 @@ public class GetEmployeesRequestTest {
 
     }
 }
+*/

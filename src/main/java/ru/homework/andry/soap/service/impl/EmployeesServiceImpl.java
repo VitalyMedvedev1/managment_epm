@@ -6,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.homework.andry.soap.builder.GetEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
+import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
-import ru.homework.andry.soap.repository.entity.EmployeeEntity;
+import ru.homework.andry.soap.service.EmployeeRowsDivider;
 import ru.homework.andry.soap.service.EmployeesService;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -20,15 +22,16 @@ public class EmployeesServiceImpl implements EmployeesService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
     private final GetEmployeeResponseBuilder getEmployeeResponseBuilder;
+    private final EmployeeRowsDivider employeeRowsDivider;
 
     @Override
     public GetEmployeesResponse findAll() {
         log.info("Find all employees");
-        List<Employee> employees = employeeMapper.employeesEntityToEmployees(employeeRepository.findAll());
+        List<Employee> employees = employeeMapper.entityToEmployeeSoapMsg(employeeRepository.findAll());
         return getEmployeeResponseBuilder.build(employees);
     }
 
-    @Override
+/*    @Override
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
         log.info("Save all employees");
         List<EmployeeEntity> employees = employeeMapper.employeesToEmployeesEntity(request.getEmployees());
@@ -40,5 +43,19 @@ public class EmployeesServiceImpl implements EmployeesService {
         response.getEmployees().addAll(employeeMapper.employeesEntityToEmployees(employees));
         response.setStatus(responseStatus);
         return response;
+    }*/
+
+    @Override
+    public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
+        log.info("Mapping employees from soap message to employeesElement");
+        List<AbstractEmployee> employeeElements = employeeMapper.employeesSoapMsgElements(request.getEmployees());
+        Map<Boolean, List<AbstractEmployee>> correctAndIncorrectRowEmployees = employeeRowsDivider.divideOnCorrectAndIncorrect(employeeElements);
+        List<AbstractEmployee> correctRowEmployees = correctAndIncorrectRowEmployees.get(true);
+        List<AbstractEmployee> incorrectRowEmployees = correctAndIncorrectRowEmployees.get(false);
+        if (!correctRowEmployees.isEmpty()) {
+            //employeeRepository.saveAll()
+        }
+        return null;
     }
+
 }

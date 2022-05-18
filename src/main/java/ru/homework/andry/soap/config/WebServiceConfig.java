@@ -1,7 +1,5 @@
 package ru.homework.andry.soap.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -15,11 +13,11 @@ import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
-import ru.homework.andry.soap.constant.Values;
 
 import java.util.List;
 
-import static ru.homework.andry.soap.constant.Values.*;
+import static ru.homework.andry.soap.constant.Values.NAMESPACE_URI;
+import static ru.homework.andry.soap.constant.Values.ROOT_WS_URL;
 
 @EnableWs
 @Configuration

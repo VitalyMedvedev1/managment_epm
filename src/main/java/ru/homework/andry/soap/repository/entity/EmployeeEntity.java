@@ -23,6 +23,11 @@ public class EmployeeEntity {
     private String firstname;
     private String lastname;
     private int age;
+    private int salary;
+    private String level;
+    private String language;
+    private String type;
+    private String project;
 
     @Enumerated(EnumType.STRING)
     private Position position;

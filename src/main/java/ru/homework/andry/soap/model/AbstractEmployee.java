@@ -4,6 +4,12 @@ import io.dliga.micro.employee_web_service.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.homework.andry.soap.constant.Values;
+
+import java.text.MessageFormat;
+
+import static ru.homework.andry.soap.constant.Values.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.Values.SALARY_ERROR_TEXT_MESSAGE;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +22,27 @@ public abstract class AbstractEmployee {
     private int salary;
     private Position position;
 
+    private String errorIncorrectSalaryMessage;
+    private String errorRequiredMessage;
+
+    public AbstractEmployee(Long id, String firstName, String lastName, int age, int salary, Position position) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.salary = salary;
+        this.position = position;
+    }
+
+    public void setErrorIncorrectSalaryMessage() {
+        this.errorIncorrectSalaryMessage = SALARY_ERROR_TEXT_MESSAGE + position.value();
+    }
+
+    public void setErrorRequiredMessage() {
+        this.errorRequiredMessage = MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, position.value());
+    }
+
     public abstract boolean checkSalary();
+
+    public abstract boolean checkRequiredField();
 }
