@@ -20,7 +20,7 @@ public class EmployeeDataValidationImpl implements EmployeeDataValidation {
 
 
     private List<AbstractEmployee> checkEmployeesDataAndSetError(List<AbstractEmployee> employees) {
-        log.debug("Start to collect incorrect employees data from soap message");
+        log.debug("Start checking data employees");
         return employees.stream()
                 .peek(this::incorrectSalaryAndRequiredField)
                 .peek(this::incorrectSalary)
