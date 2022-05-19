@@ -5,7 +5,8 @@ import ru.homework.andry.soap.model.AbstractEmployee;
 import java.util.List;
 import java.util.Map;
 
-public interface EmployeeRowsDivider {
+public interface EmployeeDataValidation {
 
-    Map<Boolean, List<AbstractEmployee>> divideOnCorrectAndIncorrect(List<AbstractEmployee> employees);
+    List<AbstractEmployee> validate(List<AbstractEmployee> employees);
+
 }

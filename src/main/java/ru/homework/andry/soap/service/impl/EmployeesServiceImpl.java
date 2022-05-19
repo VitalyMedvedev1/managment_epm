@@ -8,7 +8,7 @@ import ru.homework.andry.soap.builder.GetEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
-import ru.homework.andry.soap.service.EmployeeRowsDivider;
+import ru.homework.andry.soap.service.EmployeeDataValidation;
 import ru.homework.andry.soap.service.EmployeesService;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
     private final GetEmployeeResponseBuilder getEmployeeResponseBuilder;
-    private final EmployeeRowsDivider employeeRowsDivider;
+    private final EmployeeDataValidation employeeDataValidation;
 
     @Override
     public GetEmployeesResponse findAll() {
@@ -48,13 +48,13 @@ public class EmployeesServiceImpl implements EmployeesService {
     @Override
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
         log.info("Mapping employees from soap message to employeesElement");
-        List<AbstractEmployee> employeeElements = employeeMapper.employeesSoapMsgElements(request.getEmployees());
-        Map<Boolean, List<AbstractEmployee>> correctAndIncorrectRowEmployees = employeeRowsDivider.divideOnCorrectAndIncorrect(employeeElements);
-        List<AbstractEmployee> correctRowEmployees = correctAndIncorrectRowEmployees.get(true);
-        List<AbstractEmployee> incorrectRowEmployees = correctAndIncorrectRowEmployees.get(false);
-        if (!correctRowEmployees.isEmpty()) {
-            //employeeRepository.saveAll()
-        }
+//        List<AbstractEmployee> employeeElements = employeeMapper.employeesSoapMsgElements(request.getEmployees());
+//        Map<Boolean, List<AbstractEmployee>> correctAndIncorrectRowEmployees = employeeDataValidation.divideOnCorrectAndIncorrect(employeeElements);
+//        List<AbstractEmployee> correctRowEmployees = correctAndIncorrectRowEmployees.get(true);
+//        List<AbstractEmployee> incorrectRowEmployees = correctAndIncorrectRowEmployees.get(false);
+//        if (!correctRowEmployees.isEmpty()) {
+//            //employeeRepository.saveAll()
+//        }
         return null;
     }
 

@@ -1,25 +1,14 @@
 package ru.homework.andry.soap.service.impl;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.homework.andry.soap.builder.GetEmployeeResponseBuilder;
 import ru.homework.andry.soap.constant.Values;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
-import ru.homework.andry.soap.testdata.EmployeesTestData;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static io.dliga.micro.employee_web_service.Position.DEVELOPER;
-import static io.dliga.micro.employee_web_service.Position.MANAGER;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static ru.homework.andry.soap.constant.Values.SALARY_ERROR_TEXT_MESSAGE;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeesServiceImplTest {
@@ -34,6 +23,6 @@ class EmployeesServiceImplTest {
                     employeeRepository,
                     employeeMapper,
                     getEmployeeResponseBuilder,
-                    new EmployeeRowsDividerImpl()
+                    new EmployeeDataValidationImpl()
             );
 }
