@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 public final class Values {
 
     public static final int ERROR_CODE = 99;
+    public static int CORE_POOL_SIZE = 1;
+    public static int MAX_POOL_SIZE = 5;
+    public static int QUEUE_CAPACITY = 3;
     public static String NAMESPACE_URI;
     public static String ROOT_WS_URL;
     public static String XSD_FILE_PATH;
@@ -43,5 +46,20 @@ public final class Values {
     @Value("${config.xsd.file.path}")
     public void setXsdFilePath(String xsdFilePath) {
         XSD_FILE_PATH = xsdFilePath;
+    }
+
+    @Value("${delete.emp.core.poll.size}")
+    public static void setCorePoolSize(int corePoolSize) {
+        CORE_POOL_SIZE = corePoolSize;
+    }
+
+    @Value("${delete.emp.max.poll.size}")
+    public static void setMaxPoolSize(int maxPoolSize) {
+        MAX_POOL_SIZE = maxPoolSize;
+    }
+
+    @Value("${delete.emp.queue.capacity}")
+    public static void setQueueCapacity(int queueCapacity) {
+        QUEUE_CAPACITY = queueCapacity;
     }
 }
