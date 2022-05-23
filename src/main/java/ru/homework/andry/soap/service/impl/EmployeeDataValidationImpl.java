@@ -46,5 +46,4 @@ public class EmployeeDataValidationImpl implements EmployeeDataValidation {
             emp.setErrorRequiredMessage();
         }
     }
-
 }

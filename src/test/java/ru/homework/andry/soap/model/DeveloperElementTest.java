@@ -3,6 +3,7 @@ package ru.homework.andry.soap.model;
 import org.junit.jupiter.api.Test;
 import ru.homework.andry.soap.AbstractSpringContext;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,30 +12,30 @@ class DeveloperElementTest extends AbstractSpringContext {
     private DeveloperElement developerElement = new DeveloperElement();
 
     @Test
-    void checkSalary_valueInRange() {
+    void checkSalary_ValueInRange() {
         developerElement.setSalary(70000);
 
-        assertTrue(developerElement.checkSalary());
+        assertThat(developerElement.checkSalary()).isTrue();
     }
 
     @Test
-    void checkSalary_valueNotInRange() {
+    void checkSalary_ValueNotInRange() {
         developerElement.setSalary(49000);
 
-        assertFalse(developerElement.checkSalary());
+        assertThat(developerElement.checkSalary()).isFalse();
     }
 
     @Test
-    void checkSalary_valueInMinBorder() {
+    void checkSalary_ValueInMinBorder() {
         developerElement.setSalary(50000);
 
-        assertTrue(developerElement.checkSalary());
+        assertThat(developerElement.checkSalary()).isTrue();
     }
 
     @Test
-    void checkSalary_valueInMaxBorder() {
+    void checkSalary_ValueInMaxBorder() {
         developerElement.setSalary(150000);
 
-        assertTrue(developerElement.checkSalary());
+        assertThat(developerElement.checkSalary()).isTrue();
     }
 }

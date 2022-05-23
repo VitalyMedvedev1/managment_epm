@@ -3,8 +3,6 @@ package ru.homework.andry.soap.mapper;
 import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.model.AnalyticsElement;
 import ru.homework.andry.soap.model.DeveloperElement;
@@ -34,28 +32,18 @@ public interface EmployeeMapper {
 
         return managerToEntity((ManagerElement) employee);
     }
-
+/*
     @Mappings({
             @Mapping(target = "firstname", source = "firstName"),
             @Mapping(target = "lastname", source = "lastName")
-    })
+    })*/
     EmployeeEntity developerToEntity(DeveloperElement employee);
 
-    @Mappings({
-            @Mapping(target = "firstname", source = "firstName"),
-            @Mapping(target = "lastname", source = "lastName")
-    })
     EmployeeEntity managerToEntity(ManagerElement employee);
 
-    @Mappings({
-            @Mapping(target = "firstname", source = "firstName"),
-            @Mapping(target = "lastname", source = "lastName")
-    })
     EmployeeEntity analyticsToEntity(AnalyticsElement employee);
 
-    List<Employee> entityToEmployeeSoapMsg(List<EmployeeEntity> employees);
-
-    default List<AbstractEmployee> employeesSoapMsgElements(List<Employee> employees) {
+    default List<AbstractEmployee> employeesSoapMsgToElements(List<Employee> employees) {
         return employees.stream()
                 .map(this::employeeSoapMsgToElement)
                 .collect(Collectors.toList());
@@ -73,21 +61,39 @@ public interface EmployeeMapper {
         return employeeToManager(employee);
     }
 
-    @Mappings({
-            @Mapping(target = "firstName", source = "firstname"),
-            @Mapping(target = "lastName", source = "lastname")
-    })
     AnalyticsElement employeeToAnalytics(Employee employee);
 
-    @Mappings({
-            @Mapping(target = "firstName", source = "firstname"),
-            @Mapping(target = "lastName", source = "lastname")
-    })
     DeveloperElement employeeToDeveloper(Employee employee);
 
-    @Mappings({
-            @Mapping(target = "firstName", source = "firstname"),
-            @Mapping(target = "lastName", source = "lastname")
-    })
     ManagerElement employeeToManager(Employee employee);
+
+    default List<AbstractEmployee> entityToElement(List<EmployeeEntity> employees) {
+        return employees.stream()
+                .map(this::entityToEmployee)
+                .collect(Collectors.toList());
+    }
+
+    private AbstractEmployee entityToEmployee(EmployeeEntity entity) {
+        if (entity.getPosition().equals(Position.ANALYTICS)) {
+            return analyticsToElement(entity);
+        }
+
+        if (entity.getPosition().equals(Position.DEVELOPER)) {
+            return developerToElement(entity);
+        }
+
+        return managerToElement(entity);
+    }
+
+    AnalyticsElement analyticsToElement(EmployeeEntity entity);
+
+    DeveloperElement developerToElement(EmployeeEntity entity);
+
+    ManagerElement managerToElement(EmployeeEntity entity);
+
+    List<Employee> entitiesToEmployeesResponse(List<EmployeeEntity> employees);
+
+    Employee entityToEmployeeResponse(EmployeeEntity employee);
+
+    Employee elementToEmployeeResponse(AbstractEmployee element);
 }

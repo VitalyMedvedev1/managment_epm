@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:application.properties")
 public final class Values {
 
+    public static final int ERROR_CODE = 99;
     public static String NAMESPACE_URI;
     public static String ROOT_WS_URL;
     public static String XSD_FILE_PATH;

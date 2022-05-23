@@ -4,15 +4,11 @@ import io.dliga.micro.employee_web_service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.homework.andry.soap.builder.GetEmployeeResponseBuilder;
+import ru.homework.andry.soap.builder.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 import ru.homework.andry.soap.service.EmployeeDataValidation;
 import ru.homework.andry.soap.service.EmployeesService;
-
-import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -21,15 +17,15 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
-    private final GetEmployeeResponseBuilder getEmployeeResponseBuilder;
+    private final CreateEmployeeResponseBuilder createEmployeeResponseBuilder;
     private final EmployeeDataValidation employeeDataValidation;
 
-    @Override
-    public GetEmployeesResponse findAll() {
-        log.info("Find all employees");
-        List<Employee> employees = employeeMapper.entityToEmployeeSoapMsg(employeeRepository.findAll());
-        return getEmployeeResponseBuilder.build(employees);
-    }
+//    @Override
+//    public GetEmployeesResponse findAll() {
+//        log.info("Find all employees");
+//        List<Employee> employees = employeeMapper.entityToEmployeeSoapMsg(employeeRepository.findAll());
+//        return getEmployeeResponseBuilder.build(employees);
+//    }
 
 /*    @Override
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
@@ -44,6 +40,11 @@ public class EmployeesServiceImpl implements EmployeesService {
         response.setStatus(responseStatus);
         return response;
     }*/
+
+    @Override
+    public GetEmployeesResponse findAll() {
+        return null;
+    }
 
     @Override
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {

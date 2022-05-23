@@ -4,9 +4,9 @@ import io.dliga.micro.employee_web_service.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.homework.andry.soap.constant.Values;
 
 import java.text.MessageFormat;
+import java.util.Optional;
 
 import static ru.homework.andry.soap.constant.Values.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
 import static ru.homework.andry.soap.constant.Values.SALARY_ERROR_TEXT_MESSAGE;
@@ -45,4 +45,12 @@ public abstract class AbstractEmployee {
     public abstract boolean checkSalary();
 
     public abstract boolean checkRequiredField();
+
+    public String getErrorMessage() {
+        StringBuilder errorBuilder = new StringBuilder();
+        return String.valueOf(
+                errorBuilder
+                        .append(Optional.ofNullable(getErrorIncorrectSalaryMessage()).orElse(""))
+                        .append(Optional.ofNullable(getErrorRequiredMessage()).orElse("")));
+    }
 }

@@ -20,8 +20,8 @@ public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_s")
     private Long id;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private int age;
     private int salary;
     private String level;
