@@ -6,6 +6,7 @@ import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.model.AnalyticsElement;
 import ru.homework.andry.soap.model.DeveloperElement;
 import ru.homework.andry.soap.model.ManagerElement;
+import ru.homework.andry.soap.repository.entity.EmployeeEntity;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -28,8 +29,9 @@ public class EmployeesTestData {
     public static final String LEVEL_IS_EMPTY = "LEVEL_IS_EMPTY";
     public static final String TYPE_IS_EMPTY = "TYPE_IS_EMPTY";
     public static final String ANALYTICS_TYPE = "Business";
-    public static final String ERROR_ROW = "ERROR_ROW";
+    public static final String ERROR_ALL_ROWS = "ERROR_ROW";
     public static final String ERROR_TEXT_TEST_MESSAGE = "ERROR_TEXT_TEST_MESSAGE";
+    public static final String ERROR_ROW_ANALYTICS = "ERROR_ROW_ANALYTICS";
 
     public static List<Employee> getEmployeesFromWSWithRowsOneForEachPositions() {
 
@@ -138,6 +140,31 @@ public class EmployeesTestData {
                         level3));
     }
 
+    public static List<EmployeeEntity> getEmployeeEntities(int count,
+                                                           Position[] positions) {
+        List<EmployeeEntity> employeeEntities = new ArrayList<>();
+
+        for (int i = 0; i < count; i++) {
+            employeeEntities.add(getEmployeeEntity(i, positions[i]));
+        }
+
+        return employeeEntities;
+    }
+
+    private static EmployeeEntity getEmployeeEntity(int i, Position position) {
+        return new EmployeeEntity(
+                EMPLOYEE_ID + i,
+                DEVELOPER_NAME + i,
+                DEVELOPER_NAME + i,
+                20 + i,
+                1 + i,
+                "middle",
+                "java",
+                "business",
+                "VTB",
+                position);
+    }
+
     public static List<AbstractEmployee> getAbstractEmployees(int count,
                                                               Position[] positions,
                                                               int[] salaries,
@@ -157,7 +184,6 @@ public class EmployeesTestData {
         return abstractEmployees;
     }
 
-
     public static AbstractEmployee getAnalytics(int i, int salary, String type_error) {
         String type = ANALYTICS_TYPE;
         if (type_error.equals(TYPE_IS_EMPTY)) {
@@ -172,7 +198,7 @@ public class EmployeesTestData {
                 Position.ANALYTICS,
                 type);
 
-        if (type_error.equals(ERROR_ROW)) {
+        if (type_error.equals(ERROR_ROW_ANALYTICS) || type_error.equals(ERROR_ALL_ROWS)) {
             analyticsElement.setErrorRequiredMessage(ERROR_TEXT_TEST_MESSAGE);
         }
 
@@ -198,7 +224,7 @@ public class EmployeesTestData {
                 language,
                 level);
 
-        if (type_error.equals(ERROR_ROW)) {
+        if (type_error.equals(ERROR_ALL_ROWS)) {
             developerElement.setErrorRequiredMessage(ERROR_TEXT_TEST_MESSAGE);
         }
 
@@ -220,7 +246,7 @@ public class EmployeesTestData {
                 Position.MANAGER,
                 projectName);
 
-        if (type_error.equals(ERROR_ROW)) {
+        if (type_error.equals(ERROR_ALL_ROWS)) {
             managerElement.setErrorRequiredMessage(ERROR_TEXT_TEST_MESSAGE);
         }
 

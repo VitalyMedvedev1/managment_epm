@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = Employee.class)
+@SuppressWarnings("All")
 public interface EmployeeMapper {
 
     default List<EmployeeEntity> elementsToEntities(List<AbstractEmployee> employees) {
@@ -43,13 +44,13 @@ public interface EmployeeMapper {
 
     EmployeeEntity analyticsToEntity(AnalyticsElement employee);
 
-    default List<AbstractEmployee> employeesSoapMsgToElements(List<Employee> employees) {
+    default List<AbstractEmployee> employeesToElements(List<Employee> employees) {
         return employees.stream()
-                .map(this::employeeSoapMsgToElement)
+                .map(this::employeeElement)
                 .collect(Collectors.toList());
     }
 
-    private AbstractEmployee employeeSoapMsgToElement(Employee employee) {
+    private AbstractEmployee employeeElement(Employee employee) {
         if (employee.getPosition().equals(Position.ANALYTICS)) {
             return employeeToAnalytics(employee);
         }
@@ -90,6 +91,31 @@ public interface EmployeeMapper {
     DeveloperElement developerToElement(EmployeeEntity entity);
 
     ManagerElement managerToElement(EmployeeEntity entity);
+
+    default List<Employee> elementsToEmployees(List<AbstractEmployee> employees) {
+        return employees.stream()
+                .map(this::elementToEmployee)
+                .collect(Collectors.toList());
+    }
+
+    private Employee elementToEmployee(AbstractEmployee employee) {
+        if (employee.getPosition().equals(Position.ANALYTICS)) {
+            return analyticsToEmployee((AnalyticsElement) employee);
+        }
+
+        if (employee.getPosition().equals(Position.DEVELOPER)) {
+            return developerToEmployee((DeveloperElement) employee);
+        }
+
+        return managerToEmployee((ManagerElement) employee);
+    }
+
+    Employee developerToEmployee(DeveloperElement employee);
+
+    Employee managerToEmployee(ManagerElement employee);
+
+    Employee analyticsToEmployee(AnalyticsElement employee);
+
 
     List<Employee> entitiesToEmployeesResponse(List<EmployeeEntity> employees);
 

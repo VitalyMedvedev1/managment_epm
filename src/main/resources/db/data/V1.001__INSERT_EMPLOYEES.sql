@@ -1,2 +1,42 @@
-INSERT INTO soap.EMPLOYEES (ID,FIRSTNAME,LASTNAME,AGE,position) VALUES (NEXTVAL('soap.EMPLOYEE_S'),'PETIA','PETROV',33,'MANAGER');
-INSERT INTO soap.EMPLOYEES (ID,FIRSTNAME,LASTNAME,AGE,position) VALUES (NEXTVAL('soap.EMPLOYEE_S'),'VASIA','VASIN',23,'DEVELOPER');
+insert
+into soap.EMPLOYEES (ID,
+                     FIRST_NAME,
+                     LAST_NAME,
+                     AGE,
+                     SALARY,
+                     level,
+                     language,
+                     type,
+                     project,
+                     position)
+values (NEXTVAL('soap.EMPLOYEE_S'),
+        'PETIA',
+        'PETROV',
+        33,
+        120000,
+        'middle',
+        'java',
+        '',
+        '',
+        'DEVELOPER');
+insert
+into soap.EMPLOYEES (ID,
+                     FIRST_NAME,
+                     LAST_NAME,
+                     AGE,
+                     SALARY,
+                     level,
+                     language,
+                     type,
+                     project,
+                     position)
+values (NEXTVAL('soap.EMPLOYEE_S'),
+        'VASIA',
+        'VASIN',
+        43,
+        160000,
+        '',
+        '',
+        '',
+        'VTB',
+        'MANAGER');

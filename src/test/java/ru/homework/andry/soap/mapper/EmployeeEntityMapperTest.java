@@ -26,7 +26,7 @@ class EmployeeEntityMapperTest {
         List<Employee> employeesFromSoapMsg = getEmployeesFromWSWithRowsOneForEachPositions();
 
         List<AbstractEmployee> employeesElement =
-                employeeMapper.employeesSoapMsgToElements(employeesFromSoapMsg);
+                employeeMapper.employeesToElements(employeesFromSoapMsg);
 
         assertThat(employeesFromSoapMsg.size())
                 .isEqualTo(employeesElement.size());
@@ -45,7 +45,7 @@ class EmployeeEntityMapperTest {
                 getEmployeesFromWSWithTreeRowsDeveloperPosition();
 
         List<AbstractEmployee> employeesElement =
-                employeeMapper.employeesSoapMsgToElements(employeesFromSoapMsg);
+                employeeMapper.employeesToElements(employeesFromSoapMsg);
 
         assertThat(employeesFromSoapMsg.size())
                 .isEqualTo(employeesElement.size());

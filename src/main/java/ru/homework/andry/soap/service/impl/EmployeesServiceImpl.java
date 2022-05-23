@@ -3,12 +3,19 @@ package ru.homework.andry.soap.service.impl;
 import io.dliga.micro.employee_web_service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import ru.homework.andry.soap.builder.CreateEmployeeResponseBuilder;
+import ru.homework.andry.soap.builder.EmployeeResponseBuilder;
+import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
+import ru.homework.andry.soap.builder.impl.GetEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
+import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 import ru.homework.andry.soap.service.EmployeeDataValidation;
 import ru.homework.andry.soap.service.EmployeesService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,46 +24,51 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
-    private final CreateEmployeeResponseBuilder createEmployeeResponseBuilder;
     private final EmployeeDataValidation employeeDataValidation;
-
-//    @Override
-//    public GetEmployeesResponse findAll() {
-//        log.info("Find all employees");
-//        List<Employee> employees = employeeMapper.entityToEmployeeSoapMsg(employeeRepository.findAll());
-//        return getEmployeeResponseBuilder.build(employees);
-//    }
-
-/*    @Override
-    public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
-        log.info("Save all employees");
-        List<EmployeeEntity> employees = employeeMapper.employeesToEmployeesEntity(request.getEmployees());
-        //employeeRepository.saveAll(employees);
-        CreateEmployeesResponse response = new CreateEmployeesResponse();
-        Status responseStatus = new Status();
-        responseStatus.setErrorCode(0);
-        responseStatus.setErrorMessage("");
-        response.getEmployees().addAll(employeeMapper.employeesEntityToEmployees(employees));
-        response.setStatus(responseStatus);
-        return response;
-    }*/
+    private final List<EmployeeResponseBuilder> responseBuilders;
 
     @Override
+    @SuppressWarnings("unchecked")
     public GetEmployeesResponse findAll() {
-        return null;
+        log.info("Find all entity employees and map to elements");
+        List<AbstractEmployee> abstractEmployees = employeeMapper.entityToElement(employeeRepository.findAll());
+        GetEmployeesResponse response = new GetEmployeesResponse();
+        responseBuilders.stream()
+                .filter(rb -> rb instanceof GetEmployeeResponseBuilder)
+                .findFirst()
+                .ifPresent(employeeResponseBuilder ->
+                        employeeResponseBuilder.build(response, abstractEmployees));
+
+        return response;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
-        log.info("Mapping employees from soap message to employeesElement");
-//        List<AbstractEmployee> employeeElements = employeeMapper.employeesSoapMsgElements(request.getEmployees());
-//        Map<Boolean, List<AbstractEmployee>> correctAndIncorrectRowEmployees = employeeDataValidation.divideOnCorrectAndIncorrect(employeeElements);
-//        List<AbstractEmployee> correctRowEmployees = correctAndIncorrectRowEmployees.get(true);
-//        List<AbstractEmployee> incorrectRowEmployees = correctAndIncorrectRowEmployees.get(false);
-//        if (!correctRowEmployees.isEmpty()) {
-//            //employeeRepository.saveAll()
-//        }
-        return null;
-    }
+        log.info("Mapping employees from soap message to employeeElements");
+        List<AbstractEmployee> abstractEmployees =
+                employeeDataValidation.validate(
+                        employeeMapper.employeesToElements(
+                                request.getEmployees()));
 
+        log.info("Get correct employees");
+
+        List<AbstractEmployee> employeesForSave =
+                abstractEmployees.stream()
+                        .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
+                        .collect(Collectors.toList());
+
+        log.info("Get correct employees");
+        employeeRepository.saveAll(
+                employeeMapper.elementsToEntities(employeesForSave));
+
+        CreateEmployeesResponse response = new CreateEmployeesResponse();
+        responseBuilders.stream()
+                .filter(rb -> rb instanceof CreateEmployeeResponseBuilder)
+                .findFirst()
+                .ifPresent(employeeResponseBuilder ->
+                        employeeResponseBuilder.build(response, abstractEmployees));
+
+        return response;
+    }
 }

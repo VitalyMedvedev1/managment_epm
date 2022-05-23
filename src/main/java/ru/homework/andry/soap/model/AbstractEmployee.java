@@ -35,7 +35,7 @@ public abstract class AbstractEmployee {
     }
 
     public void setErrorIncorrectSalaryMessage() {
-        this.errorIncorrectSalaryMessage = SALARY_ERROR_TEXT_MESSAGE + position.value();
+        this.errorIncorrectSalaryMessage = MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, position.value());
     }
 
     public void setErrorRequiredMessage() {
@@ -47,10 +47,7 @@ public abstract class AbstractEmployee {
     public abstract boolean checkRequiredField();
 
     public String getErrorMessage() {
-        StringBuilder errorBuilder = new StringBuilder();
-        return String.valueOf(
-                errorBuilder
-                        .append(Optional.ofNullable(getErrorIncorrectSalaryMessage()).orElse(""))
-                        .append(Optional.ofNullable(getErrorRequiredMessage()).orElse("")));
+        return Optional.ofNullable(getErrorIncorrectSalaryMessage()).orElse("") +
+                Optional.ofNullable(getErrorRequiredMessage()).orElse("");
     }
 }

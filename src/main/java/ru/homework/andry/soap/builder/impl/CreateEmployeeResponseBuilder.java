@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.builder;
+package ru.homework.andry.soap.builder.impl;
 
 import io.dliga.micro.employee_web_service.CreateEmployeesResponse;
 import io.dliga.micro.employee_web_service.Employee;
@@ -6,8 +6,10 @@ import io.dliga.micro.employee_web_service.Status;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import ru.homework.andry.soap.builder.EmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.model.AbstractEmployee;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -15,12 +17,14 @@ import static ru.homework.andry.soap.constant.Values.ERROR_CODE;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class CreateEmployeeResponseBuilder implements EmployeeResponseBuilder<CreateEmployeesResponse> {
 
     private final EmployeeMapper employeeMapper;
 
     @Override
     public CreateEmployeesResponse build(CreateEmployeesResponse response, List<AbstractEmployee> employees) {
+        log.info("Start generate GetEmployeesResponse");
         employees.forEach(
                 element -> {
                     Employee employee = employeeMapper.elementToEmployeeResponse(element);
@@ -31,24 +35,11 @@ public class CreateEmployeeResponseBuilder implements EmployeeResponseBuilder<Cr
     }
 
     private Status getResponseStatus(String errorMessage) {
+        log.debug("Start generate StatusResponse");
         if (StringUtils.isNotBlank(errorMessage)) {
-            return ResponseStatusBuilder.build(ERROR_CODE, errorMessage);
+            return StatusResponseBuilder.build(ERROR_CODE, errorMessage);
         } else {
-            return ResponseStatusBuilder.build();
+            return StatusResponseBuilder.build();
         }
     }
-
-/*
-    public GetEmployeesResponse build(List<Employee> employees) {
-        GetEmployeesResponse response = new GetEmployeesResponse();
-        response.getEmployees().addAll(employees);
-        response.setStatus(ResponseStatusBuilder.build());
-        return response;
-    }
-
-    public GetEmployeesResponse build(int errorCode, String errorMessage) {
-        GetEmployeesResponse response = new GetEmployeesResponse();
-        response.setStatus(ResponseStatusBuilder.build(errorCode, errorMessage));
-        return response;
-    }*/
 }

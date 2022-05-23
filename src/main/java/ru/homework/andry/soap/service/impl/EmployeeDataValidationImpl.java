@@ -28,6 +28,13 @@ public class EmployeeDataValidationImpl implements EmployeeDataValidation {
                 .collect(Collectors.toList());
     }
 
+    private void incorrectSalaryAndRequiredField(AbstractEmployee emp) {
+        if (!emp.checkSalary() && !emp.checkRequiredField()) {
+            emp.setErrorIncorrectSalaryMessage();
+            emp.setErrorRequiredMessage();
+        }
+    }
+
     private void incorrectRequiredField(AbstractEmployee emp) {
         if (emp.checkSalary() && !emp.checkRequiredField()) {
             emp.setErrorRequiredMessage();
@@ -37,13 +44,6 @@ public class EmployeeDataValidationImpl implements EmployeeDataValidation {
     private void incorrectSalary(AbstractEmployee emp) {
         if (!emp.checkSalary() && emp.checkRequiredField()) {
             emp.setErrorIncorrectSalaryMessage();
-        }
-    }
-
-    private void incorrectSalaryAndRequiredField(AbstractEmployee emp) {
-        if (!emp.checkSalary() && !emp.checkRequiredField()) {
-            emp.setErrorIncorrectSalaryMessage();
-            emp.setErrorRequiredMessage();
         }
     }
 }

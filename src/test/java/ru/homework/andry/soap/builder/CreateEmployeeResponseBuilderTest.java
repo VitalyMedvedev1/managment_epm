@@ -1,24 +1,21 @@
 package ru.homework.andry.soap.builder;
 
 import io.dliga.micro.employee_web_service.CreateEmployeesResponse;
-import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
 import io.dliga.micro.employee_web_service.Status;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.mapstruct.factory.Mappers;
+import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.model.AbstractEmployee;
-import ru.homework.andry.soap.testdata.EmployeesTestData;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static io.dliga.micro.employee_web_service.Position.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.homework.andry.soap.testdata.EmployeesTestData.ERROR_ROW;
-import static ru.homework.andry.soap.testdata.EmployeesTestData.getAbstractEmployees;
+import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
 
 class CreateEmployeeResponseBuilderTest {
 
@@ -60,9 +57,9 @@ class CreateEmployeeResponseBuilderTest {
         List<AbstractEmployee> elements =
                 getAbstractEmployees(
                         2,
-                        new Position[]{DEVELOPER, MANAGER},
+                        new Position[]{ANALYTICS, MANAGER},
                         new int[]{1111, 2222},
-                        ERROR_ROW);
+                        ERROR_ROW_ANALYTICS);
 
         responseBuilder.build(response, elements);
 
@@ -93,7 +90,7 @@ class CreateEmployeeResponseBuilderTest {
                         3,
                         new Position[]{DEVELOPER, MANAGER, ANALYTICS},
                         new int[]{1111, 2222, 3333},
-                        ERROR_ROW);
+                        ERROR_ALL_ROWS);
 
         responseBuilder.build(response, elements);
 
