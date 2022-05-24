@@ -1,7 +1,6 @@
 package ru.homework.andry.soap.service.impl;
 
 import io.dliga.micro.employee_web_service.Employee;
-import io.dliga.micro.employee_web_service.GetEmployeesResponse;
 import io.dliga.micro.employee_web_service.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

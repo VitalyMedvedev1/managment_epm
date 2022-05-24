@@ -18,7 +18,6 @@ public class EmployeeDataValidationImpl implements EmployeeDataValidation {
         return checkEmployeesDataAndSetError(employees);
     }
 
-
     private List<AbstractEmployee> checkEmployeesDataAndSetError(List<AbstractEmployee> employees) {
         log.debug("Start checking data employees");
         return employees.stream()

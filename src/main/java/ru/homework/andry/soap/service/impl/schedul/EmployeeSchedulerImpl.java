@@ -48,7 +48,8 @@ public class EmployeeSchedulerImpl implements EmployeeScheduler {
     @Transactional
     void delete(EmployeeEntity employeeEntity) {
         log.info("Get employee with id {}", employeeEntity.getId());
-        employeeRepository.delete(employeeEntity);
+        //TODO проско закоментил чтоб не удалял записи , а то в бд их мало
+//        employeeRepository.delete(employeeEntity);
     }
 
     private void addEmployeeEntities() {

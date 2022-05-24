@@ -29,18 +29,26 @@ public class EmployeesServiceImpl implements EmployeesService {
     private final List<EmployeeResponseBuilder> responseBuilders;
 
     @Override
-    @SuppressWarnings("unchecked")
     public GetEmployeesResponse findAll() {
         log.info("Find all entity employees and map to elements");
         List<AbstractEmployee> abstractEmployees = employeeMapper.entityToElement(employeeRepository.findAll());
         GetEmployeesResponse getEmployeesResponse = new GetEmployeesResponse();
-        responseBuilders.stream()
-                .filter(rb -> rb instanceof GetEmployeeResponseBuilder)
-                .findFirst()
-                .ifPresent(employeeResponseBuilder ->
-                        employeeResponseBuilder.build(getEmployeesResponse, abstractEmployees));
+
+        addResponseBody(abstractEmployees,
+                getEmployeesResponse,
+                responseBuilders.stream()
+                        .filter(rb -> rb instanceof GetEmployeeResponseBuilder)
+                        .findFirst().orElseThrow());
 
         return getEmployeesResponse;
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> void addResponseBody(List<AbstractEmployee> abstractEmployees,
+                                     T employeesResponse,
+                                     EmployeeResponseBuilder employeeResponseBuilder) {
+
+        employeeResponseBuilder.build(employeesResponse, abstractEmployees);
     }
 
     @Override
@@ -50,18 +58,13 @@ public class EmployeesServiceImpl implements EmployeesService {
         save(getCorrectEmployee(abstractEmployees));
 
         CreateEmployeesResponse createEmployeesResponse = new CreateEmployeesResponse();
-        createResponse(abstractEmployees, createEmployeesResponse);
+        addResponseBody(abstractEmployees,
+                createEmployeesResponse,
+                responseBuilders.stream()
+                        .filter(rb -> rb instanceof CreateEmployeeResponseBuilder)
+                        .findFirst().orElseThrow());
 
         return createEmployeesResponse;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void createResponse(List<AbstractEmployee> abstractEmployees, CreateEmployeesResponse createEmployeesResponse) {
-        responseBuilders.stream()
-                .filter(rb -> rb instanceof CreateEmployeeResponseBuilder)
-                .findFirst()
-                .ifPresent(employeeResponseBuilder ->
-                        employeeResponseBuilder.build(createEmployeesResponse, abstractEmployees));
     }
 
     private List<AbstractEmployee> getAbstractEmployees(CreateEmployeesRequest request) {

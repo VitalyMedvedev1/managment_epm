@@ -10,7 +10,6 @@ import ru.homework.andry.soap.repository.entity.EmployeeEntity;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EmployeesTestData {
@@ -18,8 +17,6 @@ public class EmployeesTestData {
     private static final Long EMPLOYEE_ID = 11111L;
     public static final String PROJECT = "VTB";
     public static final String DEVELOPER_LANGUAGE = "java";
-    public static final String LANGUAGE_2 = "python";
-    public static final String LANGUAGE_3 = "fortran";
     public static final String DEVELOPER_LEVEL = "middle";
     public static final String DEVELOPER_NAME = "developer_test";
     public static final String MANAGER_NAME = "manager_test";
@@ -33,111 +30,32 @@ public class EmployeesTestData {
     public static final String ERROR_TEXT_TEST_MESSAGE = "ERROR_TEXT_TEST_MESSAGE";
     public static final String ERROR_ROW_ANALYTICS = "ERROR_ROW_ANALYTICS";
 
-    public static List<Employee> getEmployeesFromWSWithRowsOneForEachPositions() {
+    public static List<Employee> getEmployees(int count, int[] salaries, Position[] positions) {
 
-        Employee manager = new Employee();
-        manager.setId(BigInteger.valueOf(EMPLOYEE_ID));
-        manager.setFirstName("Manager_test");
-        manager.setLastName("Manager_test");
-        manager.setAge(44);
-        manager.setSalary(160000);
-        manager.setProject("OTP");
-        manager.setPosition(Position.MANAGER);
-
-        Employee developer = new Employee();
-        developer.setId(BigInteger.valueOf(EMPLOYEE_ID + 1));
-        developer.setFirstName("Developer_test");
-        developer.setLastName("Developer_test");
-        developer.setAge(33);
-        developer.setSalary(100000);
-        developer.setPosition(Position.DEVELOPER);
-        developer.setLevel("middle_plus");
-        developer.setLanguage("java");
-
-        Employee analytics = new Employee();
-        analytics.setId(BigInteger.valueOf(EMPLOYEE_ID + 2));
-        analytics.setFirstName(ANALYTICS_NAME);
-        analytics.setLastName(ANALYTICS_NAME);
-        analytics.setAge(33);
-        analytics.setSalary(100000);
-        analytics.setPosition(Position.ANALYTICS);
-        analytics.setType("System");
-
-        return Arrays.asList(manager, developer, analytics);
+        List<Employee> employees = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            employees.add(getEmployee(salaries[i], positions[i]));
+        }
+        return employees;
     }
 
-    public static List<Employee> getEmployeesFromWSWithTreeRowsDeveloperPosition() {
-
-        Employee developer1 = new Employee();
-        developer1.setId(BigInteger.valueOf(EMPLOYEE_ID));
-        developer1.setFirstName("developer1_test");
-        developer1.setLastName("developer1_test");
-        developer1.setAge(33);
-        developer1.setSalary(100000);
-        developer1.setPosition(Position.DEVELOPER);
-        developer1.setLevel("middle_plus");
-        developer1.setLanguage("java");
-
-        Employee developer2 = new Employee();
-        developer2.setId(BigInteger.valueOf(EMPLOYEE_ID + 1));
-        developer2.setFirstName("developer2_test");
-        developer2.setLastName("developer2_test");
-        developer2.setAge(33);
-        developer2.setSalary(100000);
-        developer2.setPosition(Position.DEVELOPER);
-        developer2.setLevel("middle_plus");
-        developer2.setLanguage("java");
-
-        Employee developer3 = new Employee();
-        developer3.setId(BigInteger.valueOf(EMPLOYEE_ID + 2));
-        developer3.setFirstName("developer3_test");
-        developer3.setLastName("developer3_test");
-        developer3.setAge(33);
-        developer3.setSalary(100000);
-        developer3.setPosition(Position.DEVELOPER);
-        developer3.setLevel("middle_plus");
-        developer3.setLanguage("java");
-
-        return Arrays.asList(developer1, developer2, developer3);
-    }
-
-    public static List<AbstractEmployee> getEmployeesTreeDeveloperElementOLD(int salary1,
-                                                                             String language1,
-                                                                             String level1,
-                                                                             int salary2,
-                                                                             String language2,
-                                                                             String level2,
-                                                                             int salary3,
-                                                                             String language3,
-                                                                             String level3) {
-        return Arrays.asList(
-                new DeveloperElement(
-                        EMPLOYEE_ID,
-                        "developer_test1",
-                        "developer_test1",
-                        11,
-                        salary1,
-                        Position.DEVELOPER,
-                        language1,
-                        level1),
-                new DeveloperElement(
-                        EMPLOYEE_ID + 1,
-                        "developer_test2",
-                        "developer_test2",
-                        21,
-                        salary2,
-                        Position.DEVELOPER,
-                        language2,
-                        level2),
-                new DeveloperElement(
-                        EMPLOYEE_ID + 2,
-                        "developer_test3",
-                        "developer_test3",
-                        71,
-                        salary3,
-                        Position.DEVELOPER,
-                        language3,
-                        level3));
+    private static Employee getEmployee(int salary, Position position) {
+        Employee employee = new Employee();
+        employee.setId(BigInteger.valueOf(EMPLOYEE_ID));
+        employee.setFirstName("Manager_test");
+        employee.setLastName("Manager_test");
+        employee.setAge(44);
+        employee.setSalary(salary);
+        employee.setPosition(position);
+        if (position.equals(Position.ANALYTICS)) {
+            employee.setType(ANALYTICS_TYPE);
+        } else if (position.equals(Position.DEVELOPER)) {
+            employee.setLanguage(DEVELOPER_LANGUAGE);
+            employee.setLevel(DEVELOPER_LEVEL);
+        } else {
+            employee.setProject(PROJECT);
+        }
+        return employee;
     }
 
     public static List<EmployeeEntity> getEmployeeEntities(int count,

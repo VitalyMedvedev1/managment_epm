@@ -12,8 +12,7 @@ import ru.homework.andry.soap.repository.entity.EmployeeEntity;
 
 import java.util.List;
 
-import static io.dliga.micro.employee_web_service.Position.DEVELOPER;
-import static io.dliga.micro.employee_web_service.Position.MANAGER;
+import static io.dliga.micro.employee_web_service.Position.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
 
@@ -23,7 +22,11 @@ class EmployeeEntityMapperTest {
 
     @Test
     void employeesSoapMsgToElements_EmployeesMsgWithEveryPosition_MapByPosition() {
-        List<Employee> employeesFromSoapMsg = getEmployeesFromWSWithRowsOneForEachPositions();
+        List<Employee> employeesFromSoapMsg =
+                getEmployees(
+                        3,
+                        new int[]{1, 1, 1},
+                        new Position[]{MANAGER, ANALYTICS, DEVELOPER});
 
         List<AbstractEmployee> employeesElement =
                 employeeMapper.employeesToElements(employeesFromSoapMsg);
@@ -42,7 +45,10 @@ class EmployeeEntityMapperTest {
     @Test
     void employeesSoapMsgToElements_EmployeesMsgWithThreeDeveloper_MapToDeveloper() {
         List<Employee> employeesFromSoapMsg =
-                getEmployeesFromWSWithTreeRowsDeveloperPosition();
+                getEmployees(
+                        3,
+                        new int[]{1, 1, 1},
+                        new Position[]{DEVELOPER, DEVELOPER, DEVELOPER});
 
         List<AbstractEmployee> employeesElement =
                 employeeMapper.employeesToElements(employeesFromSoapMsg);
@@ -61,10 +67,11 @@ class EmployeeEntityMapperTest {
     @Test
     void elementsToEntities_ElementsWithThreeDeveloper() {
         List<AbstractEmployee> developerElements =
-                getEmployeesTreeDeveloperElementOLD(
-                        100, DEVELOPER_LANGUAGE, DEVELOPER_LEVEL,
-                        110000, LANGUAGE_2, DEVELOPER_LEVEL,
-                        150000, LANGUAGE_3, DEVELOPER_LEVEL);
+                getAbstractEmployees(
+                        3,
+                        new Position[]{DEVELOPER, DEVELOPER, DEVELOPER},
+                        new int[]{1111, 2222, 3333},
+                        "");
 
         List<EmployeeEntity> employeeEntities =
                 employeeMapper.elementsToEntities(developerElements);

@@ -33,11 +33,7 @@ public interface EmployeeMapper {
 
         return managerToEntity((ManagerElement) employee);
     }
-/*
-    @Mappings({
-            @Mapping(target = "firstname", source = "firstName"),
-            @Mapping(target = "lastname", source = "lastName")
-    })*/
+
     EmployeeEntity developerToEntity(DeveloperElement employee);
 
     EmployeeEntity managerToEntity(ManagerElement employee);
