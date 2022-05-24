@@ -11,11 +11,11 @@ public final class Values {
 
     public static final int ERROR_CODE = 99;
 
-    public static int QUEUE_SIZE_FOR_DELETE_EMP = 1;
+    public static int QUEUE_SIZE_FOR_DELETE_EMP;
 
-    public static int CORE_POOL_SIZE = 1;
-    public static int MAX_POOL_SIZE = 5;
-    public static int QUEUE_CAPACITY = 3;
+    public static int CORE_POOL_SIZE;
+    public static int MAX_POOL_SIZE;
+    public static int QUEUE_CAPACITY;
     public static String NAMESPACE_URI;
     public static String ROOT_WS_URL;
     public static String XSD_FILE_PATH;
@@ -36,37 +36,37 @@ public final class Values {
     }
 
     @Value("${config.namespace.uri}")
-    public void setNamespaceUri(String namespaceUri) {
+    private void setNamespaceUri(String namespaceUri) {
         NAMESPACE_URI = namespaceUri;
     }
 
     @Value("${config.root.ws.url}")
-    public void setRootWsUrl(String rootWsUrl) {
+    private void setRootWsUrl(String rootWsUrl) {
         ROOT_WS_URL = rootWsUrl;
     }
 
     @Value("${config.xsd.file.path}")
-    public void setXsdFilePath(String xsdFilePath) {
+    private void setXsdFilePath(String xsdFilePath) {
         XSD_FILE_PATH = xsdFilePath;
     }
 
     @Value("${delete.emp.tread.core.poll.size}")
-    public static void setCorePoolSize(int corePoolSize) {
+    private void setCorePoolSize(int corePoolSize) {
         CORE_POOL_SIZE = corePoolSize;
     }
 
     @Value("${delete.emp.tread.max.poll.size}")
-    public static void setMaxPoolSize(int maxPoolSize) {
+    private void setMaxPoolSize(int maxPoolSize) {
         MAX_POOL_SIZE = maxPoolSize;
     }
 
     @Value("${delete.emp.tread.queue.capacity}")
-    public static void setQueueCapacity(int queueCapacity) {
+    private void setQueueCapacity(int queueCapacity) {
         QUEUE_CAPACITY = queueCapacity;
     }
 
     @Value("${delete.emp.queue.capacity}")
-    public static void setQueueSizeForDeleteEmp(int queueSizeForDeleteEmp) {
+    private void setQueueSizeForDeleteEmp(int queueSizeForDeleteEmp) {
         QUEUE_SIZE_FOR_DELETE_EMP = queueSizeForDeleteEmp;
     }
 }

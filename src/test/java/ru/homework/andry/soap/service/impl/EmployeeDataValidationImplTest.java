@@ -81,7 +81,7 @@ class EmployeeDataValidationImplTest {
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
                         .map(AbstractEmployee::getErrorIncorrectSalaryMessage)
                         .collect(Collectors.joining()))
-                .isEqualTo(SALARY_ERROR_TEXT_MESSAGE + DEVELOPER.value());
+                .isEqualTo(MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, DEVELOPER.value()));
     }
 
     @Test
@@ -104,7 +104,7 @@ class EmployeeDataValidationImplTest {
                         .map(AbstractEmployee::getErrorIncorrectSalaryMessage)
                         .collect(Collectors.joining())
         )
-                .isEqualTo(SALARY_ERROR_TEXT_MESSAGE + MANAGER.value());
+                .isEqualTo(MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, MANAGER.value()));
     }
 
     @Test

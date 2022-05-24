@@ -2,6 +2,7 @@ package ru.homework.andry.soap.service.impl.schedul;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -53,9 +54,13 @@ public class EmployeeSchedulerImpl implements EmployeeScheduler {
     }
 
     private void addEmployeeEntities() {
-        employees.addAll(
-                (employeeRepository.findAll(PageRequest.of(0, QUEUE_SIZE_FOR_DELETE_EMP))
-                        .stream()
-                        .collect(Collectors.toList())));
+        Page<EmployeeEntity> employeeEntityPage = employeeRepository.findAll(PageRequest.of(0, QUEUE_SIZE_FOR_DELETE_EMP));
+
+        if (employeeEntityPage.stream().findFirst().isPresent()) {
+            employees.addAll(employeeEntityPage.getContent());
+        }
+        else {
+            log.info("There are no employees in the database");
+        }
     }
 }
