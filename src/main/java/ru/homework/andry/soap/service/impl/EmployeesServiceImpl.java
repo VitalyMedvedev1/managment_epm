@@ -53,7 +53,9 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     @Override
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
-        List<AbstractEmployee> abstractEmployees = getAbstractEmployees(request);
+        List<AbstractEmployee> abstractEmployees =
+                employeeDataValidation.validate(
+                        map(request));
 
         save(getCorrectEmployee(abstractEmployees));
 
@@ -67,11 +69,14 @@ public class EmployeesServiceImpl implements EmployeesService {
         return createEmployeesResponse;
     }
 
-    private List<AbstractEmployee> getAbstractEmployees(CreateEmployeesRequest request) {
+    private List<AbstractEmployee> map(CreateEmployeesRequest request) {
         log.info("Mapping employees from soap message to employeeElements");
-        return employeeDataValidation.validate(
+
+        return employeeMapper.employeesToElements(
+                request.getEmployees());
+/*        return employeeDataValidation.validate(
                 employeeMapper.employeesToElements(
-                        request.getEmployees()));
+                        request.getEmployees()));*/
     }
 
     private List<AbstractEmployee> getCorrectEmployee(List<AbstractEmployee> abstractEmployees) {
