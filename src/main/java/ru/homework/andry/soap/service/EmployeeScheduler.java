@@ -1,5 +1,5 @@
 package ru.homework.andry.soap.service;
 
 public interface EmployeeScheduler {
-    void delete();
+    void execute();
 }

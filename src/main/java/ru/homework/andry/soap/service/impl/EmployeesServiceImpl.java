@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.homework.andry.soap.builder.EmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.impl.GetEmployeeResponseBuilder;
@@ -32,43 +33,55 @@ public class EmployeesServiceImpl implements EmployeesService {
     public GetEmployeesResponse findAll() {
         log.info("Find all entity employees and map to elements");
         List<AbstractEmployee> abstractEmployees = employeeMapper.entityToElement(employeeRepository.findAll());
-        GetEmployeesResponse response = new GetEmployeesResponse();
+        GetEmployeesResponse getEmployeesResponse = new GetEmployeesResponse();
         responseBuilders.stream()
                 .filter(rb -> rb instanceof GetEmployeeResponseBuilder)
                 .findFirst()
                 .ifPresent(employeeResponseBuilder ->
-                        employeeResponseBuilder.build(response, abstractEmployees));
+                        employeeResponseBuilder.build(getEmployeesResponse, abstractEmployees));
 
-        return response;
+        return getEmployeesResponse;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
-        log.info("Mapping employees from soap message to employeeElements");
-        List<AbstractEmployee> abstractEmployees =
-                employeeDataValidation.validate(
-                        employeeMapper.employeesToElements(
-                                request.getEmployees()));
+        List<AbstractEmployee> abstractEmployees = getAbstractEmployees(request);
 
-        log.info("Get correct employees");
+        save(getCorrectEmployee(abstractEmployees));
 
-        List<AbstractEmployee> employeesForSave =
-                abstractEmployees.stream()
-                        .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
-                        .collect(Collectors.toList());
+        CreateEmployeesResponse createEmployeesResponse = new CreateEmployeesResponse();
+        createResponse(abstractEmployees, createEmployeesResponse);
 
-        log.info("Get correct employees");
-        employeeRepository.saveAll(
-                employeeMapper.elementsToEntities(employeesForSave));
+        return createEmployeesResponse;
+    }
 
-        CreateEmployeesResponse response = new CreateEmployeesResponse();
+    @SuppressWarnings("unchecked")
+    private void createResponse(List<AbstractEmployee> abstractEmployees, CreateEmployeesResponse createEmployeesResponse) {
         responseBuilders.stream()
                 .filter(rb -> rb instanceof CreateEmployeeResponseBuilder)
                 .findFirst()
                 .ifPresent(employeeResponseBuilder ->
-                        employeeResponseBuilder.build(response, abstractEmployees));
+                        employeeResponseBuilder.build(createEmployeesResponse, abstractEmployees));
+    }
 
-        return response;
+    private List<AbstractEmployee> getAbstractEmployees(CreateEmployeesRequest request) {
+        log.info("Mapping employees from soap message to employeeElements");
+        return employeeDataValidation.validate(
+                employeeMapper.employeesToElements(
+                        request.getEmployees()));
+    }
+
+    private List<AbstractEmployee> getCorrectEmployee(List<AbstractEmployee> abstractEmployees) {
+        log.info("Get correct employees");
+        return abstractEmployees.stream()
+                .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    void save(List<AbstractEmployee> employeesForSave) {
+        log.info("Save employees");
+        employeeRepository.saveAll(
+                employeeMapper.elementsToEntities(employeesForSave));
     }
 }

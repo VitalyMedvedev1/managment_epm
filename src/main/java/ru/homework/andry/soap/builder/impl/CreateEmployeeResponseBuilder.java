@@ -23,15 +23,14 @@ public class CreateEmployeeResponseBuilder implements EmployeeResponseBuilder<Cr
     private final EmployeeMapper employeeMapper;
 
     @Override
-    public CreateEmployeesResponse build(CreateEmployeesResponse response, List<AbstractEmployee> employees) {
+    public void build(CreateEmployeesResponse createEmployeesResponse, List<AbstractEmployee> employees) {
         log.info("Start generate GetEmployeesResponse");
         employees.forEach(
                 element -> {
                     Employee employee = employeeMapper.elementToEmployeeResponse(element);
                     employee.setStatus(getResponseStatus(element.getErrorMessage()));
-                    response.getEmployees().add(employee);
+                    createEmployeesResponse.getEmployees().add(employee);
                 });
-        return response;
     }
 
     private Status getResponseStatus(String errorMessage) {

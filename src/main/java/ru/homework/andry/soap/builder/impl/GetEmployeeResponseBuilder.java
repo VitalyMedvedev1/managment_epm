@@ -18,12 +18,11 @@ public class GetEmployeeResponseBuilder implements EmployeeResponseBuilder<GetEm
     private final EmployeeMapper employeeMapper;
 
     @Override
-    public GetEmployeesResponse build(GetEmployeesResponse response, List<AbstractEmployee> employees) {
+    public void build(GetEmployeesResponse getEmployeesResponse, List<AbstractEmployee> employees) {
         log.info("Start generate GetEmployeesResponse");
-        response.getEmployees()
+        getEmployeesResponse.getEmployees()
                 .addAll(employeeMapper.elementsToEmployees(employees));
-        response.setStatus(StatusResponseBuilder.build());
 
-        return response;
+        getEmployeesResponse.setStatus(StatusResponseBuilder.build());
     }
 }
