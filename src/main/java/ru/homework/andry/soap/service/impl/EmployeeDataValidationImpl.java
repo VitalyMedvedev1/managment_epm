@@ -28,20 +28,20 @@ public class EmployeeDataValidationImpl implements EmployeeDataValidation {
     }
 
     private void incorrectSalaryAndRequiredField(AbstractEmployee emp) {
-        if (!emp.checkSalary() && !emp.checkRequiredField()) {
+        if (!emp.checkSalary() && emp.isBlankRequiredField()) {
             emp.setErrorIncorrectSalaryMessage();
             emp.setErrorRequiredMessage();
         }
     }
 
     private void incorrectRequiredField(AbstractEmployee emp) {
-        if (emp.checkSalary() && !emp.checkRequiredField()) {
+        if (emp.checkSalary() && emp.isBlankRequiredField()) {
             emp.setErrorRequiredMessage();
         }
     }
 
     private void incorrectSalary(AbstractEmployee emp) {
-        if (!emp.checkSalary() && emp.checkRequiredField()) {
+        if (!emp.checkSalary() && !emp.isBlankRequiredField()) {
             emp.setErrorIncorrectSalaryMessage();
         }
     }

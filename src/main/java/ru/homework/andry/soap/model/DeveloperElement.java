@@ -30,7 +30,7 @@ public class DeveloperElement extends AbstractEmployee {
     }
 
     @Override
-    public boolean checkRequiredField() {
-        return StringUtils.isNotEmpty(language) && StringUtils.isNotEmpty(level);
+    public boolean isBlankRequiredField() {
+        return StringUtils.isEmpty(language) || StringUtils.isEmpty(level);
     }
 }

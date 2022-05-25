@@ -46,7 +46,7 @@ public abstract class AbstractEmployee {
 
     public abstract boolean checkSalary();
 
-    public abstract boolean checkRequiredField();
+    public abstract boolean isBlankRequiredField();
 
     public String getErrorMessage() {
         return Optional.ofNullable(getErrorIncorrectSalaryMessage()).orElse("") +
