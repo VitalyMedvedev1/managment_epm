@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class GetEmployeesRequestTest {
 
-    public static final String REQUEST_XML = "src/test/resources/xml/getEmployeesRequest/correctRequest.xml";
+    public static final String REQUEST_XML = "src/test/resources/xml/createEmployeesRequest.xml";
     private final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     private final Schema schema = factory.newSchema(new File("build/resources/main/xsd/employees.xsd"));
     private final Validator validator = schema.newValidator();
