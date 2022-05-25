@@ -3,11 +3,11 @@ package ru.homework.andry.soap.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.exeption.BusinessLogicException;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.model.employee.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
-import ru.homework.andry.soap.repository.entity.EmployeeEntity;
 import ru.homework.andry.soap.service.EmployeeRESTService;
 
 import java.util.List;

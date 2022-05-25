@@ -7,14 +7,14 @@ import ru.homework.andry.soap.model.employee.AbstractEmployee;
 import ru.homework.andry.soap.model.employee.AnalyticsElement;
 import ru.homework.andry.soap.model.employee.DeveloperElement;
 import ru.homework.andry.soap.model.employee.ManagerElement;
-import ru.homework.andry.soap.repository.entity.EmployeeEntity;
+import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = Employee.class)
 @SuppressWarnings("All")
-public interface EmployeeMapper {
+public interface EmployeeMapper {//todo сделай маппер без бина и сделай обычным классом
 
     default List<EmployeeEntity> elementsToEntities(List<AbstractEmployee> employees) {
         return employees.stream()

@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 import java.text.MessageFormat;
 import java.util.Optional;
 
-import static ru.homework.andry.soap.constant.Values.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
-import static ru.homework.andry.soap.constant.Values.SALARY_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.ValueConst.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.ValueConst.SALARY_ERROR_TEXT_MESSAGE;
+
 
 @Data
 @AllArgsConstructor
@@ -55,5 +56,5 @@ public abstract class AbstractEmployee {
 
     public abstract boolean checkSalary();
 
-    public abstract boolean checkRequiredField();
+    public abstract boolean isBlankRequiredField();
 }

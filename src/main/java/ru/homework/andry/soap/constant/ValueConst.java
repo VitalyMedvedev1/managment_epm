@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource("classpath:application.properties")
-public final class ValueConst { //todo лучше так назвать ValueConst
+public final class ValueConst {
+    //todo лучше так назвать ValueConst
+    // done
 
     public static final int ERROR_CODE = 99;
 

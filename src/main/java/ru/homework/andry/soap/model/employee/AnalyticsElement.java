@@ -6,9 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import ru.homework.andry.soap.model.employee.AbstractEmployee;
 
-import static ru.homework.andry.soap.constant.Values.*;
+import static ru.homework.andry.soap.constant.ValueConst.ANALYTICS_SALARY_RANGE;
 
 @Data
 @NoArgsConstructor

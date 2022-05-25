@@ -23,7 +23,6 @@ import static ru.homework.andry.soap.constant.ValueConst.ROOT_WS_URL;
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
 
-
     @Override
     public void addInterceptors(List<EndpointInterceptor> interceptors) {
         PayloadValidatingInterceptor validatingInterceptor = new PayloadValidatingInterceptor();
