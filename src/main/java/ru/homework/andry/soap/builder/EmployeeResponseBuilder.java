@@ -1,6 +1,6 @@
 package ru.homework.andry.soap.builder;
 
-import ru.homework.andry.soap.model.AbstractEmployee;
+import ru.homework.andry.soap.model.employee.AbstractEmployee;
 
 import java.util.List;
 

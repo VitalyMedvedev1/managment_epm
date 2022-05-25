@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.model;
+package ru.homework.andry.soap.model.employee;
 
 import io.dliga.micro.employee_web_service.Position;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import ru.homework.andry.soap.model.employee.AbstractEmployee;
 
 import static ru.homework.andry.soap.constant.Values.*;
 

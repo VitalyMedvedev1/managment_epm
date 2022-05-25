@@ -1,5 +1,6 @@
-package ru.homework.andry.soap.model;
+package ru.homework.andry.soap.model.employee;
 
+import com.fasterxml.jackson.annotation.*;
 import io.dliga.micro.employee_web_service.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,9 @@ public abstract class AbstractEmployee {
     private int salary;
     private Position position;
 
+    @JsonIgnore
     private String errorIncorrectSalaryMessage;
+    @JsonIgnore
     private String errorRequiredMessage;
 
     public AbstractEmployee(Long id, String firstName, String lastName, int age, int salary, Position position) {
@@ -44,12 +47,13 @@ public abstract class AbstractEmployee {
                 MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, position.value());
     }
 
-    public abstract boolean checkSalary();
-
-    public abstract boolean checkRequiredField();
-
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public String getErrorMessage() {
         return Optional.ofNullable(getErrorIncorrectSalaryMessage()).orElse("") +
                 Optional.ofNullable(getErrorRequiredMessage()).orElse("");
     }
+
+    public abstract boolean checkSalary();
+
+    public abstract boolean checkRequiredField();
 }

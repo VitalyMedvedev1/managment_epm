@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.getEmployeeEntities;
 
 @ExtendWith(MockitoExtension.class)
-class EmployeesServiceImplTest {
+class EmployeesSOAPServiceImplTest {
 
     private final EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
     private final EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
@@ -36,8 +36,8 @@ class EmployeesServiceImplTest {
             150000,
             175000);
 
-    private final EmployeesServiceImpl employeesService =
-            new EmployeesServiceImpl(
+    private final EmployeesSOAPServiceImpl employeesService =
+            new EmployeesSOAPServiceImpl(
                     employeeRepository,
                     employeeMapper,
                     new EmployeeDataValidationImpl(),

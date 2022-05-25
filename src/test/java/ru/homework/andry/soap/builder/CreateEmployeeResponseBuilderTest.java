@@ -9,7 +9,7 @@ import org.junit.platform.commons.util.StringUtils;
 import org.mapstruct.factory.Mappers;
 import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.AbstractEmployee;
+import ru.homework.andry.soap.model.employee.AbstractEmployee;
 
 import java.util.List;
 

@@ -4,10 +4,10 @@ import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import ru.homework.andry.soap.model.AbstractEmployee;
-import ru.homework.andry.soap.model.AnalyticsElement;
-import ru.homework.andry.soap.model.DeveloperElement;
-import ru.homework.andry.soap.model.ManagerElement;
+import ru.homework.andry.soap.model.employee.AbstractEmployee;
+import ru.homework.andry.soap.model.employee.AnalyticsElement;
+import ru.homework.andry.soap.model.employee.DeveloperElement;
+import ru.homework.andry.soap.model.employee.ManagerElement;
 import ru.homework.andry.soap.repository.entity.EmployeeEntity;
 
 import java.util.List;

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.homework.andry.soap.constant.Values;
-import ru.homework.andry.soap.model.AbstractEmployee;
+import ru.homework.andry.soap.model.employee.AbstractEmployee;
 import ru.homework.andry.soap.service.EmployeeDataValidation;
 
 import java.text.MessageFormat;

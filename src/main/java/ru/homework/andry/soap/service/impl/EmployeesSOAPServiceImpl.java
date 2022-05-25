@@ -10,18 +10,18 @@ import ru.homework.andry.soap.builder.EmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.impl.GetEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.AbstractEmployee;
+import ru.homework.andry.soap.model.employee.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 import ru.homework.andry.soap.service.EmployeeDataValidation;
-import ru.homework.andry.soap.service.EmployeesService;
+import ru.homework.andry.soap.service.EmployeesSOAPService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service("SOAP")
 @RequiredArgsConstructor
 @Slf4j
-public class EmployeesServiceImpl implements EmployeesService {
+public class EmployeesSOAPServiceImpl implements EmployeesSOAPService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;

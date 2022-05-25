@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.homework.andry.soap.builder.EmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.AbstractEmployee;
+import ru.homework.andry.soap.model.employee.AbstractEmployee;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
