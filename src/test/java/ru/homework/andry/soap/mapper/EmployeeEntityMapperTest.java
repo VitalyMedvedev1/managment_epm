@@ -8,7 +8,7 @@ import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.model.AnalyticsElement;
 import ru.homework.andry.soap.model.DeveloperElement;
 import ru.homework.andry.soap.model.ManagerElement;
-import ru.homework.andry.soap.repository.entity.EmployeeEntity;
+import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.List;
 

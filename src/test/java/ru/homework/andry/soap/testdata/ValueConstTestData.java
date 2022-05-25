@@ -1,11 +1,11 @@
 package ru.homework.andry.soap.testdata;
 
-import ru.homework.andry.soap.constant.Values;
+import ru.homework.andry.soap.constant.ValueConst;
 
-public class ValueTestData {
+public class ValueConstTestData {
 
-    public static Values getValues() {
-        return new Values(
+    public static ValueConst getValues() {
+        return new ValueConst(
                 10000,
                 35000,
                 50000,

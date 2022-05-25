@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import java.text.MessageFormat;
 import java.util.Optional;
 
-import static ru.homework.andry.soap.constant.Values.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
-import static ru.homework.andry.soap.constant.Values.SALARY_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.ValueConst.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.ValueConst.SALARY_ERROR_TEXT_MESSAGE;
 
 @Data
 @AllArgsConstructor
@@ -25,7 +25,12 @@ public abstract class AbstractEmployee {
     private String errorIncorrectSalaryMessage;
     private String errorRequiredMessage;
 
-    public AbstractEmployee(Long id, String firstName, String lastName, int age, int salary, Position position) {
+    public AbstractEmployee(Long id,
+                            String firstName,
+                            String lastName,
+                            int age,
+                            int salary,
+                            Position position) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

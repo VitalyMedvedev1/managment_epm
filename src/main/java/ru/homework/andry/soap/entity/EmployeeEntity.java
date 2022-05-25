@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.repository.entity;
+package ru.homework.andry.soap.entity;
 //todo вынести пакет на уровень выше
 import io.dliga.micro.employee_web_service.Position;
 import lombok.AllArgsConstructor;

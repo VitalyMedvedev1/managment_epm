@@ -8,7 +8,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
-import static ru.homework.andry.soap.constant.Values.*;
+import static ru.homework.andry.soap.constant.ValueConst.*;
 
 @Configuration
 @EnableScheduling

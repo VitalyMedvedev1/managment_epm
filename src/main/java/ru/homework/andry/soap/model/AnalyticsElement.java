@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-import static ru.homework.andry.soap.constant.Values.*;
+import static ru.homework.andry.soap.constant.ValueConst.*;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +17,13 @@ public class AnalyticsElement extends AbstractEmployee {
 
     private String type;
 
-    public AnalyticsElement(Long id, String firstName, String lastName, int age, int salary, Position position, String type) {
+    public AnalyticsElement(Long id,
+                            String firstName,
+                            String lastName,
+                            int age,
+                            int salary,
+                            Position position,
+                            String type) {
         super(id, firstName, lastName, age, salary, position);
         this.type = type;
     }
