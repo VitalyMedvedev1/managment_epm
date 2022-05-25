@@ -71,12 +71,7 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     private List<AbstractEmployee> map(CreateEmployeesRequest request) {
         log.info("Mapping employees from soap message to employeeElements");
-
-        return employeeMapper.employeesToElements(
-                request.getEmployees());
-/*        return employeeDataValidation.validate(
-                employeeMapper.employeesToElements(
-                        request.getEmployees()));*/
+        return employeeMapper.employeesToElements(request.getEmployees());
     }
 
     private List<AbstractEmployee> getCorrectEmployee(List<AbstractEmployee> abstractEmployees) {

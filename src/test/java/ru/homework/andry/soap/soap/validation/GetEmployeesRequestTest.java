@@ -23,7 +23,6 @@ public class GetEmployeesRequestTest {
 
     @Test
     void firstNameWithIncorrectSymbols() {
-
         try {
             validator.validate(new StreamSource(new File(REQUEST_XML)));
         } catch (SAXException | IOException e) {

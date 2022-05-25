@@ -35,11 +35,13 @@ public abstract class AbstractEmployee {
     }
 
     public void setErrorIncorrectSalaryMessage() {
-        this.errorIncorrectSalaryMessage = MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, position.value());
+        this.errorIncorrectSalaryMessage =
+                MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, position.value());
     }
 
     public void setErrorRequiredMessage() {
-        this.errorRequiredMessage = MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, position.value());
+        this.errorRequiredMessage =
+                MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, position.value());
     }
 
     public abstract boolean checkSalary();
