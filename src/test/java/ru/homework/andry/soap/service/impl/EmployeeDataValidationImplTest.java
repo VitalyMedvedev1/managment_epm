@@ -18,18 +18,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static ru.homework.andry.soap.constant.Values.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
 import static ru.homework.andry.soap.constant.Values.SALARY_ERROR_TEXT_MESSAGE;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
+import static ru.homework.andry.soap.testdata.ValueTestData.getValues;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeDataValidationImplTest {
 
     private final EmployeeDataValidation employeeDataValidation = new EmployeeDataValidationImpl();
-    private final Values values = new Values(
-            10000,
-            35000,
-            50000,
-            150000,
-            150000,
-            175000);
+    private final Values values = getValues();
 
     @Test
     void validate_EmployeesWithThreeDevelopers_SalaryAndFieldCorrect() {
