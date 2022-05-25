@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static ru.homework.andry.soap.constant.Values.QUEUE_SIZE_FOR_DELETE_EMP;
+import static ru.homework.andry.soap.testdata.ValueTestData.getValues;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeSchedulerImplTest {
@@ -22,13 +23,7 @@ class EmployeeSchedulerImplTest {
     public static final String QUEUE_SIZE_FOR_DELETE_EMP1 = "QUEUE_SIZE_FOR_DELETE_EMP";
     private final EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
     private final EmployeeSchedulerImpl employeeScheduler = new EmployeeSchedulerImpl(employeeRepository);
-    private final Values values = new Values(
-            10000,
-            35000,
-            50000,
-            150000,
-            150000,
-            175000);
+    private final Values values = getValues();
 
     @BeforeEach
     void setCapacity() {
@@ -44,8 +39,8 @@ class EmployeeSchedulerImplTest {
 
     @Test
     void execute() {
-
-        when(employeeRepository.findAll(PageRequest.of(0, QUEUE_SIZE_FOR_DELETE_EMP))).thenReturn(Page.empty());
+        when(employeeRepository.findAll(PageRequest.of(0, QUEUE_SIZE_FOR_DELETE_EMP)))
+                .thenReturn(Page.empty());
         employeeScheduler.execute();
     }
 }
