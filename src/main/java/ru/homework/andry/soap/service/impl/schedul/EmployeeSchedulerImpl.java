@@ -15,6 +15,7 @@ import ru.homework.andry.soap.service.EmployeeScheduler;
 import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 import static ru.homework.andry.soap.constant.Values.QUEUE_SIZE_FOR_DELETE_EMP;
@@ -25,7 +26,7 @@ import static ru.homework.andry.soap.constant.Values.QUEUE_SIZE_FOR_DELETE_EMP;
 public class EmployeeSchedulerImpl implements EmployeeScheduler {
 
     private final EmployeeRepository employeeRepository;
-    private final Queue<EmployeeEntity> employees = new LinkedList<>();
+    private final Queue<EmployeeEntity> employees = new ConcurrentLinkedQueue<>();
 
     @PostConstruct
     private void add() {
