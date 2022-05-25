@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface EmployeeDataValidation {
 
-    List<AbstractEmployee> validate(List<AbstractEmployee> employees);
+    void validate(List<AbstractEmployee> employees);
 
 }

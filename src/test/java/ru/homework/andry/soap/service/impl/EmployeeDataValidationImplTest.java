@@ -35,16 +35,14 @@ class EmployeeDataValidationImplTest {
                         new int[]{100000, 110000, 150000},
                         "");
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(developerElements);
+        employeeDataValidation.validate(developerElements);
 
-        assertThat(employees.size())
-                .isEqualTo(developerElements.size());
         assertThat(
                 developerElements.stream()
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
                         .count())
-                .isEqualTo(employees.size());
+                .isEqualTo(3);
     }
 
     @Test
@@ -56,11 +54,9 @@ class EmployeeDataValidationImplTest {
                         new int[]{100, 110000, 150000},
                         "");
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(developerElements);
+        employeeDataValidation.validate(developerElements);
 
-        assertThat(employees.size())
-                .isEqualTo(3);
-        assertThat(employees.size())
+        assertThat(developerElements.size())
                 .isEqualTo(3);
 
         assertThat(
@@ -87,10 +83,10 @@ class EmployeeDataValidationImplTest {
                         new Position[]{MANAGER},
                         new int[]{50000},
                         "");
-        List<AbstractEmployee> employees = employeeDataValidation.validate(managerElement);
+        employeeDataValidation.validate(managerElement);
 
-        assertThat(employees.size())
-                .isEqualTo(managerElement.size());
+        assertThat(managerElement.size())
+                .isEqualTo(1);
 
         assertThat(
                 managerElement.stream()
@@ -110,9 +106,10 @@ class EmployeeDataValidationImplTest {
                 new int[]{160000},
                 PROJECT_NAME_IS_EMPTY);
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(managerElement);
+        employeeDataValidation.validate(managerElement);
 
-        assertThat(employees.size()).isEqualTo(managerElement.size());
+        assertThat(managerElement.size())
+                .isEqualTo(1);
 
         assertThat(
                 managerElement.stream()
@@ -131,10 +128,10 @@ class EmployeeDataValidationImplTest {
                 new int[]{100000},
                 LANGUAGE_IS_EMPTY);
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(developerElement);
+        employeeDataValidation.validate(developerElement);
 
-        assertThat(employees.size())
-                .isEqualTo(developerElement.size());
+        assertThat(developerElement.size())
+                .isEqualTo(1);
 
         assertThat(
                 developerElement.stream()
@@ -153,10 +150,10 @@ class EmployeeDataValidationImplTest {
                 new int[]{100000},
                 LEVEL_IS_EMPTY);
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(developerElement);
+        employeeDataValidation.validate(developerElement);
 
-        assertThat(employees.size())
-                .isEqualTo(developerElement.size());
+        assertThat(developerElement.size())
+                .isEqualTo(1);
 
         assertThat(
                 developerElement.stream()
@@ -175,10 +172,10 @@ class EmployeeDataValidationImplTest {
                 new int[]{25000},
                 TYPE_IS_EMPTY);
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(analyticsElement);
+        employeeDataValidation.validate(analyticsElement);
 
-        assertThat(employees.size())
-                .isEqualTo(analyticsElement.size());
+        assertThat(analyticsElement.size())
+                .isEqualTo(1);
         assertThat(
                 analyticsElement.stream()
                         .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))

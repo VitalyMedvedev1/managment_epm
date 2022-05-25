@@ -5,7 +5,7 @@
             <gs:lastName>BORISOV</gs:lastName>
             <gs:age>43</gs:age>
             <gs:salary>160000</gs:salary>
-            <gs:position>Manager</gs:position>
+            <gs:position>manager</gs:position>
             <gs:project>VTB</gs:project>
         </gs:employees>
     </gs:createEmployeesRequest>

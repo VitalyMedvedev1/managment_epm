@@ -37,8 +37,8 @@ task genJaxb {
 
     doLast() {
         project.ant {
-           // taskdef name: "xjc", classname: "com.sun.tools.xjc.XJC2Task",
-            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJC2Task",
+           // taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
                     classpath: configurations.jaxb.asPath
             mkdir(dir: sourcesDir)
             mkdir(dir: classesDir)

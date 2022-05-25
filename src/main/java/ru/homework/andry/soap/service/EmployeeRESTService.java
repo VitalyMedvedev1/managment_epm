@@ -9,4 +9,6 @@ public interface EmployeeRESTService {
     List<AbstractEmployee> findAll();
 
     List<AbstractEmployee> findAllByPosition(String position);
+
+    List<AbstractEmployee> saveAll(List<AbstractEmployee> entities);
 }

@@ -9,6 +9,7 @@ import ru.homework.andry.soap.exeption.BusinessLogicException;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.model.employee.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
+import ru.homework.andry.soap.service.AbstractEmployeeService;
 import ru.homework.andry.soap.service.EmployeeRESTService;
 
 import java.text.MessageFormat;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 @Service("REST")
 @RequiredArgsConstructor
 @Slf4j
-public class EmployeesRESTServiceImpl implements EmployeeRESTService {
+public class EmployeesRESTServiceImpl extends AbstractEmployeeService implements EmployeeRESTService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
@@ -40,8 +41,10 @@ public class EmployeesRESTServiceImpl implements EmployeeRESTService {
         Position position = getEnumPosition(positionValue);
         log.info("Find employees by position: {}", position.name());
         List<EmployeeEntity> entities = employeeRepository.findAllByPosition(position);
+
         if (entities.isEmpty()) {
-            throw new BusinessLogicException("Elements by position {0} did not find");
+            throw new BusinessLogicException(
+                    MessageFormat.format("Elements by position {0} did not find", position.name()));
         }
         return employeeMapper.entityToElement(entities);
     }
@@ -53,7 +56,13 @@ public class EmployeesRESTServiceImpl implements EmployeeRESTService {
             throw new BusinessLogicException(
                     MessageFormat.format(
                             "Position must be in: {0}",
-                            Arrays.stream(Position.values()).collect(Collectors.toList())));
+                            Arrays.stream(Position.values())
+                                    .collect(Collectors.toList())));
         }
+    }
+
+    @Override
+    public List<AbstractEmployee> saveAll(List<AbstractEmployee> entities) {
+        return null;
     }
 }

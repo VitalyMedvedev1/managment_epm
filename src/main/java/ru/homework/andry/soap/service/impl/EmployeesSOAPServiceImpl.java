@@ -12,6 +12,7 @@ import ru.homework.andry.soap.builder.impl.GetEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.model.employee.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
+import ru.homework.andry.soap.service.AbstractEmployeeService;
 import ru.homework.andry.soap.service.EmployeeDataValidation;
 import ru.homework.andry.soap.service.EmployeesSOAPService;
 
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 @Service("SOAP")
 @RequiredArgsConstructor
 @Slf4j
-public class EmployeesSOAPServiceImpl implements EmployeesSOAPService {
+public class EmployeesSOAPServiceImpl extends AbstractEmployeeService implements EmployeesSOAPService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
@@ -54,9 +55,10 @@ public class EmployeesSOAPServiceImpl implements EmployeesSOAPService {
 
     @Override
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
-        List<AbstractEmployee> abstractEmployees =
-                employeeDataValidation.validate(
-                        map(request));
+
+        List<AbstractEmployee> abstractEmployees = map(request);
+
+        employeeDataValidation.validate(abstractEmployees);
 
         save(getCorrectEmployee(abstractEmployees));
 
@@ -73,13 +75,6 @@ public class EmployeesSOAPServiceImpl implements EmployeesSOAPService {
     private List<AbstractEmployee> map(CreateEmployeesRequest request) {
         log.info("Mapping employees from soap message to employeeElements");
         return employeeMapper.employeesToElements(request.getEmployees());
-    }
-
-    private List<AbstractEmployee> getCorrectEmployee(List<AbstractEmployee> abstractEmployees) {
-        log.info("Get correct employees");
-        return abstractEmployees.stream()
-                .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
-                .collect(Collectors.toList());
     }
 
     @Transactional

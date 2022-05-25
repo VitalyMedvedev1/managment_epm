@@ -13,36 +13,39 @@ import java.util.stream.Collectors;
 public class EmployeeDataValidationImpl implements EmployeeDataValidation {
 
     @Override
-    public List<AbstractEmployee> validate(List<AbstractEmployee> employees) {
+    public void validate(List<AbstractEmployee> employees) {
         log.info("Start validate employees data");
-        return checkEmployeesDataAndSetError(employees);
+        checkEmployeesDataAndSetError(employees);
     }
 
-    private List<AbstractEmployee> checkEmployeesDataAndSetError(List<AbstractEmployee> employees) {
+    private void checkEmployeesDataAndSetError(List<AbstractEmployee> employees) {
         log.debug("Start checking data employees");
-        return employees.stream()
-                .peek(this::incorrectSalaryAndRequiredField)
-                .peek(this::incorrectSalary)
-                .peek(this::incorrectRequiredField)
+        employees.stream()
+                .map(this::incorrectSalaryAndRequiredField)
+                .map(this::incorrectSalary)
+                .map(this::incorrectRequiredField)
                 .collect(Collectors.toList());
     }
 
-    private void incorrectSalaryAndRequiredField(AbstractEmployee emp) {
+    private AbstractEmployee incorrectSalaryAndRequiredField(AbstractEmployee emp) {
         if (!emp.checkSalary() && emp.isBlankRequiredField()) {
             emp.setErrorIncorrectSalaryMessage();
             emp.setErrorRequiredMessage();
         }
+        return emp;
     }
 
-    private void incorrectRequiredField(AbstractEmployee emp) {
+    private AbstractEmployee incorrectRequiredField(AbstractEmployee emp) {
         if (emp.checkSalary() && emp.isBlankRequiredField()) {
             emp.setErrorRequiredMessage();
         }
+        return emp;
     }
 
-    private void incorrectSalary(AbstractEmployee emp) {
+    private AbstractEmployee incorrectSalary(AbstractEmployee emp) {
         if (!emp.checkSalary() && !emp.isBlankRequiredField()) {
             emp.setErrorIncorrectSalaryMessage();
         }
+        return emp;
     }
 }
