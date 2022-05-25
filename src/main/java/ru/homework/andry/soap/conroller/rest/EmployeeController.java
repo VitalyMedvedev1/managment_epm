@@ -1,7 +1,9 @@
 package ru.homework.andry.soap.conroller.rest;
 
+import io.dliga.micro.employee_web_service.Position;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.homework.andry.soap.model.employee.AbstractEmployee;
@@ -20,6 +22,12 @@ public class EmployeeController {
     @GetMapping
     public List<AbstractEmployee> findAll() {
         return employeeRESTService.findAll();
+    }
+
+
+    @GetMapping("/{position}")
+    public List<AbstractEmployee> findAllByPosition(@PathVariable String position) {
+        return employeeRESTService.findAllByPosition(position);
     }
 
 //    @PostMapping("/note")

@@ -50,9 +50,9 @@
 
     <xs:simpleType name="position">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Manager"/>
-            <xs:enumeration value="Developer"/>
-            <xs:enumeration value="Analytics"/>
+            <xs:enumeration value="manager"/>
+            <xs:enumeration value="developer"/>
+            <xs:enumeration value="analytics"/>
         </xs:restriction>
     </xs:simpleType>
 

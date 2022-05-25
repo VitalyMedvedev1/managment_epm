@@ -7,4 +7,6 @@ import java.util.List;
 public interface EmployeeRESTService {
 
     List<AbstractEmployee> findAll();
+
+    List<AbstractEmployee> findAllByPosition(String position);
 }
