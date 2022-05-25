@@ -13,7 +13,7 @@ import static ru.homework.andry.soap.constant.Values.*;
 @Configuration
 @EnableScheduling
 @EnableAsync
-public class SchedulingAsyncConfig {
+public class SchedulingAsyncConfig { //todo не понимаю зачем это
 
     @Bean("empExecutor")
     public Executor initEmpExecutor() {

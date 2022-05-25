@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = Employee.class)
 @SuppressWarnings("All")
-public interface EmployeeMapper {
+public interface EmployeeMapper {//todo сделай маппер без бина и сделай обычным классом
 
     default List<EmployeeEntity> elementsToEntities(List<AbstractEmployee> employees) {
         return employees.stream()

@@ -18,6 +18,7 @@ public class DeveloperElement extends AbstractEmployee {
     private String language;
     private String level;
 
+    //todo сделай переносы
     public DeveloperElement(Long id, String firstName, String lastName, int age, int salary, Position position, String language, String level) {
         super(id, firstName, lastName, age, salary, position);
         this.language = language;

@@ -17,6 +17,7 @@ public class ManagerElement extends AbstractEmployee {
 
     private String project;
 
+    //todo сделай переносы
     public ManagerElement(Long id, String firstName, String lastName, int age, int salary, Position position, String project) {
         super(id, firstName, lastName, age, salary, position);
         this.project = project;

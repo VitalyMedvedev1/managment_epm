@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource("classpath:application.properties")
-public final class Values {
+public final class Values { //todo лучше так назвать ValueConst
 
     public static final int ERROR_CODE = 99;
 
@@ -22,7 +22,7 @@ public final class Values {
     public static Range<Integer> ANALYTICS_SALARY_RANGE;
     public static Range<Integer> DEVELOPER_SALARY_RANGE;
     public static Range<Integer> MANAGER_SALARY_RANGE;
-    public static String SALARY_ERROR_TEXT_MESSAGE = "Данная зарплата не подходит для позиции: {0}. ";
+    public static String SALARY_ERROR_TEXT_MESSAGE = "Данная зарплата не подходит для позиции: {0}. "; //todo кириллица в коде плохо. Используй resourceBundle посмотреть можно в fccr класс MessageService
     public static String REQUIRED_FIELD_ERROR_TEXT_MESSAGE = "Для позиции: {0}, обязательные поля не заполнены!";
     public Values(@Value("${config.analytics.min.salary}") int analyticsMinSalary,
                   @Value("${config.analytics.max.salary}") int analyticsMaxSalary,

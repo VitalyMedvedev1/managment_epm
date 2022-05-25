@@ -10,6 +10,7 @@ public class StatusResponseBuilder {
     private static int errorCode;
     private static String errorMessage = "";
 
+    //todo в проекте нет CreateEmployeesResponse Employee Status
     public static Status build(int code, String message) {
         Status status = new Status();
         status.setErrorCode(code);
