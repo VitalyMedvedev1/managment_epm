@@ -26,6 +26,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
     private final EmployeeDataValidation employeeDataValidation;
+    @SuppressWarnings("rawtypes")
     private final List<EmployeeResponseBuilder> responseBuilders;
 
     @Override
@@ -43,7 +44,7 @@ public class EmployeesServiceImpl implements EmployeesService {
         return getEmployeesResponse;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private <T> void addResponseBody(List<AbstractEmployee> abstractEmployees,
                                      T employeesResponse,
                                      EmployeeResponseBuilder employeeResponseBuilder) {
