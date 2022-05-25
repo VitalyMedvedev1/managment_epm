@@ -8,10 +8,10 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.impl.GetEmployeeResponseBuilder;
-import ru.homework.andry.soap.constant.Values;
+import ru.homework.andry.soap.constant.ValueConst;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.repository.EmployeeRepository;
-import ru.homework.andry.soap.repository.entity.EmployeeEntity;
+import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +28,7 @@ class EmployeesSOAPServiceImplTest {
 
     private final EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
     private final EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
-    private final Values values = new Values(
+    private final ValueConst valueConst = new ValueConst(
             10000,
             35000,
             50000,

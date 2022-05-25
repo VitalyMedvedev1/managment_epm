@@ -5,8 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.homework.andry.soap.constant.Values;
-import ru.homework.andry.soap.model.employee.AbstractEmployee;
+import ru.homework.andry.soap.constant.ValueConst;
+import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.service.EmployeeDataValidation;
 
 import java.text.MessageFormat;
@@ -15,16 +15,16 @@ import java.util.stream.Collectors;
 
 import static io.dliga.micro.employee_web_service.Position.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.homework.andry.soap.constant.Values.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
-import static ru.homework.andry.soap.constant.Values.SALARY_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.ValueConst.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.ValueConst.SALARY_ERROR_TEXT_MESSAGE;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
-import static ru.homework.andry.soap.testdata.ValueTestData.getValues;
+import static ru.homework.andry.soap.testdata.ValueConstTestData.getValues;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeDataValidationImplTest {
 
     private final EmployeeDataValidation employeeDataValidation = new EmployeeDataValidationImpl();
-    private final Values values = getValues();
+    private final ValueConst valueConst = getValues();
 
     @Test
     void validate_EmployeesWithThreeDevelopers_SalaryAndFieldCorrect() {

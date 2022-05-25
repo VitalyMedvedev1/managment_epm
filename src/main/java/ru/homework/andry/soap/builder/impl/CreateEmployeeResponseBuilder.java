@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-import static ru.homework.andry.soap.constant.Values.ERROR_CODE;
+import static ru.homework.andry.soap.constant.ValueConst.ERROR_CODE;
 
 @Component
 @RequiredArgsConstructor

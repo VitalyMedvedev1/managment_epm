@@ -8,12 +8,12 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
-import static ru.homework.andry.soap.constant.Values.*;
+import static ru.homework.andry.soap.constant.ValueConst.*;
 
 @Configuration
 @EnableScheduling
 @EnableAsync
-public class SchedulingAsyncConfig {
+public class SchedulingAsyncConfig { //todo не понимаю зачем это
 
     @Bean("empExecutor")
     public Executor initEmpExecutor() {

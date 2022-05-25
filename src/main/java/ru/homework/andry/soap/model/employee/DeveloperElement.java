@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import ru.homework.andry.soap.model.employee.AbstractEmployee;
 
-import static ru.homework.andry.soap.constant.Values.DEVELOPER_SALARY_RANGE;
+import static ru.homework.andry.soap.constant.ValueConst.DEVELOPER_SALARY_RANGE;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +19,16 @@ public class DeveloperElement extends AbstractEmployee {
     private String language;
     private String level;
 
-    public DeveloperElement(Long id, String firstName, String lastName, int age, int salary, Position position, String language, String level) {
+    //todo сделай переносы
+    // done
+    public DeveloperElement(Long id,
+                            String firstName,
+                            String lastName,
+                            int age,
+                            int salary,
+                            Position position,
+                            String language,
+                            String level) {
         super(id, firstName, lastName, age, salary, position);
         this.language = language;
         this.level = level;
@@ -31,7 +40,7 @@ public class DeveloperElement extends AbstractEmployee {
     }
 
     @Override
-    public boolean checkRequiredField() {
-        return StringUtils.isNotEmpty(language) && StringUtils.isNotEmpty(level);
+    public boolean isBlankRequiredField() {
+        return StringUtils.isEmpty(language) || StringUtils.isEmpty(level);
     }
 }
