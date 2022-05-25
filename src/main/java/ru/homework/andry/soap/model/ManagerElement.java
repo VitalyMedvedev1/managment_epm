@@ -28,7 +28,7 @@ public class ManagerElement extends AbstractEmployee {
     }
 
     @Override
-    public boolean checkRequiredField() {
-        return StringUtils.isNotEmpty(project);
+    public boolean isBlankRequiredField() {
+        return StringUtils.isEmpty(project);
     }
 }
