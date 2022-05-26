@@ -1,8 +1,8 @@
-package ru.homework.andry.soap.service.impl;
+package ru.homework.andry.soap.service;
 
 import org.springframework.stereotype.Component;
-import ru.homework.andry.soap.model.AbstractEmployee;
-import ru.homework.andry.soap.service.EmployeeDataValidation;
+import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.api.service.EmployeeDataValidation;
 import lombok.extern.slf4j.*;
 
 import java.util.List;

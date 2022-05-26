@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.service.impl;
+package ru.homework.andry.soap.service;
 
 import io.dliga.micro.employee_web_service.*;
 import lombok.RequiredArgsConstructor;
@@ -6,14 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.homework.andry.soap.builder.EmployeeResponseBuilder;
-import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
-import ru.homework.andry.soap.builder.impl.GetEmployeeResponseBuilder;
-import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.AbstractEmployee;
+import ru.homework.andry.soap.api.builder.EmployeeResponseBuilder;
+import ru.homework.andry.soap.builder.CreateEmployeeResponseBuilder;
+import ru.homework.andry.soap.builder.GetEmployeeResponseBuilder;
+import ru.homework.andry.soap.element.AbstractEmployee;
 import ru.homework.andry.soap.repository.EmployeeRepository;
-import ru.homework.andry.soap.service.EmployeeDataValidation;
-import ru.homework.andry.soap.service.EmployeesService;
+import ru.homework.andry.soap.api.service.EmployeeDataValidation;
+import ru.homework.andry.soap.api.service.EmployeesService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ import java.util.stream.Collectors;
 public class EmployeesServiceImpl implements EmployeesService {
 
     private final EmployeeRepository employeeRepository;
-    private final EmployeeMapperService employeeMapperService;
+    private final EmployeeMapperServiceImpl employeeMapperServiceImpl;
     private final EmployeeDataValidation employeeDataValidation;
     @SuppressWarnings("rawtypes")
     private final List<EmployeeResponseBuilder> responseBuilders;
@@ -32,7 +31,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     @Override
     public GetEmployeesResponse findAll() {
         log.info("Find all entity employees and map to elements");
-        List<AbstractEmployee> abstractEmployees = employeeMapperService.entityToElement(employeeRepository.findAll());
+        List<AbstractEmployee> abstractEmployees = employeeMapperServiceImpl.entityToElement(employeeRepository.findAll());
         GetEmployeesResponse getEmployeesResponse = new GetEmployeesResponse();
 
         addResponseBody(abstractEmployees,
@@ -72,7 +71,7 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     private List<AbstractEmployee> map(CreateEmployeesRequest request) {
         log.info("Mapping employees from soap message to employeeElements");
-        return employeeMapperService.employeesToElements(request.getEmployees());
+        return employeeMapperServiceImpl.employeesToElements(request.getEmployees());
     }
 
     private List<AbstractEmployee> getCorrectEmployee(List<AbstractEmployee> abstractEmployees) {
@@ -86,6 +85,6 @@ public class EmployeesServiceImpl implements EmployeesService {
     void save(List<AbstractEmployee> employeesForSave) {
         log.info("Save employees");
         employeeRepository.saveAll(
-                employeeMapperService.elementsToEntities(employeesForSave));
+                employeeMapperServiceImpl.elementsToEntities(employeesForSave));
     }
 }

@@ -4,12 +4,12 @@ import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import ru.homework.andry.soap.model.AbstractEmployee;
-import ru.homework.andry.soap.model.AnalyticsElement;
-import ru.homework.andry.soap.model.DeveloperElement;
-import ru.homework.andry.soap.model.ManagerElement;
+import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.element.AnalyticsElement;
+import ru.homework.andry.soap.element.DeveloperElement;
+import ru.homework.andry.soap.element.ManagerElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
-import ru.homework.andry.soap.service.impl.EmployeeMapperService;
+import ru.homework.andry.soap.service.EmployeeMapperServiceImpl;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
 class EmployeeEntityMapperTest {
 
     private final EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
-    private final EmployeeMapperService employeeMapperService =
-            new EmployeeMapperService(employeeMapper);
+    private final EmployeeMapperServiceImpl employeeMapperServiceImpl =
+            new EmployeeMapperServiceImpl(employeeMapper);
 
     @Test
     void employeesSoapMsgToElements_EmployeesMsgWithEveryPosition_MapByPosition() {
@@ -32,7 +32,7 @@ class EmployeeEntityMapperTest {
                         new Position[]{MANAGER, ANALYTICS, DEVELOPER});
 
         List<AbstractEmployee> employeesElement =
-                employeeMapperService.employeesToElements(employeesFromSoapMsg);
+                employeeMapperServiceImpl.employeesToElements(employeesFromSoapMsg);
 
         assertThat(employeesFromSoapMsg.size())
                 .isEqualTo(employeesElement.size());
@@ -54,7 +54,7 @@ class EmployeeEntityMapperTest {
                         new Position[]{DEVELOPER, DEVELOPER, DEVELOPER});
 
         List<AbstractEmployee> employeesElement =
-                employeeMapperService.employeesToElements(employeesFromSoapMsg);
+                employeeMapperServiceImpl.employeesToElements(employeesFromSoapMsg);
 
         assertThat(employeesFromSoapMsg.size())
                 .isEqualTo(employeesElement.size());
@@ -77,7 +77,7 @@ class EmployeeEntityMapperTest {
                         "");
 
         List<EmployeeEntity> employeeEntities =
-                employeeMapperService.elementsToEntities(developerElements);
+                employeeMapperServiceImpl.elementsToEntities(developerElements);
 
         assertThat(employeeEntities.size())
                 .isEqualTo(3);
@@ -93,7 +93,7 @@ class EmployeeEntityMapperTest {
                         "");
         ManagerElement expectedElement = (ManagerElement) managerElement.get(0);
 
-        EmployeeEntity actualElement = employeeMapperService.elementsToEntities(managerElement).get(0);
+        EmployeeEntity actualElement = employeeMapperServiceImpl.elementsToEntities(managerElement).get(0);
 
         assertThat(expectedElement.getId())
                 .isEqualTo(actualElement.getId());
@@ -121,7 +121,7 @@ class EmployeeEntityMapperTest {
                         "");
         DeveloperElement expectedElement = (DeveloperElement) developers.get(0);
 
-        EmployeeEntity actualElement = employeeMapperService.elementsToEntities(developers).get(0);
+        EmployeeEntity actualElement = employeeMapperServiceImpl.elementsToEntities(developers).get(0);
 
         assertThat(expectedElement.getId())
                 .isEqualTo(actualElement.getId());

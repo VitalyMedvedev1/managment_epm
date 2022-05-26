@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.model;
+package ru.homework.andry.soap.element;
 
 import io.dliga.micro.employee_web_service.Position;
 import lombok.AllArgsConstructor;

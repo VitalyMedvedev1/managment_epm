@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.service.impl.schedul;
+package ru.homework.andry.soap.service.schedul;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 import ru.homework.andry.soap.entity.EmployeeEntity;
-import ru.homework.andry.soap.service.EmployeeScheduler;
+import ru.homework.andry.soap.api.service.EmployeeScheduler;
 
 import javax.annotation.PostConstruct;
 import java.util.Queue;

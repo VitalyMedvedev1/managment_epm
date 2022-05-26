@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.service.impl;
+package ru.homework.andry.soap.service;
 
 import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
-import ru.homework.andry.soap.builder.impl.GetEmployeeResponseBuilder;
+import ru.homework.andry.soap.builder.CreateEmployeeResponseBuilder;
+import ru.homework.andry.soap.builder.GetEmployeeResponseBuilder;
 import ru.homework.andry.soap.constant.ValueConst;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.repository.EmployeeRepository;
@@ -28,8 +28,8 @@ class EmployeesServiceImplTest {
 
     private final EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
     private final EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
-    private final EmployeeMapperService employeeMapperService =
-            new EmployeeMapperService(employeeMapper);
+    private final EmployeeMapperServiceImpl employeeMapperServiceImpl =
+            new EmployeeMapperServiceImpl(employeeMapper);
 
     private final ValueConst valueConst = new ValueConst(
             10000,
@@ -42,11 +42,11 @@ class EmployeesServiceImplTest {
     private final EmployeesServiceImpl employeesService =
             new EmployeesServiceImpl(
                     employeeRepository,
-                    employeeMapperService,
+                    employeeMapperServiceImpl,
                     new EmployeeDataValidationImpl(),
                     Arrays.asList(
-                            new GetEmployeeResponseBuilder(employeeMapperService),
-                            new CreateEmployeeResponseBuilder(employeeMapperService)));
+                            new GetEmployeeResponseBuilder(employeeMapperServiceImpl),
+                            new CreateEmployeeResponseBuilder(employeeMapperServiceImpl)));
 
     @Test
     void findAll() {
