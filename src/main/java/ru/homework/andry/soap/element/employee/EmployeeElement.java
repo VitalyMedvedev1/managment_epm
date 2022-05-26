@@ -16,7 +16,7 @@ import static ru.homework.andry.soap.constant.ValueConst.SALARY_ERROR_TEXT_MESSA
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class AbstractEmployee {
+public abstract class EmployeeElement {
     private Long id;
     private String firstName;
     private String lastName;
@@ -29,12 +29,12 @@ public abstract class AbstractEmployee {
     @JsonIgnore
     private String errorRequiredMessage;
 
-    public AbstractEmployee(Long id,
-                            String firstName,
-                            String lastName,
-                            int age,
-                            int salary,
-                            Position position) {
+    public EmployeeElement(Long id,
+                           String firstName,
+                           String lastName,
+                           int age,
+                           int salary,
+                           Position position) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

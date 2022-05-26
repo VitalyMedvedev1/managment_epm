@@ -1,15 +1,15 @@
 package ru.homework.andry.soap.api.service;
 
-import ru.homework.andry.soap.element.employee.AbstractEmployee;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
 
 import java.util.List;
 
 public interface EmployeeRESTService {
 
-    List<AbstractEmployee> findAll();
+    List<EmployeeElement> findAll();
 
-    List<AbstractEmployee> findAllByPosition(String position);
+    List<EmployeeElement> findAllByPosition(String position);
 
-    List<AbstractEmployee> saveAll(List<AbstractEmployee> entities);
+    List<EmployeeElement> saveAll(List<EmployeeElement> entities);
 
 }

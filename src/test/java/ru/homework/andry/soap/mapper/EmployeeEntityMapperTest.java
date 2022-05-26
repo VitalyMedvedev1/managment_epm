@@ -27,7 +27,7 @@ class EmployeeEntityMapperTest {
                         new int[]{1, 1, 1},
                         new Position[]{MANAGER, ANALYTICS, DEVELOPER});
 
-        List<AbstractEmployee> employeesElement =
+        List<EmployeeElement> employeesElement =
                 employeeSwitcherMapper.employeesToElements(employeesFromSoapMsg);
 
         assertThat(employeesFromSoapMsg.size())
@@ -49,7 +49,7 @@ class EmployeeEntityMapperTest {
                         new int[]{1, 1, 1},
                         new Position[]{DEVELOPER, DEVELOPER, DEVELOPER});
 
-        List<AbstractEmployee> employeesElement =
+        List<EmployeeElement> employeesElement =
                 employeeSwitcherMapper.employeesToElements(employeesFromSoapMsg);
 
         assertThat(employeesFromSoapMsg.size())
@@ -65,7 +65,7 @@ class EmployeeEntityMapperTest {
 
     @Test
     void elementsToEntities_ElementsWithThreeDeveloper() {
-        List<AbstractEmployee> developerElements =
+        List<EmployeeElement> developerElements =
                 getAbstractEmployees(
                         3,
                         new Position[]{DEVELOPER, DEVELOPER, DEVELOPER},
@@ -81,7 +81,7 @@ class EmployeeEntityMapperTest {
 
     @Test
     void elementsToEntities_ElementsWithManager() {
-        List<AbstractEmployee> managerElement =
+        List<EmployeeElement> managerElement =
                 getAbstractEmployees(
                         1,
                         new Position[]{MANAGER},
@@ -109,7 +109,7 @@ class EmployeeEntityMapperTest {
 
     @Test
     void elementsToEntities_ElementsWithDeveloper() {
-        List<AbstractEmployee> developers =
+        List<EmployeeElement> developers =
                 getAbstractEmployees(
                         1,
                         new Position[]{DEVELOPER},

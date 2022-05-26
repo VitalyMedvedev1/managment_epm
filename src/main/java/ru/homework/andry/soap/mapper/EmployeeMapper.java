@@ -34,5 +34,5 @@ public interface EmployeeMapper {//todo сделай маппер без бин�
 
     Employee analyticsToEmployee(AnalyticsElement employee);
 
-    Employee elementToEmployeeResponse(AbstractEmployee element);
+    Employee elementToEmployeeResponse(EmployeeElement element);
 }

@@ -11,7 +11,7 @@ import ru.homework.andry.soap.api.service.EmployeeDataValidation;
 import ru.homework.andry.soap.api.service.EmployeesSOAPService;
 import ru.homework.andry.soap.builder.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.GetEmployeeResponseBuilder;
-import ru.homework.andry.soap.element.employee.AbstractEmployee;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
 import ru.homework.andry.soap.mapper.EmployeeSwitcherMapper;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 
@@ -32,10 +32,10 @@ public class EmployeesSOAPServiceImpl extends AbstractEmployeeService implements
     @Override
     public GetEmployeesResponse findAll() {
         log.info("Find all entity employees and map to elements");
-        List<AbstractEmployee> abstractEmployees = employeeMapper.entityToElement(employeeRepository.findAll());
+        List<EmployeeElement> employeeElements = employeeMapper.entityToElement(employeeRepository.findAll());
         GetEmployeesResponse getEmployeesResponse = new GetEmployeesResponse();
 
-        addResponseBody(abstractEmployees,
+        addResponseBody(employeeElements,
                 getEmployeesResponse,
                 responseBuilders.stream()
                         .filter(rb -> rb instanceof GetEmployeeResponseBuilder)
@@ -45,24 +45,24 @@ public class EmployeesSOAPServiceImpl extends AbstractEmployeeService implements
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private <T> void addResponseBody(List<AbstractEmployee> abstractEmployees,
+    private <T> void addResponseBody(List<EmployeeElement> employeeElements,
                                      T employeesResponse,
                                      EmployeeResponseBuilder employeeResponseBuilder) {
 
-        employeeResponseBuilder.build(employeesResponse, abstractEmployees);
+        employeeResponseBuilder.build(employeesResponse, employeeElements);
     }
 
     @Override
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
 
-        List<AbstractEmployee> abstractEmployees = map(request);
+        List<EmployeeElement> employeeElements = map(request);
 
-        employeeDataValidation.validate(abstractEmployees);
+        employeeDataValidation.validate(employeeElements);
 
-        save(getCorrectEmployee(abstractEmployees));
+        save(getCorrectEmployee(employeeElements));
 
         CreateEmployeesResponse createEmployeesResponse = new CreateEmployeesResponse();
-        addResponseBody(abstractEmployees,
+        addResponseBody(employeeElements,
                 createEmployeesResponse,
                 responseBuilders.stream()
                         .filter(rb -> rb instanceof CreateEmployeeResponseBuilder)
@@ -71,13 +71,13 @@ public class EmployeesSOAPServiceImpl extends AbstractEmployeeService implements
         return createEmployeesResponse;
     }
 
-    private List<AbstractEmployee> map(CreateEmployeesRequest request) {
+    private List<EmployeeElement> map(CreateEmployeesRequest request) {
         log.info("Mapping employees from soap message to employeeElements");
         return employeeMapper.employeesToElements(request.getEmployees());
     }
 
     @Transactional
-    void save(List<AbstractEmployee> employeesForSave) {
+    void save(List<EmployeeElement> employeesForSave) {
         log.info("Save employees");
         employeeRepository.saveAll(
                 employeeMapper.elementsToEntities(employeesForSave));

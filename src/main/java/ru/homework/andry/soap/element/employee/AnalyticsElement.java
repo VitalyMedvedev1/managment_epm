@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import ru.homework.andry.soap.element.employee.AbstractEmployee;
 
 import static ru.homework.andry.soap.constant.ValueConst.*;
 
@@ -14,7 +13,7 @@ import static ru.homework.andry.soap.constant.ValueConst.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class AnalyticsElement extends AbstractEmployee {
+public class AnalyticsElement extends EmployeeElement {
 
     private String type;
 

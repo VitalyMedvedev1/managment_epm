@@ -16,13 +16,13 @@ public class EmployeeSwitcherMapper {
 
     private final EmployeeMapper employeeMapper;
 
-    public List<EmployeeEntity> elementsToEntities(List<AbstractEmployee> employees) {
+    public List<EmployeeEntity> elementsToEntities(List<EmployeeElement> employees) {
         return employees.stream()
                 .map(this::elementToEntity)
                 .collect(Collectors.toList());
     }
 
-    private EmployeeEntity elementToEntity(AbstractEmployee employee) {
+    private EmployeeEntity elementToEntity(EmployeeElement employee) {
         if (employee.getPosition().equals(Position.ANALYTICS)) {
             return analyticsToEntity((AnalyticsElement) employee);
         }
@@ -46,13 +46,13 @@ public class EmployeeSwitcherMapper {
         return employeeMapper.analyticsToEntity(employee);
     }
 
-    public List<AbstractEmployee> employeesToElements(List<Employee> employees) {
+    public List<EmployeeElement> employeesToElements(List<Employee> employees) {
         return employees.stream()
                 .map(this::employeeElement)
                 .collect(Collectors.toList());
     }
 
-    private AbstractEmployee employeeElement(Employee employee) {
+    private EmployeeElement employeeElement(Employee employee) {
         if (employee.getPosition().equals(Position.ANALYTICS)) {
             return employeeToAnalytics(employee);
         }
@@ -76,13 +76,13 @@ public class EmployeeSwitcherMapper {
         return employeeMapper.employeeToManager(employee);
     }
 
-    public List<AbstractEmployee> entityToElement(List<EmployeeEntity> employees) {
+    public List<EmployeeElement> entityToElement(List<EmployeeEntity> employees) {
         return employees.stream()
                 .map(this::entityToEmployee)
                 .collect(Collectors.toList());
     }
 
-    private AbstractEmployee entityToEmployee(EmployeeEntity entity) {
+    private EmployeeElement entityToEmployee(EmployeeEntity entity) {
         if (entity.getPosition().equals(Position.ANALYTICS)) {
             return analyticsToElement(entity);
         }
@@ -106,13 +106,13 @@ public class EmployeeSwitcherMapper {
         return employeeMapper.managerToElement(entity);
     }
 
-    public List<Employee> elementsToEmployees(List<AbstractEmployee> employees) {
+    public List<Employee> elementsToEmployees(List<EmployeeElement> employees) {
         return employees.stream()
                 .map(this::elementToEmployee)
                 .collect(Collectors.toList());
     }
 
-    private Employee elementToEmployee(AbstractEmployee employee) {
+    private Employee elementToEmployee(EmployeeElement employee) {
         if (employee.getPosition().equals(Position.ANALYTICS)) {
             return analyticsToEmployee((AnalyticsElement) employee);
         }
@@ -136,7 +136,7 @@ public class EmployeeSwitcherMapper {
         return employeeMapper.analyticsToEmployee(employee);
     }
 
-    public Employee elementToEmployeeResponse(AbstractEmployee element) {
+    public Employee elementToEmployeeResponse(EmployeeElement element) {
         return employeeMapper.elementToEmployeeResponse(element);
     }
 }

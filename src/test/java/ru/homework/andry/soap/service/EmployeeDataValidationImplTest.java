@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.homework.andry.soap.constant.ValueConst;
-import ru.homework.andry.soap.element.employee.AbstractEmployee;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
 import ru.homework.andry.soap.api.service.EmployeeDataValidation;
 
 import java.text.MessageFormat;
@@ -28,14 +28,14 @@ class EmployeeDataValidationImplTest {
 
     @Test
     void validate_EmployeesWithThreeDevelopers_SalaryAndFieldCorrect() {
-        List<AbstractEmployee> developerElements =
+        List<EmployeeElement> developerElements =
                 getAbstractEmployees(
                         3,
                         new Position[]{DEVELOPER, DEVELOPER, DEVELOPER},
                         new int[]{100000, 110000, 150000},
                         "");
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(developerElements);
+        List<EmployeeElement> employees = employeeDataValidation.validate(developerElements);
 
         assertThat(employees.size())
                 .isEqualTo(developerElements.size());
@@ -49,14 +49,14 @@ class EmployeeDataValidationImplTest {
 
     @Test
     void validate_EmployeeWithThreeDevelopers_SalaryIncorrect_RequiredFieldCorrect() {
-        List<AbstractEmployee> developerElements =
+        List<EmployeeElement> developerElements =
                 getAbstractEmployees(
                         3,
                         new Position[]{DEVELOPER, DEVELOPER, DEVELOPER},
                         new int[]{100, 110000, 150000},
                         "");
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(developerElements);
+        List<EmployeeElement> employees = employeeDataValidation.validate(developerElements);
 
         assertThat(employees.size())
                 .isEqualTo(3);
@@ -74,20 +74,20 @@ class EmployeeDataValidationImplTest {
                 developerElements.stream()
                         .filter(emp -> StringUtils.isNotEmpty(emp.getErrorIncorrectSalaryMessage()))
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
-                        .map(AbstractEmployee::getErrorIncorrectSalaryMessage)
+                        .map(EmployeeElement::getErrorIncorrectSalaryMessage)
                         .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, DEVELOPER.value()));
     }
 
     @Test
     void validate_EmployeeWithManager_SalaryIncorrectRequiredFieldCorrect() {
-        List<AbstractEmployee> managerElement =
+        List<EmployeeElement> managerElement =
                 getAbstractEmployees(
                         1,
                         new Position[]{MANAGER},
                         new int[]{50000},
                         "");
-        List<AbstractEmployee> employees = employeeDataValidation.validate(managerElement);
+        List<EmployeeElement> employees = employeeDataValidation.validate(managerElement);
 
         assertThat(employees.size())
                 .isEqualTo(managerElement.size());
@@ -96,7 +96,7 @@ class EmployeeDataValidationImplTest {
                 managerElement.stream()
                         .filter(emp -> StringUtils.isNotEmpty(emp.getErrorIncorrectSalaryMessage()))
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
-                        .map(AbstractEmployee::getErrorIncorrectSalaryMessage)
+                        .map(EmployeeElement::getErrorIncorrectSalaryMessage)
                         .collect(Collectors.joining())
         )
                 .isEqualTo(MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, MANAGER.value()));
@@ -104,13 +104,13 @@ class EmployeeDataValidationImplTest {
 
     @Test
     void validate_EmployeeWithManager_FiledProjectNameIsEmpty() {
-        List<AbstractEmployee> managerElement = getAbstractEmployees(
+        List<EmployeeElement> managerElement = getAbstractEmployees(
                 1,
                 new Position[]{MANAGER},
                 new int[]{160000},
                 PROJECT_NAME_IS_EMPTY);
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(managerElement);
+        List<EmployeeElement> employees = employeeDataValidation.validate(managerElement);
 
         assertThat(employees.size()).isEqualTo(managerElement.size());
 
@@ -118,20 +118,20 @@ class EmployeeDataValidationImplTest {
                 managerElement.stream()
                         .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .map(AbstractEmployee::getErrorRequiredMessage)
+                        .map(EmployeeElement::getErrorRequiredMessage)
                         .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, MANAGER.value()));
     }
 
     @Test
     void validate_EmployeeWithDeveloper_FiledLanguageIsEmpty() {
-        List<AbstractEmployee> developerElement = getAbstractEmployees(
+        List<EmployeeElement> developerElement = getAbstractEmployees(
                 1,
                 new Position[]{DEVELOPER},
                 new int[]{100000},
                 LANGUAGE_IS_EMPTY);
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(developerElement);
+        List<EmployeeElement> employees = employeeDataValidation.validate(developerElement);
 
         assertThat(employees.size())
                 .isEqualTo(developerElement.size());
@@ -140,20 +140,20 @@ class EmployeeDataValidationImplTest {
                 developerElement.stream()
                         .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .map(AbstractEmployee::getErrorRequiredMessage)
+                        .map(EmployeeElement::getErrorRequiredMessage)
                         .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, DEVELOPER.value()));
     }
 
     @Test
     void validate_EmployeeWithDeveloper_FiledLevelIsEmpty() {
-        List<AbstractEmployee> developerElement = getAbstractEmployees(
+        List<EmployeeElement> developerElement = getAbstractEmployees(
                 1,
                 new Position[]{DEVELOPER},
                 new int[]{100000},
                 LEVEL_IS_EMPTY);
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(developerElement);
+        List<EmployeeElement> employees = employeeDataValidation.validate(developerElement);
 
         assertThat(employees.size())
                 .isEqualTo(developerElement.size());
@@ -162,20 +162,20 @@ class EmployeeDataValidationImplTest {
                 developerElement.stream()
                         .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .map(AbstractEmployee::getErrorRequiredMessage)
+                        .map(EmployeeElement::getErrorRequiredMessage)
                         .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, DEVELOPER.value()));
     }
 
     @Test
     void validate_EmployeeWithAnalytics_FiledTypeIsEmpty() {
-        List<AbstractEmployee> analyticsElement = getAbstractEmployees(
+        List<EmployeeElement> analyticsElement = getAbstractEmployees(
                 1,
                 new Position[]{ANALYTICS},
                 new int[]{25000},
                 TYPE_IS_EMPTY);
 
-        List<AbstractEmployee> employees = employeeDataValidation.validate(analyticsElement);
+        List<EmployeeElement> employees = employeeDataValidation.validate(analyticsElement);
 
         assertThat(employees.size())
                 .isEqualTo(analyticsElement.size());
@@ -183,7 +183,7 @@ class EmployeeDataValidationImplTest {
                 analyticsElement.stream()
                         .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
                         .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .map(AbstractEmployee::getErrorRequiredMessage)
+                        .map(EmployeeElement::getErrorRequiredMessage)
                         .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, ANALYTICS.value()));
     }

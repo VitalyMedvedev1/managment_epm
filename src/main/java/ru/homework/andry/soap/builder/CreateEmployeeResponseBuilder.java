@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import ru.homework.andry.soap.api.builder.EmployeeResponseBuilder;
-import ru.homework.andry.soap.element.employee.AbstractEmployee;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
 import lombok.extern.slf4j.Slf4j;
 import ru.homework.andry.soap.mapper.EmployeeSwitcherMapper;
 
@@ -23,7 +23,7 @@ public class CreateEmployeeResponseBuilder implements EmployeeResponseBuilder<Cr
     private final EmployeeSwitcherMapper employeeSwitcherMapper;
 
     @Override //todo в проекте нет CreateEmployeesResponse Employee Status
-    public void build(CreateEmployeesResponse createEmployeesResponse, List<AbstractEmployee> employees) {
+    public void build(CreateEmployeesResponse createEmployeesResponse, List<EmployeeElement> employees) {
         log.info("Start generate GetEmployeesResponse");
         employees.forEach(
                 element -> {

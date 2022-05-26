@@ -3,7 +3,7 @@ package ru.homework.andry.soap.web.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.homework.andry.soap.element.employee.AbstractEmployee;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
 import ru.homework.andry.soap.api.service.EmployeeRESTService;
 
 import java.util.List;
@@ -16,19 +16,19 @@ public class EmployeeController {
     private final EmployeeRESTService employeeRESTService;
 
     @GetMapping
-    public List<AbstractEmployee> findAll() {
+    public List<EmployeeElement> findAll() {
         return employeeRESTService.findAll();
     }
 
 
     @GetMapping("/{position}")
-    public List<AbstractEmployee> findAllByPosition(@PathVariable String position) {
+    public List<EmployeeElement> findAllByPosition(@PathVariable String position) {
         return employeeRESTService.findAllByPosition(position);
     }
 
     @PostMapping("/note")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<AbstractEmployee> saveAll(@RequestBody List<AbstractEmployee> employees) {
+    public List<EmployeeElement> saveAll(@RequestBody List<EmployeeElement> employees) {
         return employeeRESTService.saveAll(employees);
     }
 //

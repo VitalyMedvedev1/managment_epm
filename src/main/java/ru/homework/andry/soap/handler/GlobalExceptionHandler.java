@@ -5,9 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import ru.homework.andry.soap.element.response.ErrorResponse;
 import ru.homework.andry.soap.exeption.BusinessLogicException;
 import ru.homework.andry.soap.exeption.TokenServiceException;
-import ru.homework.andry.soap.model.response.ErrorResponse;
 
 import javax.persistence.EntityNotFoundException;
 

@@ -13,7 +13,7 @@ import static ru.homework.andry.soap.constant.ValueConst.MANAGER_SALARY_RANGE;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ManagerElement extends AbstractEmployee {
+public class ManagerElement extends EmployeeElement {
 
     private String project;
 

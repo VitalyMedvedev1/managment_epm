@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.homework.andry.soap.api.service.EmployeeRESTService;
-import ru.homework.andry.soap.element.employee.AbstractEmployee;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.exeption.BusinessLogicException;
 import ru.homework.andry.soap.mapper.EmployeeSwitcherMapper;
@@ -26,7 +26,7 @@ public class EmployeesRESTServiceImpl extends AbstractEmployeeService implements
     private final EmployeeSwitcherMapper employeeMapperService;
 
     @Override
-    public List<AbstractEmployee> findAll() {
+    public List<EmployeeElement> findAll() {
         log.info("Find all employees");
         List<EmployeeEntity> entities = employeeRepository.findAll();
         if (entities.isEmpty()) {
@@ -36,7 +36,7 @@ public class EmployeesRESTServiceImpl extends AbstractEmployeeService implements
     }
 
     @Override
-    public List<AbstractEmployee> findAllByPosition(String positionValue) {
+    public List<EmployeeElement> findAllByPosition(String positionValue) {
         Position position = getEnumPosition(positionValue);
         log.info("Find employees by position: {}", position.name());
         List<EmployeeEntity> entities = employeeRepository.findAllByPosition(position);
@@ -61,7 +61,7 @@ public class EmployeesRESTServiceImpl extends AbstractEmployeeService implements
     }
 
     @Override
-    public List<AbstractEmployee> saveAll(List<AbstractEmployee> entities) {
+    public List<EmployeeElement> saveAll(List<EmployeeElement> entities) {
         return null;
     }
 }
