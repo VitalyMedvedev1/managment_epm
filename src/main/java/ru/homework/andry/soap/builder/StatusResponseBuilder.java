@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.builder.impl;
+package ru.homework.andry.soap.builder;
 
 import io.dliga.micro.employee_web_service.Status;
 import lombok.Data;

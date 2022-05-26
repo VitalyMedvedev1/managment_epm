@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.model;
+package ru.homework.andry.soap.element;
 
 import org.junit.jupiter.api.Test;
 import ru.homework.andry.soap.AbstractSpringContext;

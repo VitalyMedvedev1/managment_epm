@@ -1,13 +1,12 @@
-package ru.homework.andry.soap.builder.impl;
+package ru.homework.andry.soap.builder;
 
 import io.dliga.micro.employee_web_service.GetEmployeesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.homework.andry.soap.builder.EmployeeResponseBuilder;
-import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.AbstractEmployee;
+import ru.homework.andry.soap.api.builder.EmployeeResponseBuilder;
+import ru.homework.andry.soap.element.AbstractEmployee;
 import lombok.extern.slf4j.Slf4j;
-import ru.homework.andry.soap.service.impl.EmployeeMapperService;
+import ru.homework.andry.soap.service.EmployeeMapperServiceImpl;
 
 import java.util.List;
 
@@ -16,13 +15,13 @@ import java.util.List;
 @Slf4j
 public class GetEmployeeResponseBuilder implements EmployeeResponseBuilder<GetEmployeesResponse> {
 
-    private final EmployeeMapperService employeeMapperService;
+    private final EmployeeMapperServiceImpl employeeMapperServiceImpl;
 
     @Override  //todo в проекте нет GetEmployeesResponse
     public void build(GetEmployeesResponse getEmployeesResponse, List<AbstractEmployee> employees) {
         log.info("Start generate GetEmployeesResponse");
         getEmployeesResponse.getEmployees()
-                .addAll(employeeMapperService.elementsToEmployees(employees));
+                .addAll(employeeMapperServiceImpl.elementsToEmployees(employees));
 
         getEmployeesResponse.setStatus(StatusResponseBuilder.build());
     }

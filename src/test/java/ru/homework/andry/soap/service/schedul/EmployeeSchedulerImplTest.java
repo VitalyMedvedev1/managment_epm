@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.service.impl.schedul;
+package ru.homework.andry.soap.service.schedul;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

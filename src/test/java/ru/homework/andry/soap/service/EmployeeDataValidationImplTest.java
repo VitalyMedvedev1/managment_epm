@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.service.impl;
+package ru.homework.andry.soap.service;
 
 import io.dliga.micro.employee_web_service.Position;
 import org.apache.commons.lang3.StringUtils;
@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.homework.andry.soap.constant.ValueConst;
-import ru.homework.andry.soap.model.AbstractEmployee;
-import ru.homework.andry.soap.service.EmployeeDataValidation;
+import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.api.service.EmployeeDataValidation;
 
 import java.text.MessageFormat;
 import java.util.List;

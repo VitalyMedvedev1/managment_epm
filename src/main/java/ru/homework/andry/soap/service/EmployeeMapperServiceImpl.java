@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.service.impl;
+package ru.homework.andry.soap.service;
 
 import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
@@ -6,17 +6,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.AbstractEmployee;
-import ru.homework.andry.soap.model.AnalyticsElement;
-import ru.homework.andry.soap.model.DeveloperElement;
-import ru.homework.andry.soap.model.ManagerElement;
+import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.element.AnalyticsElement;
+import ru.homework.andry.soap.element.DeveloperElement;
+import ru.homework.andry.soap.element.ManagerElement;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeMapperService {
+public class EmployeeMapperServiceImpl {
+
     private final EmployeeMapper employeeMapper;
 
     public List<EmployeeEntity> elementsToEntities(List<AbstractEmployee> employees) {

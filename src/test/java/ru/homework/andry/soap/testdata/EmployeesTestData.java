@@ -2,10 +2,10 @@ package ru.homework.andry.soap.testdata;
 
 import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
-import ru.homework.andry.soap.model.AbstractEmployee;
-import ru.homework.andry.soap.model.AnalyticsElement;
-import ru.homework.andry.soap.model.DeveloperElement;
-import ru.homework.andry.soap.model.ManagerElement;
+import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.element.AnalyticsElement;
+import ru.homework.andry.soap.element.DeveloperElement;
+import ru.homework.andry.soap.element.ManagerElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.math.BigInteger;
