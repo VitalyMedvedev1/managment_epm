@@ -39,9 +39,5 @@ public interface EmployeeMapper {//todo сделай маппер без бин�
 
     Employee analyticsToEmployee(AnalyticsElement employee);
 
-    List<Employee> entitiesToEmployeesResponse(List<EmployeeEntity> employees);
-
-    Employee entityToEmployeeResponse(EmployeeEntity employee);
-
     Employee elementToEmployeeResponse(AbstractEmployee element);
 }

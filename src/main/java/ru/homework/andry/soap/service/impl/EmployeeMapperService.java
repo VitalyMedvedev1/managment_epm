@@ -139,14 +139,6 @@ public class EmployeeMapperService {
         return employeeMapper.analyticsToEmployee(employee);
     }
 
-    public List<Employee> entitiesToEmployeesResponse(List<EmployeeEntity> employees) {
-        return employeeMapper.entitiesToEmployeesResponse(employees);
-    }
-
-    public Employee entityToEmployeeResponse(EmployeeEntity employee) {
-        return employeeMapper.entityToEmployeeResponse(employee);
-    }
-
     public Employee elementToEmployeeResponse(AbstractEmployee element) {
         return employeeMapper.elementToEmployeeResponse(element);
     }
