@@ -8,7 +8,8 @@ import ru.homework.andry.soap.model.AbstractEmployee;
 import ru.homework.andry.soap.model.AnalyticsElement;
 import ru.homework.andry.soap.model.DeveloperElement;
 import ru.homework.andry.soap.model.ManagerElement;
-import ru.homework.andry.soap.repository.entity.EmployeeEntity;
+import ru.homework.andry.soap.entity.EmployeeEntity;
+import ru.homework.andry.soap.service.impl.EmployeeMapperService;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
 class EmployeeEntityMapperTest {
 
     private final EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
+    private final EmployeeMapperService employeeMapperService =
+            new EmployeeMapperService(employeeMapper);
 
     @Test
     void employeesSoapMsgToElements_EmployeesMsgWithEveryPosition_MapByPosition() {
@@ -29,7 +32,7 @@ class EmployeeEntityMapperTest {
                         new Position[]{MANAGER, ANALYTICS, DEVELOPER});
 
         List<AbstractEmployee> employeesElement =
-                employeeMapper.employeesToElements(employeesFromSoapMsg);
+                employeeMapperService.employeesToElements(employeesFromSoapMsg);
 
         assertThat(employeesFromSoapMsg.size())
                 .isEqualTo(employeesElement.size());
@@ -51,7 +54,7 @@ class EmployeeEntityMapperTest {
                         new Position[]{DEVELOPER, DEVELOPER, DEVELOPER});
 
         List<AbstractEmployee> employeesElement =
-                employeeMapper.employeesToElements(employeesFromSoapMsg);
+                employeeMapperService.employeesToElements(employeesFromSoapMsg);
 
         assertThat(employeesFromSoapMsg.size())
                 .isEqualTo(employeesElement.size());
@@ -74,7 +77,7 @@ class EmployeeEntityMapperTest {
                         "");
 
         List<EmployeeEntity> employeeEntities =
-                employeeMapper.elementsToEntities(developerElements);
+                employeeMapperService.elementsToEntities(developerElements);
 
         assertThat(employeeEntities.size())
                 .isEqualTo(3);
@@ -90,7 +93,7 @@ class EmployeeEntityMapperTest {
                         "");
         ManagerElement expectedElement = (ManagerElement) managerElement.get(0);
 
-        EmployeeEntity actualElement = employeeMapper.elementsToEntities(managerElement).get(0);
+        EmployeeEntity actualElement = employeeMapperService.elementsToEntities(managerElement).get(0);
 
         assertThat(expectedElement.getId())
                 .isEqualTo(actualElement.getId());
@@ -118,7 +121,7 @@ class EmployeeEntityMapperTest {
                         "");
         DeveloperElement expectedElement = (DeveloperElement) developers.get(0);
 
-        EmployeeEntity actualElement = employeeMapper.elementsToEntities(developers).get(0);
+        EmployeeEntity actualElement = employeeMapperService.elementsToEntities(developers).get(0);
 
         assertThat(expectedElement.getId())
                 .isEqualTo(actualElement.getId());

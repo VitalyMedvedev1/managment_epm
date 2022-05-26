@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-import static ru.homework.andry.soap.constant.Values.DEVELOPER_SALARY_RANGE;
+import static ru.homework.andry.soap.constant.ValueConst.DEVELOPER_SALARY_RANGE;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +19,15 @@ public class DeveloperElement extends AbstractEmployee {
     private String level;
 
     //todo сделай переносы
-    public DeveloperElement(Long id, String firstName, String lastName, int age, int salary, Position position, String language, String level) {
+    // done
+    public DeveloperElement(Long id,
+                            String firstName,
+                            String lastName,
+                            int age,
+                            int salary,
+                            Position position,
+                            String language,
+                            String level) {
         super(id, firstName, lastName, age, salary, position);
         this.language = language;
         this.level = level;

@@ -10,24 +10,25 @@ import ru.homework.andry.soap.builder.EmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.model.AbstractEmployee;
 import lombok.extern.slf4j.Slf4j;
+import ru.homework.andry.soap.service.impl.EmployeeMapperService;
 
 import java.util.List;
 
-import static ru.homework.andry.soap.constant.Values.ERROR_CODE;
+import static ru.homework.andry.soap.constant.ValueConst.ERROR_CODE;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class CreateEmployeeResponseBuilder implements EmployeeResponseBuilder<CreateEmployeesResponse> {
 
-    private final EmployeeMapper employeeMapper;
+    private final EmployeeMapperService employeeMapperService;
 
     @Override //todo в проекте нет CreateEmployeesResponse Employee Status
     public void build(CreateEmployeesResponse createEmployeesResponse, List<AbstractEmployee> employees) {
         log.info("Start generate GetEmployeesResponse");
         employees.forEach(
                 element -> {
-                    Employee employee = employeeMapper.elementToEmployeeResponse(element);
+                    Employee employee = employeeMapperService.elementToEmployeeResponse(element);
                     employee.setStatus(getResponseStatus(element.getErrorMessage()));
                     createEmployeesResponse.getEmployees().add(employee);
                 });

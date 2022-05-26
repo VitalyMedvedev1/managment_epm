@@ -16,13 +16,12 @@ import org.springframework.xml.xsd.XsdSchema;
 
 import java.util.List;
 
-import static ru.homework.andry.soap.constant.Values.NAMESPACE_URI;
-import static ru.homework.andry.soap.constant.Values.ROOT_WS_URL;
+import static ru.homework.andry.soap.constant.ValueConst.NAMESPACE_URI;
+import static ru.homework.andry.soap.constant.ValueConst.ROOT_WS_URL;
 
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
-
 
     @Override
     public void addInterceptors(List<EndpointInterceptor> interceptors) {

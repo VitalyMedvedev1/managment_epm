@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-import static ru.homework.andry.soap.constant.Values.MANAGER_SALARY_RANGE;
+import static ru.homework.andry.soap.constant.ValueConst.MANAGER_SALARY_RANGE;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +18,14 @@ public class ManagerElement extends AbstractEmployee {
     private String project;
 
     //todo сделай переносы
-    public ManagerElement(Long id, String firstName, String lastName, int age, int salary, Position position, String project) {
+    // done
+    public ManagerElement(Long id,
+                          String firstName,
+                          String lastName,
+                          int age,
+                          int salary,
+                          Position position,
+                          String project) {
         super(id, firstName, lastName, age, salary, position);
         this.project = project;
     }

@@ -8,10 +8,10 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.impl.GetEmployeeResponseBuilder;
-import ru.homework.andry.soap.constant.Values;
+import ru.homework.andry.soap.constant.ValueConst;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.repository.EmployeeRepository;
-import ru.homework.andry.soap.repository.entity.EmployeeEntity;
+import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +28,10 @@ class EmployeesServiceImplTest {
 
     private final EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
     private final EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
-    private final Values values = new Values(
+    private final EmployeeMapperService employeeMapperService =
+            new EmployeeMapperService(employeeMapper);
+
+    private final ValueConst valueConst = new ValueConst(
             10000,
             35000,
             50000,
@@ -39,15 +42,17 @@ class EmployeesServiceImplTest {
     private final EmployeesServiceImpl employeesService =
             new EmployeesServiceImpl(
                     employeeRepository,
-                    employeeMapper,
+                    employeeMapperService,
                     new EmployeeDataValidationImpl(),
                     Arrays.asList(
-                            new GetEmployeeResponseBuilder(employeeMapper),
-                            new CreateEmployeeResponseBuilder(employeeMapper)));
+                            new GetEmployeeResponseBuilder(employeeMapperService),
+                            new CreateEmployeeResponseBuilder(employeeMapperService)));
 
     @Test
     void findAll() {
-        List<EmployeeEntity> employeeEntities = getEmployeeEntities(3, new Position[]{DEVELOPER, MANAGER, ANALYTICS});
+        List<EmployeeEntity> employeeEntities =
+                getEmployeeEntities(
+                        3, new Position[]{DEVELOPER, MANAGER, ANALYTICS});
         when(employeeRepository.findAll()).thenReturn(employeeEntities);
 
         List<Employee> employees = employeesService.findAll().getEmployees();
