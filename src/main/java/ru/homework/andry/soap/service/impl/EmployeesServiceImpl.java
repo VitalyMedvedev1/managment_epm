@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class EmployeesServiceImpl implements EmployeesService {
 
     private final EmployeeRepository employeeRepository;
-    private final EmployeeMapper employeeMapper;
+    private final EmployeeMapperService employeeMapperService;
     private final EmployeeDataValidation employeeDataValidation;
     @SuppressWarnings("rawtypes")
     private final List<EmployeeResponseBuilder> responseBuilders;
@@ -32,7 +32,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     @Override
     public GetEmployeesResponse findAll() {
         log.info("Find all entity employees and map to elements");
-        List<AbstractEmployee> abstractEmployees = employeeMapper.entityToElement(employeeRepository.findAll());
+        List<AbstractEmployee> abstractEmployees = employeeMapperService.entityToElement(employeeRepository.findAll());
         GetEmployeesResponse getEmployeesResponse = new GetEmployeesResponse();
 
         addResponseBody(abstractEmployees,
@@ -72,7 +72,7 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     private List<AbstractEmployee> map(CreateEmployeesRequest request) {
         log.info("Mapping employees from soap message to employeeElements");
-        return employeeMapper.employeesToElements(request.getEmployees());
+        return employeeMapperService.employeesToElements(request.getEmployees());
     }
 
     private List<AbstractEmployee> getCorrectEmployee(List<AbstractEmployee> abstractEmployees) {
@@ -86,6 +86,6 @@ public class EmployeesServiceImpl implements EmployeesService {
     void save(List<AbstractEmployee> employeesForSave) {
         log.info("Save employees");
         employeeRepository.saveAll(
-                employeeMapper.elementsToEntities(employeesForSave));
+                employeeMapperService.elementsToEntities(employeesForSave));
     }
 }

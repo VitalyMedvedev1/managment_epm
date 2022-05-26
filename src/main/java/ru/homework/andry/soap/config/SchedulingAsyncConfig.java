@@ -13,7 +13,9 @@ import static ru.homework.andry.soap.constant.ValueConst.*;
 @Configuration
 @EnableScheduling
 @EnableAsync
-public class SchedulingAsyncConfig { //todo не понимаю зачем это
+public class SchedulingAsyncConfig {
+    //todo не понимаю зачем это
+    // done включение асинх шедулера + настройка тасков и пула, конечно в варианте когда он 1 пофиг, но на будующее
 
     @Bean("empExecutor")
     public Executor initEmpExecutor() {
