@@ -7,9 +7,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.mapstruct.factory.Mappers;
-import ru.homework.andry.soap.builder.impl.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.model.employee.AbstractEmployee;
+import ru.homework.andry.soap.element.employee.AbstractEmployee;
+import ru.homework.andry.soap.mapper.EmployeeSwitcherMapper;
 
 import java.util.List;
 
@@ -20,7 +20,9 @@ import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
 class CreateEmployeeResponseBuilderTest {
 
     private final CreateEmployeeResponseBuilder responseBuilder =
-            new CreateEmployeeResponseBuilder(Mappers.getMapper(EmployeeMapper.class));
+            new CreateEmployeeResponseBuilder(
+                    new EmployeeSwitcherMapper(
+                            Mappers.getMapper(EmployeeMapper.class)));
 
     private final CreateEmployeesResponse response = new CreateEmployeesResponse();
 
