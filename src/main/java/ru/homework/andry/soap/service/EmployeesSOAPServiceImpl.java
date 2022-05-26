@@ -37,11 +37,17 @@ public class EmployeesSOAPServiceImpl extends AbstractEmployeeService implements
 
         addResponseBody(employeeElements,
                 getEmployeesResponse,
-                responseBuilders.stream()
-                        .filter(rb -> rb instanceof GetEmployeeResponseBuilder)
-                        .findFirst().orElseThrow());
+                getResponseBuilder());
 
+//       GetEmployeeResponseBuilder
         return getEmployeesResponse;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private EmployeeResponseBuilder getResponseBuilder() {
+        return responseBuilders.stream()
+                .filter(rb -> rb instanceof GetEmployeeResponseBuilder)
+                .findFirst().orElseThrow();
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})

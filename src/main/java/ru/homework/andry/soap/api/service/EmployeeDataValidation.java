@@ -8,6 +8,6 @@ public interface EmployeeDataValidation {
     //todo все интерфейсы в отдельный пакет api
     // done
 
-    List<EmployeeElement> validate(List<EmployeeElement> employees);
+    void validate(List<EmployeeElement> employees);
 
 }
