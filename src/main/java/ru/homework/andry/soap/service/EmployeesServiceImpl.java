@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.homework.andry.soap.api.builder.EmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.CreateEmployeeResponseBuilder;
 import ru.homework.andry.soap.builder.GetEmployeeResponseBuilder;
-import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.element.EmployeeElement;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 import ru.homework.andry.soap.api.service.EmployeeDataValidation;
 import ru.homework.andry.soap.api.service.EmployeesService;
@@ -31,10 +31,10 @@ public class EmployeesServiceImpl implements EmployeesService {
     @Override
     public GetEmployeesResponse findAll() {
         log.info("Find all entity employees and map to elements");
-        List<AbstractEmployee> abstractEmployees = employeeMapperServiceImpl.entityToElement(employeeRepository.findAll());
+        List<EmployeeElement> employeeElements = employeeMapperServiceImpl.entityToElement(employeeRepository.findAll());
         GetEmployeesResponse getEmployeesResponse = new GetEmployeesResponse();
 
-        addResponseBody(abstractEmployees,
+        addResponseBody(employeeElements,
                 getEmployeesResponse,
                 responseBuilders.stream()
                         .filter(rb -> rb instanceof GetEmployeeResponseBuilder)
@@ -44,23 +44,23 @@ public class EmployeesServiceImpl implements EmployeesService {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private <T> void addResponseBody(List<AbstractEmployee> abstractEmployees,
+    private <T> void addResponseBody(List<EmployeeElement> employeeElements,
                                      T employeesResponse,
                                      EmployeeResponseBuilder employeeResponseBuilder) {
 
-        employeeResponseBuilder.build(employeesResponse, abstractEmployees);
+        employeeResponseBuilder.build(employeesResponse, employeeElements);
     }
 
     @Override
     public CreateEmployeesResponse saveAll(CreateEmployeesRequest request) {
-        List<AbstractEmployee> abstractEmployees =
+        List<EmployeeElement> employeeElements =
                 employeeDataValidation.validate(
                         map(request));
 
-        save(getCorrectEmployee(abstractEmployees));
+        save(getCorrectEmployee(employeeElements));
 
         CreateEmployeesResponse createEmployeesResponse = new CreateEmployeesResponse();
-        addResponseBody(abstractEmployees,
+        addResponseBody(employeeElements,
                 createEmployeesResponse,
                 responseBuilders.stream()
                         .filter(rb -> rb instanceof CreateEmployeeResponseBuilder)
@@ -69,20 +69,20 @@ public class EmployeesServiceImpl implements EmployeesService {
         return createEmployeesResponse;
     }
 
-    private List<AbstractEmployee> map(CreateEmployeesRequest request) {
+    private List<EmployeeElement> map(CreateEmployeesRequest request) {
         log.info("Mapping employees from soap message to employeeElements");
         return employeeMapperServiceImpl.employeesToElements(request.getEmployees());
     }
 
-    private List<AbstractEmployee> getCorrectEmployee(List<AbstractEmployee> abstractEmployees) {
+    private List<EmployeeElement> getCorrectEmployee(List<EmployeeElement> employeeElements) {
         log.info("Get correct employees");
-        return abstractEmployees.stream()
+        return employeeElements.stream()
                 .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    void save(List<AbstractEmployee> employeesForSave) {
+    void save(List<EmployeeElement> employeesForSave) {
         log.info("Save employees");
         employeeRepository.saveAll(
                 employeeMapperServiceImpl.elementsToEntities(employeesForSave));

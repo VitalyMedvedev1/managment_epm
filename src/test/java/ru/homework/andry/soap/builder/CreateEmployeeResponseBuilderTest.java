@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.mapstruct.factory.Mappers;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
-import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.element.EmployeeElement;
 import ru.homework.andry.soap.service.EmployeeMapperServiceImpl;
 
 import java.util.List;
@@ -33,7 +33,7 @@ class CreateEmployeeResponseBuilderTest {
 
     @Test
     void build_EmployeesWithCorrectRows() {
-        List<AbstractEmployee> elements =
+        List<EmployeeElement> elements =
                 getAbstractEmployees(
                         3,
                         new Position[]{DEVELOPER, MANAGER, ANALYTICS},
@@ -56,7 +56,7 @@ class CreateEmployeeResponseBuilderTest {
 
     @Test
     void build_EmployeesWithCorrectRowAndIncorrectRow_ResponseWithOneErrorAndOneCorrect() {
-        List<AbstractEmployee> elements =
+        List<EmployeeElement> elements =
                 getAbstractEmployees(
                         2,
                         new Position[]{ANALYTICS, MANAGER},
@@ -87,7 +87,7 @@ class CreateEmployeeResponseBuilderTest {
 
     @Test
     void build_EmployeesWithIncorrectRows() {
-        List<AbstractEmployee> elements =
+        List<EmployeeElement> elements =
                 getAbstractEmployees(
                         3,
                         new Position[]{DEVELOPER, MANAGER, ANALYTICS},

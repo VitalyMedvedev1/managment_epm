@@ -2,7 +2,7 @@ package ru.homework.andry.soap.testdata;
 
 import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
-import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.element.EmployeeElement;
 import ru.homework.andry.soap.element.AnalyticsElement;
 import ru.homework.andry.soap.element.DeveloperElement;
 import ru.homework.andry.soap.element.ManagerElement;
@@ -83,26 +83,26 @@ public class EmployeesTestData {
                 position);
     }
 
-    public static List<AbstractEmployee> getAbstractEmployees(int count,
-                                                              Position[] positions,
-                                                              int[] salaries,
-                                                              String type_error) {
-        List<AbstractEmployee> abstractEmployees = new ArrayList<>();
+    public static List<EmployeeElement> getAbstractEmployees(int count,
+                                                             Position[] positions,
+                                                             int[] salaries,
+                                                             String type_error) {
+        List<EmployeeElement> employeeElements = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
             if (positions[i].equals(Position.ANALYTICS)) {
-                abstractEmployees.add(getAnalytics(i, salaries[i], type_error));
+                employeeElements.add(getAnalytics(i, salaries[i], type_error));
             } else if (positions[i].equals(Position.DEVELOPER)) {
-                abstractEmployees.add(getDeveloper(i, salaries[i], type_error));
+                employeeElements.add(getDeveloper(i, salaries[i], type_error));
             } else {
-                abstractEmployees.add(getManager(i, salaries[i], type_error));
+                employeeElements.add(getManager(i, salaries[i], type_error));
             }
         }
 
-        return abstractEmployees;
+        return employeeElements;
     }
 
-    public static AbstractEmployee getAnalytics(int i, int salary, String type_error) {
+    public static EmployeeElement getAnalytics(int i, int salary, String type_error) {
         String type = ANALYTICS_TYPE;
         if (type_error.equals(TYPE_IS_EMPTY)) {
             type = "";
@@ -123,7 +123,7 @@ public class EmployeesTestData {
         return analyticsElement;
     }
 
-    public static AbstractEmployee getDeveloper(int i, int salary, String type_error) {
+    public static EmployeeElement getDeveloper(int i, int salary, String type_error) {
         String language = DEVELOPER_LANGUAGE;
         if (type_error.equals(LANGUAGE_IS_EMPTY)) {
             language = "";
@@ -149,7 +149,7 @@ public class EmployeesTestData {
         return developerElement;
     }
 
-    public static AbstractEmployee getManager(int i, int salary, String type_error) {
+    public static EmployeeElement getManager(int i, int salary, String type_error) {
         String projectName = PROJECT;
         if (type_error.equals(PROJECT_NAME_IS_EMPTY)) {
             projectName = "";

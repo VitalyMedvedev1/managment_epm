@@ -4,7 +4,7 @@ import io.dliga.micro.employee_web_service.GetEmployeesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.homework.andry.soap.api.builder.EmployeeResponseBuilder;
-import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.element.EmployeeElement;
 import lombok.extern.slf4j.Slf4j;
 import ru.homework.andry.soap.service.EmployeeMapperServiceImpl;
 
@@ -18,7 +18,7 @@ public class GetEmployeeResponseBuilder implements EmployeeResponseBuilder<GetEm
     private final EmployeeMapperServiceImpl employeeMapperServiceImpl;
 
     @Override
-    public void build(GetEmployeesResponse getEmployeesResponse, List<AbstractEmployee> employees) {
+    public void build(GetEmployeesResponse getEmployeesResponse, List<EmployeeElement> employees) {
         log.info("Start generate GetEmployeesResponse");
         getEmployeesResponse.getEmployees()
                 .addAll(employeeMapperServiceImpl.elementsToEmployees(employees));

@@ -19,8 +19,9 @@ public final class ValueConst {
     public static Range<Integer> ANALYTICS_SALARY_RANGE;
     public static Range<Integer> DEVELOPER_SALARY_RANGE;
     public static Range<Integer> MANAGER_SALARY_RANGE;
-    public static String SALARY_ERROR_TEXT_MESSAGE = "Данная зарплата не подходит для позиции: {0}. "; //todo кириллица в коде плохо. Используй resourceBundle посмотреть можно в fccr класс MessageService
-    public static String REQUIRED_FIELD_ERROR_TEXT_MESSAGE = "Для позиции: {0}, обязательные поля не заполнены!";
+    public static String SALARY_ERROR_TEXT_MESSAGE = "This salary is not suitable for the position: {0}. "; //todo кириллица в коде плохо. Используй resourceBundle посмотреть можно в fccr класс MessageService
+    // done
+    public static String REQUIRED_FIELD_ERROR_TEXT_MESSAGE = "For position: {0}, required fields are empty!";
     public ValueConst(@Value("${config.analytics.min.salary}") int analyticsMinSalary,
                       @Value("${config.analytics.max.salary}") int analyticsMaxSalary,
                       @Value("${config.developer.min.salary}") int developerMinSalary,

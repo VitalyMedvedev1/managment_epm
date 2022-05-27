@@ -2,7 +2,7 @@ package ru.homework.andry.soap.mapper;
 
 import io.dliga.micro.employee_web_service.Employee;
 import org.mapstruct.Mapper;
-import ru.homework.andry.soap.element.AbstractEmployee;
+import ru.homework.andry.soap.element.EmployeeElement;
 import ru.homework.andry.soap.element.AnalyticsElement;
 import ru.homework.andry.soap.element.DeveloperElement;
 import ru.homework.andry.soap.element.ManagerElement;
@@ -36,5 +36,5 @@ public interface EmployeeMapper {
 
     Employee analyticsToEmployee(AnalyticsElement employee);
 
-    Employee elementToEmployeeResponse(AbstractEmployee element);
+    Employee elementToEmployeeResponse(EmployeeElement element);
 }

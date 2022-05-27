@@ -13,7 +13,7 @@ import static ru.homework.andry.soap.constant.ValueConst.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class AnalyticsElement extends AbstractEmployee {
+public class AnalyticsElement extends EmployeeElement {
 
     private String type;
 
