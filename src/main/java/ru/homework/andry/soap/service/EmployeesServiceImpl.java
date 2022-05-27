@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class EmployeesServiceImpl implements EmployeesService {
 
     private final EmployeeRepository employeeRepository;
-    private final EmployeeMapperServiceImpl employeeMapperServiceImpl;
+    private final EmployeeMapperServiceImpl employeeMapperServiceImpl; //todo почему не через интерфейс ?
     private final EmployeeDataValidation employeeDataValidation;
     @SuppressWarnings("rawtypes")
     private final List<EmployeeResponseBuilder> responseBuilders;

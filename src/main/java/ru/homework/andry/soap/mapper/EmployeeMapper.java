@@ -10,8 +10,7 @@ import ru.homework.andry.soap.entity.EmployeeEntity;
 
 @Mapper(componentModel = "spring", uses = Employee.class)
 @SuppressWarnings("All")
-public interface EmployeeMapper {//todo сделай маппер без бина и сделай обычным классом
-    // done переделал на сервис
+public interface EmployeeMapper {
 
     EmployeeEntity developerToEntity(DeveloperElement employee);
 

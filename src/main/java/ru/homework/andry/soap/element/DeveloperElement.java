@@ -18,8 +18,6 @@ public class DeveloperElement extends AbstractEmployee {
     private String language;
     private String level;
 
-    //todo сделай переносы
-    // done
     public DeveloperElement(Long id,
                             String firstName,
                             String lastName,

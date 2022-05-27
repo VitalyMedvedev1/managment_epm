@@ -22,6 +22,7 @@ import static ru.homework.andry.soap.constant.ValueConst.QUEUE_SIZE_FOR_DELETE_E
 @Service
 @RequiredArgsConstructor
 public class EmployeeSchedulerImpl implements EmployeeScheduler {
+    //todo лучше пометить, как Configuration -> убрать интерфейс, назвать EmployeeSchedulerConfig или просто SchedulerConfig и отправить в пакет config
 
     private final EmployeeRepository employeeRepository;
     private final Queue<EmployeeEntity> employees = new ConcurrentLinkedQueue<>();

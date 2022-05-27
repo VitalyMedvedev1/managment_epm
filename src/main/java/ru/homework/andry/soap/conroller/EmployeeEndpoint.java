@@ -19,7 +19,6 @@ public class EmployeeEndpoint {
     private static final String LOCAL_CREATE_EMPLOYEE_PART = "createEmployeesRequest";
     private final EmployeesService employeesService;
 
-    //todo в проекте нет CreateEmployeesResponse Employee
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = LOCAL_GET_EMPLOYEE_PART)
     @ResponsePayload
     public GetEmployeesResponse find() {

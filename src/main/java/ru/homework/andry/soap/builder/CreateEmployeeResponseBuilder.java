@@ -22,7 +22,7 @@ public class CreateEmployeeResponseBuilder implements EmployeeResponseBuilder<Cr
 
     private final EmployeeMapperServiceImpl employeeMapperServiceImpl;
 
-    @Override //todo в проекте нет CreateEmployeesResponse Employee Status
+    @Override
     public void build(CreateEmployeesResponse createEmployeesResponse, List<AbstractEmployee> employees) {
         log.info("Start generate GetEmployeesResponse");
         employees.forEach(

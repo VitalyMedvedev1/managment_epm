@@ -5,8 +5,6 @@ import io.dliga.micro.employee_web_service.CreateEmployeesResponse;
 import io.dliga.micro.employee_web_service.GetEmployeesResponse;
 
 public interface EmployeesService {
-    //todo все интерфейсы в отдельный пакет api
-    // done
 
     GetEmployeesResponse findAll();
 

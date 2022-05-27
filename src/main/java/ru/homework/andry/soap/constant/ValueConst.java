@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("classpath:application.properties")
 public final class ValueConst {
-    // todo лучше так назвать ValueConst
-    // done переделал
     public static final int ERROR_CODE = 99;
     public static int QUEUE_SIZE_FOR_DELETE_EMP;
     public static int CORE_POOL_SIZE;

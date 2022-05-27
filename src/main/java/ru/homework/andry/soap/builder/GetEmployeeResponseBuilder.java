@@ -13,11 +13,11 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class GetEmployeeResponseBuilder implements EmployeeResponseBuilder<GetEmployeesResponse> {
+public class GetEmployeeResponseBuilder implements EmployeeResponseBuilder<GetEmployeesResponse> { //todo плохое название билдера. лучше так EmployeeResponseBuilder
 
     private final EmployeeMapperServiceImpl employeeMapperServiceImpl;
 
-    @Override  //todo в проекте нет GetEmployeesResponse
+    @Override
     public void build(GetEmployeesResponse getEmployeesResponse, List<AbstractEmployee> employees) {
         log.info("Start generate GetEmployeesResponse");
         getEmployeesResponse.getEmployees()

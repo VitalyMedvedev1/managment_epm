@@ -56,7 +56,7 @@ public class EmployeeMapperServiceImpl {
                 .collect(Collectors.toList());
     }
 
-    private AbstractEmployee employeeElement(Employee employee) {
+    private AbstractEmployee employeeElement(Employee employee) { //todo в названии метода нет действия
         if (employee.getPosition().equals(Position.ANALYTICS)) {
             return employeeToAnalytics(employee);
         }
@@ -116,7 +116,7 @@ public class EmployeeMapperServiceImpl {
                 .collect(Collectors.toList());
     }
 
-    private Employee elementToEmployee(AbstractEmployee employee) {
+    private Employee elementToEmployee(AbstractEmployee employee) { //todo не используется
         if (employee.getPosition().equals(Position.ANALYTICS)) {
             return analyticsToEmployee((AnalyticsElement) employee);
         }
