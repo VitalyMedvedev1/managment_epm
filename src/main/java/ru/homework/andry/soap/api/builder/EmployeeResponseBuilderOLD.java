@@ -4,7 +4,7 @@ import ru.homework.andry.soap.element.employee.EmployeeElement;
 
 import java.util.List;
 
-public interface EmployeeResponseBuilder<T> {
+public interface EmployeeResponseBuilderOLD<T> {
     //todo все интерфейсы в отдельный пакет api
     // done
 

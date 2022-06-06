@@ -1,5 +1,6 @@
-package ru.homework.andry.soap.api.service.schedul;
+package ru.homework.andry.soap.api.schedul;
 
 public interface EmployeeScheduler {
+
     void execute();
 }

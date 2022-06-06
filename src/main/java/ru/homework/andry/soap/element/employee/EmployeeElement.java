@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import java.text.MessageFormat;
 import java.util.Optional;
 
-import static ru.homework.andry.soap.constant.ValueConst.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
-import static ru.homework.andry.soap.constant.ValueConst.SALARY_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.PropertiesValue.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.PropertiesValue.SALARY_ERROR_TEXT_MESSAGE;
 
 
 @Data

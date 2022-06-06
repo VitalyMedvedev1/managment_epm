@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-import static ru.homework.andry.soap.constant.ValueConst.DEVELOPER_SALARY_RANGE;
+import static ru.homework.andry.soap.constant.PropertiesValue.DEVELOPER_SALARY_RANGE;
 
 @Data
 @NoArgsConstructor

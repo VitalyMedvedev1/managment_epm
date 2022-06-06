@@ -45,6 +45,7 @@
             <xs:element name="level" minOccurs="0" type="xs:string"/>
             <xs:element name="language" minOccurs="0" type="xs:string"/>
             <xs:element name="status" minOccurs="0" type="tns:status"/>
+            <xs:element name="errorMessage" minOccurs="0" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 

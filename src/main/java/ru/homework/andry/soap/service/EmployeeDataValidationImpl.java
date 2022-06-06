@@ -14,14 +14,16 @@ import java.util.stream.Collectors;
 public class EmployeeDataValidationImpl implements EmployeeDataValidation {
 
     @Override
-    public void validate(List<EmployeeElement> employees) {
+    public List<EmployeeElement> validate(List<EmployeeElement> employees) {
         log.info("Start validate employees data");
-        checkEmployeesDataAndSetError(employees);
+        List<EmployeeElement> validatedElements = checkEmployeesDataAndSetError(employees);
+        log.info("End validate request employees");
+        return validatedElements;
     }
 
-    private void checkEmployeesDataAndSetError(List<EmployeeElement> employees) {
+    private List<EmployeeElement> checkEmployeesDataAndSetError(List<EmployeeElement> employees) {
         log.debug("Start checking data employees");
-        employees.stream()
+        return employees.stream()
                 .map(this::incorrectSalaryAndRequiredField)
                 .map(this::incorrectSalary)
                 .map(this::incorrectRequiredField)

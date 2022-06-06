@@ -2,13 +2,19 @@ package ru.homework.andry.soap.mapper;
 
 import io.dliga.micro.employee_web_service.Employee;
 import org.mapstruct.Mapper;
-import ru.homework.andry.soap.element.employee.*;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import ru.homework.andry.soap.element.employee.AnalyticsElement;
+import ru.homework.andry.soap.element.employee.DeveloperElement;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
+import ru.homework.andry.soap.element.employee.ManagerElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
-@Mapper(componentModel = "spring", uses = Employee.class)
-@SuppressWarnings("All")
-public interface EmployeeMapper {//todo сделай маппер без бина и сделай обычным классом
-    // done переделал на сервис
+@Mapper(componentModel = "spring",
+        uses = Employee.class,
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+public interface EmployeeMapper {
 
     EmployeeEntity developerToEntity(DeveloperElement employee);
 
@@ -34,5 +40,6 @@ public interface EmployeeMapper {//todo сделай маппер без бин�
 
     Employee analyticsToEmployee(AnalyticsElement employee);
 
-    Employee elementToEmployeeResponse(EmployeeElement element);
+    Employee elementToEmployee(EmployeeElement element);
+
 }

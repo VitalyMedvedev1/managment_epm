@@ -48,11 +48,11 @@ public class EmployeeSwitcherMapper {
 
     public List<EmployeeElement> employeesToElements(List<Employee> employees) {
         return employees.stream()
-                .map(this::employeeElement)
+                .map(this::employeeToElement)
                 .collect(Collectors.toList());
     }
 
-    private EmployeeElement employeeElement(Employee employee) {
+    private EmployeeElement employeeToElement(Employee employee) {
         if (employee.getPosition().equals(Position.ANALYTICS)) {
             return employeeToAnalytics(employee);
         }
@@ -137,6 +137,6 @@ public class EmployeeSwitcherMapper {
     }
 
     public Employee elementToEmployeeResponse(EmployeeElement element) {
-        return employeeMapper.elementToEmployeeResponse(element);
+        return employeeMapper.elementToEmployee(element);
     }
 }

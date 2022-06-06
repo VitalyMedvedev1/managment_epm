@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.homework.andry.soap.constant.ValueConst;
+import ru.homework.andry.soap.constant.PropertiesValue;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
 import ru.homework.andry.soap.api.service.EmployeeDataValidation;
 
@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 import static io.dliga.micro.employee_web_service.Position.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.homework.andry.soap.constant.ValueConst.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
-import static ru.homework.andry.soap.constant.ValueConst.SALARY_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.PropertiesValue.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.PropertiesValue.SALARY_ERROR_TEXT_MESSAGE;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
 import static ru.homework.andry.soap.testdata.ValueConstTestData.getValues;
 
@@ -24,7 +24,7 @@ import static ru.homework.andry.soap.testdata.ValueConstTestData.getValues;
 class EmployeeDataValidationImplTest {
 
     private final EmployeeDataValidation employeeDataValidation = new EmployeeDataValidationImpl();
-    private final ValueConst valueConst = getValues();
+    private final PropertiesValue propertiesValue = getValues();
 
     @Test
     void validate_EmployeesWithThreeDevelopers_SalaryAndFieldCorrect() {

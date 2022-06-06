@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.service.schedul;
+package ru.homework.andry.soap.schedul;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.homework.andry.soap.api.service.schedul.EmployeeScheduler;
+import ru.homework.andry.soap.api.schedul.EmployeeScheduler;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static ru.homework.andry.soap.constant.ValueConst.QUEUE_SIZE_FOR_DELETE_EMP;
+import static ru.homework.andry.soap.constant.PropertiesValue.QUEUE_SIZE_FOR_DELETE_EMP;
 
 @Slf4j
 @Service
@@ -28,6 +28,7 @@ public class EmployeeSchedulerImpl implements EmployeeScheduler {
 
     @PostConstruct
     private void add() {
+
         addEmployeeEntities();
     }
 

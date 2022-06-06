@@ -19,15 +19,24 @@ import javax.persistence.*;
 public class EmployeeEntity {
 
     @Id
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_s")
     private Long id;
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "age", nullable = false)
     private int age;
+    @Column(name = "salary", nullable = false)
     private int salary;
+    @Column(name = "level", nullable = false)
     private String level;
+    @Column(name = "language", nullable = false)
     private String language;
+    @Column(name = "type", nullable = false)
     private String type;
+    @Column(name = "project", nullable = false)
     private String project;
 
     @Enumerated(EnumType.STRING)

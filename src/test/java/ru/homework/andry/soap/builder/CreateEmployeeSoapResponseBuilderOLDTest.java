@@ -17,10 +17,10 @@ import static io.dliga.micro.employee_web_service.Position.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
 
-class CreateEmployeeResponseBuilderTest {
+class CreateEmployeeSoapResponseBuilderOLDTest {
 
-    private final CreateEmployeeResponseBuilder responseBuilder =
-            new CreateEmployeeResponseBuilder(
+    private final CreateEmployeeResponseBuilderOLD responseBuilder =
+            new CreateEmployeeResponseBuilderOLD(
                     new EmployeeSwitcherMapper(
                             Mappers.getMapper(EmployeeMapper.class)));
 
