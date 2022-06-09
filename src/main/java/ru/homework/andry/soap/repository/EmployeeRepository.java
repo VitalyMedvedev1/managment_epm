@@ -7,5 +7,6 @@ import ru.homework.andry.soap.entity.EmployeeEntity;
 import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository <EmployeeEntity, Long> {
+
     List<EmployeeEntity> findAllByPosition(Position position);
 }

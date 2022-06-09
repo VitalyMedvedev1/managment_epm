@@ -7,6 +7,7 @@ import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class EmployeesTestData {
@@ -66,7 +67,7 @@ public class EmployeesTestData {
         return employeeEntities;
     }
 
-    private static EmployeeEntity getEmployeeEntity(int i, Position position) {
+    public static EmployeeEntity getEmployeeEntity(int i, Position position) {
         return new EmployeeEntity(
                 EMPLOYEE_ID + i,
                 DEVELOPER_NAME + i,
@@ -77,7 +78,8 @@ public class EmployeesTestData {
                 "java",
                 "business",
                 "VTB",
-                position);
+                position,
+                new HashSet<>());
     }
 
     public static List<EmployeeElement> getAbstractEmployees(int count,

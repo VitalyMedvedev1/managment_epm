@@ -12,7 +12,6 @@ import java.util.Optional;
 import static ru.homework.andry.soap.constant.PropertiesValue.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
 import static ru.homework.andry.soap.constant.PropertiesValue.SALARY_ERROR_TEXT_MESSAGE;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

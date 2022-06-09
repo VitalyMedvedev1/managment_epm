@@ -111,6 +111,8 @@ dependencies {
     implementation 'org.jvnet.jaxb2_commons:jaxb2-value-constructor:3.0'
     jaxb("org.glassfish.jaxb:jaxb-xjc")
 
+    implementation 'org.hibernate.validator:hibernate-validator-cdi:8.0.0.Alpha3'
+
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'

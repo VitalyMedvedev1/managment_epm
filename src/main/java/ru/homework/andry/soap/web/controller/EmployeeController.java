@@ -16,47 +16,28 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public List<Employee> findAll() {
-        return employeeService.find();
+    public List<Employee> find() {
+        return employeeService.findAll();
     }
-
 
     @GetMapping("/{position}")
-    public List<Employee> findAllByPosition(@PathVariable String position) {
-        return employeeService.findByPosition(position);
+    public List<Employee> findByPosition(@PathVariable String position) {
+        return employeeService.findAllByPosition(position);
     }
 
-    @PostMapping("/note")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Employee> saveAll(@RequestBody List<Employee> employees) {
+    public List<Employee> create(@RequestBody List<Employee> employees) {
         return employeeService.create(employees);
     }
-//
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void saveAll(@PathVariable String login,
-//                        @RequestBody List<NoteView> noteViews) {
-//    }
 
-//    @GetMapping
-//    public List<AbstractEmployee> findByUserLogin() {
-//        return employeesSOAPService.findAll();
-//    }
-//
-//    @PutMapping("/note")
-//    public void update(@PathVariable String login,
-//                       @RequestBody NoteView noteView) {
-//        noteService.save(login, noteView);
-//    }
-//
-//    @PutMapping
-//    public void updateAll(@PathVariable String login,
-//                          @RequestBody List<NoteView> noteViews) {
-//        noteService.saveAll(login, noteViews);
-//    }
-//
-//    @DeleteMapping("/{notesId}")
-//    public void deleteAll(@PathVariable String login, @PathVariable List<Long> notesId) {
-//        noteService.deleteAll(notesId);
-//    }
+    @PutMapping
+    public List<Employee> update(@RequestBody List<Employee> employees) {
+        return employeeService.update(employees);
+    }
+
+    @DeleteMapping("/{employeeIds}")
+    public void delete(@PathVariable List<Long> employeeIds) {
+        employeeService.delete(employeeIds);
+    }
 }

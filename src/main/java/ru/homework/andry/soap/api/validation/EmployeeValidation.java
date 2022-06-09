@@ -1,10 +1,10 @@
-package ru.homework.andry.soap.api.service;
+package ru.homework.andry.soap.api.validation;
 
 import ru.homework.andry.soap.element.employee.EmployeeElement;
 
 import java.util.List;
 
-public interface EmployeeDataValidation {
+public interface EmployeeValidation {
 
     List<EmployeeElement> validate(List<EmployeeElement> employees);
 

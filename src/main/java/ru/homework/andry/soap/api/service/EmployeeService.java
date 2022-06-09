@@ -6,12 +6,14 @@ import java.util.List;
 
 public interface EmployeeService{
 
-    List<Employee> find();
+    List<Employee> findAll();
 
-    List<Employee> findByPosition(String position);
+    List<Employee> findAllByPosition(String position);
 
     List<Employee> create(List<Employee> employees);
 
     List<Employee> update(List<Employee> employees);
+
+    void delete(List<Long> requestIds);
 
 }

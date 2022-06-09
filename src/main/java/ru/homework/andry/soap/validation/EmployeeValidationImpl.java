@@ -1,7 +1,8 @@
-package ru.homework.andry.soap.service;
+package ru.homework.andry.soap.validation;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.homework.andry.soap.api.service.EmployeeDataValidation;
+import ru.homework.andry.soap.api.validation.EmployeeValidation;
 import lombok.extern.slf4j.*;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
 
@@ -11,7 +12,8 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
-public class EmployeeDataValidationImpl implements EmployeeDataValidation {
+@RequiredArgsConstructor
+public class EmployeeValidationImpl implements EmployeeValidation {
 
     @Override
     public List<EmployeeElement> validate(List<EmployeeElement> employees) {

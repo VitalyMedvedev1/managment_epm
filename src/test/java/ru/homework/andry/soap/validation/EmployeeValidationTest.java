@@ -1,4 +1,4 @@
-package ru.homework.andry.soap.service;
+package ru.homework.andry.soap.validation;
 
 import io.dliga.micro.employee_web_service.Position;
 import org.apache.commons.lang3.StringUtils;
@@ -7,7 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.homework.andry.soap.constant.PropertiesValue;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
-import ru.homework.andry.soap.api.service.EmployeeDataValidation;
+import ru.homework.andry.soap.api.validation.EmployeeValidation;
+import ru.homework.andry.soap.validation.EmployeeValidationImpl;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -21,9 +22,9 @@ import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
 import static ru.homework.andry.soap.testdata.ValueConstTestData.getValues;
 
 @ExtendWith(MockitoExtension.class)
-class EmployeeDataValidationImplTest {
+class EmployeeValidationTest {
 
-    private final EmployeeDataValidation employeeDataValidation = new EmployeeDataValidationImpl();
+    private final EmployeeValidation employeeValidation = new EmployeeValidationImpl();
     private final PropertiesValue propertiesValue = getValues();
 
     @Test
@@ -35,7 +36,7 @@ class EmployeeDataValidationImplTest {
                         new int[]{100000, 110000, 150000},
                         "");
 
-        employeeDataValidation.validate(developerElements);
+        employeeValidation.validate(developerElements);
 
         assertThat(
                 developerElements.stream()
@@ -54,7 +55,7 @@ class EmployeeDataValidationImplTest {
                         new int[]{100, 110000, 150000},
                         "");
 
-        employeeDataValidation.validate(developerElements);
+        employeeValidation.validate(developerElements);
 
         assertThat(developerElements.size())
                 .isEqualTo(3);
@@ -83,7 +84,7 @@ class EmployeeDataValidationImplTest {
                         new Position[]{MANAGER},
                         new int[]{50000},
                         "");
-       employeeDataValidation.validate(managerElement);
+       employeeValidation.validate(managerElement);
 
         assertThat(
                 managerElement.stream()
@@ -103,7 +104,7 @@ class EmployeeDataValidationImplTest {
                 new int[]{160000},
                 PROJECT_NAME_IS_EMPTY);
 
-        employeeDataValidation.validate(managerElement);
+        employeeValidation.validate(managerElement);
 
         assertThat(managerElement.size())
                 .isEqualTo(1);
@@ -125,7 +126,7 @@ class EmployeeDataValidationImplTest {
                 new int[]{100000},
                 LANGUAGE_IS_EMPTY);
 
-        employeeDataValidation.validate(developerElement);
+        employeeValidation.validate(developerElement);
 
         assertThat(developerElement.size())
                 .isEqualTo(1);
@@ -147,7 +148,7 @@ class EmployeeDataValidationImplTest {
                 new int[]{100000},
                 LEVEL_IS_EMPTY);
 
-        employeeDataValidation.validate(developerElement);
+        employeeValidation.validate(developerElement);
 
         assertThat(developerElement.size())
                 .isEqualTo(1);
@@ -169,7 +170,7 @@ class EmployeeDataValidationImplTest {
                 new int[]{25000},
                 TYPE_IS_EMPTY);
 
-        employeeDataValidation.validate(analyticsElement);
+        employeeValidation.validate(analyticsElement);
 
         assertThat(analyticsElement.size())
                 .isEqualTo(1);

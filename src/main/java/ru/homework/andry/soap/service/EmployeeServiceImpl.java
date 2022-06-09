@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.homework.andry.soap.api.service.EmployeeDataValidation;
 import ru.homework.andry.soap.api.service.EmployeeService;
+import ru.homework.andry.soap.api.validation.EmployeeValidation;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.exeption.BusinessLogicException;
@@ -26,14 +26,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-public class EmployeesServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeSwitcherMapper employeeSwitcherMapper;
-    private final EmployeeDataValidation employeeDataValidation;
+    private final EmployeeValidation employeeValidation;
 
     @Override
-    public List<Employee> find() {
+    public List<Employee> findAll() {
         log.info("Start finding employees");
         List<EmployeeEntity> entities = employeeRepository.findAll();
         if (entities.isEmpty()) {
@@ -43,12 +43,11 @@ public class EmployeesServiceImpl implements EmployeeService {
         List<EmployeeElement> elements = employeeSwitcherMapper.entityToElement(entities);
 
         log.info("End finding employees");
-        List<Employee> employees = employeeSwitcherMapper.elementsToEmployees(elements);
-        return employees;
+        return employeeSwitcherMapper.elementsToEmployees(elements);
     }
 
     @Override
-    public List<Employee> findByPosition(String positionValue) {
+    public List<Employee> findAllByPosition(String positionValue) {
         Position position = getEnumPosition(positionValue);
         log.info("Start finding employees by position: {}", position.name());
         List<EmployeeEntity> entities = employeeRepository.findAllByPosition(position);
@@ -79,7 +78,7 @@ public class EmployeesServiceImpl implements EmployeeService {
         log.info("Start create employees");
         List<EmployeeElement> requestElements = employeeSwitcherMapper.employeesToElements(employees);
 
-        List<EmployeeElement> validatedElements = employeeDataValidation.validate(requestElements);
+        List<EmployeeElement> validatedElements = employeeValidation.validate(requestElements);
 
         List<EmployeeElement> correctElements = getCorrectEmployees(validatedElements);
 
@@ -105,7 +104,7 @@ public class EmployeesServiceImpl implements EmployeeService {
             throw new EntityNotFoundException("Employees didn't found");
         }
 
-        List<EmployeeElement> validatedElements = employeeDataValidation.validate(requestElements);
+        List<EmployeeElement> validatedElements = employeeValidation.validate(requestElements);
 
         List<EmployeeElement> correctElements = getCorrectEmployees(validatedElements);
 
@@ -114,6 +113,23 @@ public class EmployeesServiceImpl implements EmployeeService {
         log.info("Successful update employees with ids: {}", getElementIds(correctElements));
         return employeeSwitcherMapper.elementsToEmployees(validatedElements);
     }
+
+    @Override
+    public void delete(List<Long> requestIds) {
+        log.info("Start delete employees with ids: {}", requestIds);
+
+        List<EmployeeEntity> entities = employeeRepository.findAllById(requestIds);
+
+        List<Long> foundEntityIds = getEntityIds(entities);
+
+        if (!foundEntityIds.containsAll(requestIds)) {
+            throw new EntityNotFoundException("Employees didn't found");
+        }
+
+        employeeRepository.deleteAllById(requestIds);
+        log.info("Successful delete employees with ids: {}", requestIds);
+    }
+
 
     private List<Long> getEntityIds(List<EmployeeEntity> entities) {
         return entities.stream()
@@ -133,5 +149,4 @@ public class EmployeesServiceImpl implements EmployeeService {
                                .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
                                .collect(Collectors.toList());
     }
-
 }

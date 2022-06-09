@@ -28,7 +28,7 @@ public class EmployeeEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = LOCAL_GET_EMPLOYEE_PART)
     @ResponsePayload
     public GetEmployeesResponse find() {
-        List<Employee> employees = employeeService.find();
+        List<Employee> employees = employeeService.findAll();
         return employeeSoapResponseBuilder.buildGetEmployeesResponse(employees);
     }
 

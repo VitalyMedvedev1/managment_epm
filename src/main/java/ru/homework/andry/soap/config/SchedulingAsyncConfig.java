@@ -16,7 +16,7 @@ import static ru.homework.andry.soap.constant.PropertiesValue.*;
 public class SchedulingAsyncConfig {
 
     @Bean("empExecutor")
-    public Executor initEmpExecutor() {
+    public Executor deleteEmployeeTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(CORE_POOL_SIZE);
         executor.setMaxPoolSize(MAX_POOL_SIZE);
