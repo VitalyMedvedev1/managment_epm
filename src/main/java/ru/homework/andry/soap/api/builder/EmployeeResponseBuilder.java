@@ -6,7 +6,9 @@ import io.dliga.micro.employee_web_service.GetEmployeesResponse;
 
 import java.util.List;
 
-public interface EmployeeSoapResponseBuilder { //todo название EmployeeResponseBuilder
+public interface EmployeeResponseBuilder {
+    //todo название EmployeeResponseBuilder
+    // done
 
     GetEmployeesResponse buildGetEmployeesResponse (List<Employee> employees);
 

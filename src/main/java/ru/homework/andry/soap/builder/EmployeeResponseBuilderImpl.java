@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import ru.homework.andry.soap.api.builder.EmployeeSoapResponseBuilder;
+import ru.homework.andry.soap.api.builder.EmployeeResponseBuilder;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import static ru.homework.andry.soap.constant.PropertiesValue.ERROR_CODE;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class EmployeeSoapResponseBuilderImpl implements EmployeeSoapResponseBuilder {
+public class EmployeeResponseBuilderImpl implements EmployeeResponseBuilder {
 
     @Override
     public GetEmployeesResponse buildGetEmployeesResponse(List<Employee> employees) {

@@ -6,9 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.homework.andry.soap.api.schedul.EmployeeScheduler;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 
@@ -19,10 +18,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static ru.homework.andry.soap.constant.PropertiesValue.QUEUE_SIZE_FOR_DELETE_EMP;
 
 @Slf4j
-@Service
+@Component
 @RequiredArgsConstructor
-public class EmployeeSchedulerImpl implements EmployeeScheduler {
+public class EmployeeSchedulerImpl {
     //todo лучше пометить, как Configuration -> убрать интерфейс, назвать EmployeeSchedulerConfig или просто SchedulerConfig и отправить в пакет config
+    // done убрал и удалил интерфейс и переделал на @Component
 
     private final EmployeeRepository employeeRepository;
     private final Queue<EmployeeEntity> employees = new ConcurrentLinkedQueue<>();
@@ -32,7 +32,6 @@ public class EmployeeSchedulerImpl implements EmployeeScheduler {
         addEmployeeEntities();
     }
 
-    @Override
     @Async("empExecutor")
     @Scheduled(cron = "${cron.delete.emp.expression}")
     public void execute() {
