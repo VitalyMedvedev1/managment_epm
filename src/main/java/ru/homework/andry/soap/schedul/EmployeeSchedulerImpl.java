@@ -29,7 +29,6 @@ public class EmployeeSchedulerImpl implements EmployeeScheduler {
 
     @PostConstruct
     private void add() {
-
         addEmployeeEntities();
     }
 
