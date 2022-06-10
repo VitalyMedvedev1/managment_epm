@@ -2,14 +2,13 @@ package ru.homework.andry.soap.element;
 
 import org.junit.jupiter.api.Test;
 import ru.homework.andry.soap.AbstractSpringContext;
+import ru.homework.andry.soap.element.employee.ManagerElement;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ManagerElementTest extends AbstractSpringContext {
 
-    private ManagerElement managerElement = new ManagerElement();
+    private final ManagerElement managerElement = new ManagerElement();
 
     @Test
     void checkSalary_ValueInRange() {

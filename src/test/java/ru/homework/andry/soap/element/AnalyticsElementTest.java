@@ -2,6 +2,7 @@ package ru.homework.andry.soap.element;
 
 import org.junit.jupiter.api.Test;
 import ru.homework.andry.soap.AbstractSpringContext;
+import ru.homework.andry.soap.element.employee.AnalyticsElement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

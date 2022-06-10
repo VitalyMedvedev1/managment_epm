@@ -2,15 +2,17 @@ package ru.homework.andry.soap.testdata;
 
 import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
-import ru.homework.andry.soap.element.EmployeeElement;
-import ru.homework.andry.soap.element.AnalyticsElement;
-import ru.homework.andry.soap.element.DeveloperElement;
-import ru.homework.andry.soap.element.ManagerElement;
+import ru.homework.andry.soap.element.employee.AnalyticsElement;
+import ru.homework.andry.soap.element.employee.DeveloperElement;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
+import ru.homework.andry.soap.element.employee.ManagerElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeesTestData {
 
@@ -39,7 +41,7 @@ public class EmployeesTestData {
         return employees;
     }
 
-    private static Employee getEmployee(int salary, Position position) {
+    public static Employee getEmployee(int salary, Position position) {
         Employee employee = new Employee();
         employee.setId(BigInteger.valueOf(EMPLOYEE_ID));
         employee.setFirstName("Manager_test");
@@ -69,7 +71,7 @@ public class EmployeesTestData {
         return employeeEntities;
     }
 
-    private static EmployeeEntity getEmployeeEntity(int i, Position position) {
+    public static EmployeeEntity getEmployeeEntity(int i, Position position) {
         return new EmployeeEntity(
                 EMPLOYEE_ID + i,
                 DEVELOPER_NAME + i,
@@ -80,7 +82,8 @@ public class EmployeesTestData {
                 "java",
                 "business",
                 "VTB",
-                position);
+                position,
+                new HashSet<>());
     }
 
     public static List<EmployeeElement> getAbstractEmployees(int count,
@@ -169,5 +172,12 @@ public class EmployeesTestData {
         }
 
         return managerElement;
+    }
+
+    public static List<Long> getEntityIds(List<Employee> savedEmployees) {
+        return savedEmployees.stream()
+                             .map(employee -> Long.parseLong(
+                                     String.valueOf(employee.getId())))
+                             .collect(Collectors.toList());
     }
 }

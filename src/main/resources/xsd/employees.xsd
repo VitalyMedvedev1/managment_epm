@@ -45,14 +45,15 @@
             <xs:element name="level" minOccurs="0" type="xs:string"/>
             <xs:element name="language" minOccurs="0" type="xs:string"/>
             <xs:element name="status" minOccurs="0" type="tns:status"/>
+            <xs:element name="errorMessage" minOccurs="0" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:simpleType name="position">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Manager"/>
-            <xs:enumeration value="Developer"/>
-            <xs:enumeration value="Analytics"/>
+            <xs:enumeration value="manager"/>
+            <xs:enumeration value="developer"/>
+            <xs:enumeration value="analytics"/>
         </xs:restriction>
     </xs:simpleType>
 
