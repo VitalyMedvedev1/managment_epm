@@ -9,7 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import ru.homework.andry.soap.api.builder.EmployeeSoapResponseBuilder;
+import ru.homework.andry.soap.api.builder.EmployeeResponseBuilder;
 import ru.homework.andry.soap.api.service.EmployeeService;
 
 import java.util.List;
@@ -22,21 +22,21 @@ public class EmployeeEndpoint {
     private static final String LOCAL_GET_EMPLOYEE_PART = "getEmployeesRequest";
     private static final String LOCAL_CREATE_EMPLOYEE_PART = "createEmployeesRequest";
     private final EmployeeService employeeService;
-    private final EmployeeSoapResponseBuilder employeeSoapResponseBuilder;
+    private final EmployeeResponseBuilder employeeResponseBuilder;
 
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = LOCAL_GET_EMPLOYEE_PART)
     @ResponsePayload
     public GetEmployeesResponse find() {
         List<Employee> employees = employeeService.findAll();
-        return employeeSoapResponseBuilder.buildGetEmployeesResponse(employees);
+        return employeeResponseBuilder.buildGetEmployeesResponse(employees);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = LOCAL_CREATE_EMPLOYEE_PART)
     @ResponsePayload
     public CreateEmployeesResponse save(@RequestPayload CreateEmployeesRequest request) {
         List<Employee> employees = employeeService.create(request.getEmployees());
-        return employeeSoapResponseBuilder.buildCreateEmployeesResponse(employees);
+        return employeeResponseBuilder.buildCreateEmployeesResponse(employees);
     }
 
 }

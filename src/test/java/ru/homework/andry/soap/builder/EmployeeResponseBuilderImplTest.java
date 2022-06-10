@@ -11,9 +11,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.getEmployees;
 
-class EmployeeSoapResponseBuilderImplTest {
+class EmployeeResponseBuilderImplTest {
 
-    private final EmployeeSoapResponseBuilderImpl builder = new EmployeeSoapResponseBuilderImpl();
+    private final EmployeeResponseBuilderImpl builder = new EmployeeResponseBuilderImpl();
 
     @Test
     void buildGetEmployeesResponse_TreeDeveloper() {

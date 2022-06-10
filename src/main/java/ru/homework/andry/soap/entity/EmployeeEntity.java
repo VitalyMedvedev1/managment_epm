@@ -1,6 +1,5 @@
 package ru.homework.andry.soap.entity;
 
-
 import io.dliga.micro.employee_web_service.Position;
 import lombok.*;
 
