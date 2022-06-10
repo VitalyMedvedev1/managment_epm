@@ -41,7 +41,7 @@ public class TaskValidationImpl implements TaskValidation {
     @Override
     public boolean checkCountAssignTasks(int countRequest, EmployeeEntity employeeEntity) {
         return employeeEntity.getTasks().size() + countRequest
-                <= Optional.of(maxCountTask.get(employeeEntity.getPosition()))
+                <= Optional.ofNullable(maxCountTask.get(employeeEntity.getPosition()))
                            .orElse(0);
     }
 

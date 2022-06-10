@@ -47,8 +47,8 @@ public class TaskServiceImpl implements TaskService {
         log.debug("Finding employee by id: {}", employeeId);
         return employeeRepository.findById(employeeId)
                                  .orElseThrow(() -> new EntityNotFoundException(MessageFormat.format(
-                                                 "Employee with id: {0} not found",
-                                                 employeeId)));
+                                         "Employee with id: {0} not found",
+                                         employeeId)));
     }
 
     @Override
@@ -62,10 +62,11 @@ public class TaskServiceImpl implements TaskService {
             throw new BusinessLogicException("You can't assign a task amount to an employee: " + employeeId);
         }
 
-        List<TaskEntity> taskEntities =
-                tasksRepository.saveAll(taskMapper.requestCreateToEntity(requestTasks));
+        List<TaskEntity> taskEntities = taskMapper.requestCreateToEntity(requestTasks);
+        log.info("Binding employee {} to tasks", employeeId);
+        taskEntities.forEach(task -> task.setEmployee(employee));
 
-        employee.getTasks().addAll(taskEntities);
+        tasksRepository.saveAll(taskEntities);
 
         log.info("Successful save tasks: {} to employee: {}", mapIds(taskEntities), employeeId);
     }
@@ -90,12 +91,14 @@ public class TaskServiceImpl implements TaskService {
                     (MessageFormat.format("Notes with number: {0} are not valid", invalidIds));
         }
 
-        List<TaskEntity> taskEntities = tasksRepository.saveAll(taskMapper.requestUpdateToEntity(requestTasks));
+        List<TaskEntity> taskEntities = taskMapper.requestUpdateToEntity(requestTasks);
+        log.info("Binding employee {} to tasks", employeeId);
+        taskEntities.forEach(task -> task.setEmployee(employee));
 
-        employee.getTasks().addAll(taskEntities);
-
+        tasksRepository.saveAll(taskEntities);
         log.info("Successful update tasks with ids {}: ", requestIds);
     }
+
     private List<UUID> getInvalidIds(List<UUID> requestIds, EmployeeEntity employee) {
         log.debug("Start getting invalids ids from request");
         List<TaskEntity> foundTasks = findAllByIdInAndEmployee(requestIds, employee);
@@ -108,7 +111,7 @@ public class TaskServiceImpl implements TaskService {
     private List<TaskEntity> findAllByIdInAndEmployee(List<UUID> requestIds, EmployeeEntity employee) {
         log.debug("Start finding employee tasks: {}, with id: {}", requestIds, employee.getId());
         return tasksRepository.findAllByIdInAndEmployee(requestIds, employee)
-                             .orElse(Collections.emptyList());
+                              .orElse(Collections.emptyList());
     }
 
     private List<UUID> getRequestIds(List<TaskRequestUpdateElement> requestTasks) {

@@ -4,7 +4,10 @@ import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.homework.andry.soap.element.employee.*;
+import ru.homework.andry.soap.element.employee.AnalyticsElement;
+import ru.homework.andry.soap.element.employee.DeveloperElement;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
+import ru.homework.andry.soap.element.employee.ManagerElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.List;
@@ -18,8 +21,8 @@ public class EmployeeSwitcherMapper {
 
     public List<EmployeeEntity> elementsToEntities(List<EmployeeElement> employees) {
         return employees.stream()
-                .map(this::elementToEntity)
-                .collect(Collectors.toList());
+                        .map(this::elementToEntity)
+                        .collect(Collectors.toList());
     }
 
     private EmployeeEntity elementToEntity(EmployeeElement employee) {
@@ -48,8 +51,8 @@ public class EmployeeSwitcherMapper {
 
     public List<EmployeeElement> employeesToElements(List<Employee> employees) {
         return employees.stream()
-                .map(this::employeeToElement)
-                .collect(Collectors.toList());
+                        .map(this::employeeToElement)
+                        .collect(Collectors.toList());
     }
 
     private EmployeeElement employeeToElement(Employee employee) {
@@ -78,8 +81,8 @@ public class EmployeeSwitcherMapper {
 
     public List<EmployeeElement> entityToElement(List<EmployeeEntity> employees) {
         return employees.stream()
-                .map(this::entityToEmployee)
-                .collect(Collectors.toList());
+                        .map(this::entityToEmployee)
+                        .collect(Collectors.toList());
     }
 
     private EmployeeElement entityToEmployee(EmployeeEntity entity) {
@@ -108,8 +111,8 @@ public class EmployeeSwitcherMapper {
 
     public List<Employee> elementsToEmployees(List<EmployeeElement> employees) {
         return employees.stream()
-                .map(this::elementToEmployee)
-                .collect(Collectors.toList());
+                        .map(this::elementToEmployee)
+                        .collect(Collectors.toList());
     }
 
     private Employee elementToEmployee(EmployeeElement employee) {
@@ -136,7 +139,4 @@ public class EmployeeSwitcherMapper {
         return employeeMapper.analyticsToEmployee(employee);
     }
 
-    public Employee elementToEmployeeResponse(EmployeeElement element) {
-        return employeeMapper.elementToEmployee(element);
-    }
 }

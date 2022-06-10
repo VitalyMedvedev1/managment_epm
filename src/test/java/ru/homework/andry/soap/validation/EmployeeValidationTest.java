@@ -5,10 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.homework.andry.soap.api.validation.EmployeeValidation;
 import ru.homework.andry.soap.constant.PropertiesValue;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
-import ru.homework.andry.soap.api.validation.EmployeeValidation;
-import ru.homework.andry.soap.validation.EmployeeValidationImpl;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -40,9 +39,9 @@ class EmployeeValidationTest {
 
         assertThat(
                 developerElements.stream()
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
-                        .count())
+                                 .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
+                                 .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
+                                 .count())
                 .isEqualTo(3);
     }
 
@@ -62,17 +61,17 @@ class EmployeeValidationTest {
 
         assertThat(
                 developerElements.stream()
-                        .filter(emp -> StringUtils.isNotEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
-                        .count())
+                                 .filter(emp -> StringUtils.isNotEmpty(emp.getErrorIncorrectSalaryMessage()))
+                                 .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
+                                 .count())
                 .isEqualTo(1);
 
         assertThat(
                 developerElements.stream()
-                        .filter(emp -> StringUtils.isNotEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
-                        .map(EmployeeElement::getErrorIncorrectSalaryMessage)
-                        .collect(Collectors.joining()))
+                                 .filter(emp -> StringUtils.isNotEmpty(emp.getErrorIncorrectSalaryMessage()))
+                                 .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
+                                 .map(EmployeeElement::getErrorIncorrectSalaryMessage)
+                                 .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, DEVELOPER.value()));
     }
 
@@ -84,14 +83,14 @@ class EmployeeValidationTest {
                         new Position[]{MANAGER},
                         new int[]{50000},
                         "");
-       employeeValidation.validate(managerElement);
+        employeeValidation.validate(managerElement);
 
         assertThat(
                 managerElement.stream()
-                        .filter(emp -> StringUtils.isNotEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
-                        .map(EmployeeElement::getErrorIncorrectSalaryMessage)
-                        .collect(Collectors.joining())
+                              .filter(emp -> StringUtils.isNotEmpty(emp.getErrorIncorrectSalaryMessage()))
+                              .filter(emp -> StringUtils.isEmpty(emp.getErrorRequiredMessage()))
+                              .map(EmployeeElement::getErrorIncorrectSalaryMessage)
+                              .collect(Collectors.joining())
         )
                 .isEqualTo(MessageFormat.format(SALARY_ERROR_TEXT_MESSAGE, MANAGER.value()));
     }
@@ -111,10 +110,10 @@ class EmployeeValidationTest {
 
         assertThat(
                 managerElement.stream()
-                        .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .map(EmployeeElement::getErrorRequiredMessage)
-                        .collect(Collectors.joining()))
+                              .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
+                              .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
+                              .map(EmployeeElement::getErrorRequiredMessage)
+                              .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, MANAGER.value()));
     }
 
@@ -133,10 +132,10 @@ class EmployeeValidationTest {
 
         assertThat(
                 developerElement.stream()
-                        .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .map(EmployeeElement::getErrorRequiredMessage)
-                        .collect(Collectors.joining()))
+                                .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
+                                .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
+                                .map(EmployeeElement::getErrorRequiredMessage)
+                                .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, DEVELOPER.value()));
     }
 
@@ -155,10 +154,10 @@ class EmployeeValidationTest {
 
         assertThat(
                 developerElement.stream()
-                        .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .map(EmployeeElement::getErrorRequiredMessage)
-                        .collect(Collectors.joining()))
+                                .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
+                                .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
+                                .map(EmployeeElement::getErrorRequiredMessage)
+                                .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, DEVELOPER.value()));
     }
 
@@ -176,10 +175,10 @@ class EmployeeValidationTest {
                 .isEqualTo(1);
         assertThat(
                 analyticsElement.stream()
-                        .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
-                        .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
-                        .map(EmployeeElement::getErrorRequiredMessage)
-                        .collect(Collectors.joining()))
+                                .filter(emp -> StringUtils.isNotEmpty(emp.getErrorRequiredMessage()))
+                                .filter(emp -> StringUtils.isEmpty(emp.getErrorIncorrectSalaryMessage()))
+                                .map(EmployeeElement::getErrorRequiredMessage)
+                                .collect(Collectors.joining()))
                 .isEqualTo(MessageFormat.format(REQUIRED_FIELD_ERROR_TEXT_MESSAGE, ANALYTICS.value()));
     }
 }

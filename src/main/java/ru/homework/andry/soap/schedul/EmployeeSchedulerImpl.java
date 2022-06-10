@@ -9,8 +9,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.homework.andry.soap.api.schedul.EmployeeScheduler;
-import ru.homework.andry.soap.repository.EmployeeRepository;
 import ru.homework.andry.soap.entity.EmployeeEntity;
+import ru.homework.andry.soap.repository.EmployeeRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.Queue;
@@ -54,12 +54,12 @@ public class EmployeeSchedulerImpl implements EmployeeScheduler {
     }
 
     private void addEmployeeEntities() {
-        Page<EmployeeEntity> employeeEntityPage = employeeRepository.findAll(PageRequest.of(0, QUEUE_SIZE_FOR_DELETE_EMP));
+        Page<EmployeeEntity> employeeEntityPage = employeeRepository.findAll(PageRequest.of(0,
+                                                                                            QUEUE_SIZE_FOR_DELETE_EMP));
 
         if (employeeEntityPage.stream().findFirst().isPresent()) {
             employees.addAll(employeeEntityPage.getContent());
-        }
-        else {
+        } else {
             log.info("There are no employees in the database");
         }
     }

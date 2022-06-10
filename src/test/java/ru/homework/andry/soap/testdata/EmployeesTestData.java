@@ -2,13 +2,17 @@ package ru.homework.andry.soap.testdata;
 
 import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
-import ru.homework.andry.soap.element.employee.*;
+import ru.homework.andry.soap.element.employee.AnalyticsElement;
+import ru.homework.andry.soap.element.employee.DeveloperElement;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
+import ru.homework.andry.soap.element.employee.ManagerElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeesTestData {
 
@@ -37,7 +41,7 @@ public class EmployeesTestData {
         return employees;
     }
 
-    private static Employee getEmployee(int salary, Position position) {
+    public static Employee getEmployee(int salary, Position position) {
         Employee employee = new Employee();
         employee.setId(BigInteger.valueOf(EMPLOYEE_ID));
         employee.setFirstName("Manager_test");
@@ -168,5 +172,12 @@ public class EmployeesTestData {
         }
 
         return managerElement;
+    }
+
+    public static List<Long> getEntityIds(List<Employee> savedEmployees) {
+        return savedEmployees.stream()
+                             .map(employee -> Long.parseLong(
+                                     String.valueOf(employee.getId())))
+                             .collect(Collectors.toList());
     }
 }

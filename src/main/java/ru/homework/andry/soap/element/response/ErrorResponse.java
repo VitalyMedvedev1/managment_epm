@@ -24,8 +24,8 @@ public class ErrorResponse {
         if (stacktrace != null) {
             errorResponse.setStacktrace(
                     Arrays.stream(stacktrace)
-                            .map(StackTraceElement::toString).
-                            toArray(String[]::new));
+                          .map(StackTraceElement::toString).
+                                  toArray(String[]::new));
         }
         return errorResponse;
     }

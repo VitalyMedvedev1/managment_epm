@@ -86,7 +86,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeeRepository.saveAll(employeeSwitcherMapper.elementsToEntities(correctElements));
 
         log.info("Successful created correct employees with ids: {}", getEntityIds(entities));
-        return employeeSwitcherMapper.elementsToEmployees(validatedElements);
+        List<EmployeeElement> elements = employeeSwitcherMapper.entityToElement(entities);
+        return employeeSwitcherMapper.elementsToEmployees(elements);
     }
 
     @Override

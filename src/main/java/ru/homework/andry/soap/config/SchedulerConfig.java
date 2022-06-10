@@ -13,7 +13,7 @@ import static ru.homework.andry.soap.constant.PropertiesValue.*;
 @Configuration
 @EnableScheduling
 @EnableAsync
-public class SchedulingAsyncConfig {
+public class SchedulerConfig {
 
     @Bean("empExecutor")
     public Executor deleteEmployeeTaskExecutor() {
@@ -21,7 +21,7 @@ public class SchedulingAsyncConfig {
         executor.setCorePoolSize(CORE_POOL_SIZE);
         executor.setMaxPoolSize(MAX_POOL_SIZE);
         executor.setQueueCapacity(QUEUE_CAPACITY);
-        executor.setThreadNamePrefix("MyAsync Thread - ");
+        executor.setThreadNamePrefix("Delete employee tread: ");
         executor.initialize();
         return executor;
     }

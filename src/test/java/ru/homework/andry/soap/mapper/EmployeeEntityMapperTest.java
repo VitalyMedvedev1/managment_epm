@@ -4,14 +4,18 @@ import io.dliga.micro.employee_web_service.Employee;
 import io.dliga.micro.employee_web_service.Position;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import ru.homework.andry.soap.element.employee.*;
+import ru.homework.andry.soap.element.employee.AnalyticsElement;
+import ru.homework.andry.soap.element.employee.DeveloperElement;
+import ru.homework.andry.soap.element.employee.EmployeeElement;
+import ru.homework.andry.soap.element.employee.ManagerElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.List;
 
 import static io.dliga.micro.employee_web_service.Position.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
+import static ru.homework.andry.soap.testdata.EmployeesTestData.getAbstractEmployees;
+import static ru.homework.andry.soap.testdata.EmployeesTestData.getEmployees;
 
 class EmployeeEntityMapperTest {
 

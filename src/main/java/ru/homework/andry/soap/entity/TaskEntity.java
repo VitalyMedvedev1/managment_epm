@@ -20,7 +20,7 @@ public class TaskEntity {
     @GeneratedValue
     @EqualsAndHashCode.Include
     private UUID id;
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "description")
     private String description;
 
     @ManyToOne

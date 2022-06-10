@@ -6,7 +6,6 @@ import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.homework.andry.soap.element.employee.AnalyticsElement;
 import ru.homework.andry.soap.element.employee.DeveloperElement;
-import ru.homework.andry.soap.element.employee.EmployeeElement;
 import ru.homework.andry.soap.element.employee.ManagerElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
@@ -39,7 +38,5 @@ public interface EmployeeMapper {
     Employee managerToEmployee(ManagerElement employee);
 
     Employee analyticsToEmployee(AnalyticsElement employee);
-
-    Employee elementToEmployee(EmployeeElement element);
 
 }

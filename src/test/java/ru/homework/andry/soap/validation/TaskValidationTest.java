@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.getEmployeeEntity;
@@ -29,7 +27,7 @@ class TaskValidationTest {
     @Test
     void checkCountAssignTasks_AddTasksToDeveloper_AlreadyHasMaximum() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.DEVELOPER);
-        employee.getTasks().addAll(getTaskEntities(1));
+        employee.getTasks().addAll(getTaskEntities(1, null));
 
         boolean result = validation.checkCountAssignTasks(1, employee);
 
@@ -39,7 +37,7 @@ class TaskValidationTest {
     @Test
     void checkCountAssignTasks_AddTasksToManager_AlreadyHasMaximum() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.MANAGER);
-        employee.getTasks().addAll(getTaskEntities(3));
+        employee.getTasks().addAll(getTaskEntities(3, null));
 
         boolean result = validation.checkCountAssignTasks(1, employee);
 
@@ -49,7 +47,7 @@ class TaskValidationTest {
     @Test
     void checkCountAssignTasks_AddTasksToAnalytics_AlreadyHasMaximum() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.ANALYTICS);
-        employee.getTasks().addAll(getTaskEntities(2));
+        employee.getTasks().addAll(getTaskEntities(2, null));
 
         boolean result = validation.checkCountAssignTasks(1, employee);
 

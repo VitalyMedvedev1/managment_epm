@@ -2,7 +2,6 @@ package ru.homework.andry.soap.constant;
 
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,6 +19,7 @@ public final class PropertiesValue {
     public static Range<Integer> MANAGER_SALARY_RANGE;
     public static String SALARY_ERROR_TEXT_MESSAGE = "This salary is not suitable for position: {0}. ";
     public static String REQUIRED_FIELD_ERROR_TEXT_MESSAGE = "For position: {0}, required fields are not filled!";
+
     public PropertiesValue(@Value("${config.analytics.min.salary}") int analyticsMinSalary,
                            @Value("${config.analytics.max.salary}") int analyticsMaxSalary,
                            @Value("${config.developer.min.salary}") int developerMinSalary,

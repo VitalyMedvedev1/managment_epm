@@ -1,9 +1,9 @@
 package ru.homework.andry.soap.validation;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.homework.andry.soap.api.validation.EmployeeValidation;
-import lombok.extern.slf4j.*;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
 
 import java.util.List;
@@ -26,10 +26,10 @@ public class EmployeeValidationImpl implements EmployeeValidation {
     private List<EmployeeElement> checkEmployeesDataAndSetError(List<EmployeeElement> employees) {
         log.debug("Start checking data employees");
         return employees.stream()
-                .map(this::incorrectSalaryAndRequiredField)
-                .map(this::incorrectSalary)
-                .map(this::incorrectRequiredField)
-                .collect(Collectors.toList());
+                        .map(this::incorrectSalaryAndRequiredField)
+                        .map(this::incorrectSalary)
+                        .map(this::incorrectRequiredField)
+                        .collect(Collectors.toList());
     }
 
     private EmployeeElement incorrectSalaryAndRequiredField(EmployeeElement emp) {

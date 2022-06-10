@@ -84,4 +84,9 @@ class EmployeeSoapResponseBuilderImplTest {
                            .count())
                 .isEqualTo(1);
     }
+
+    @Test
+    void name() {
+
+    }
 }
