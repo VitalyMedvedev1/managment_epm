@@ -5,6 +5,7 @@ import io.dliga.micro.employee_web_service.Position;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.homework.andry.soap.api.service.EmployeeService;
@@ -31,6 +32,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeSwitcherMapper employeeSwitcherMapper;
     private final EmployeeValidation employeeValidation;
+    private final KafkaTemplate<String, List<EmployeeEntity>> employeeUpsertKafkaTemplate;
+    private final KafkaTemplate<String, List<Long>> employeeDeleteKafkaTemplate;
 
     @Override
     public List<Employee> findAll() {
@@ -75,15 +78,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> create(List<Employee> employees) {
-        log.info("Start create employees");
+        log.info("Start REST request to create employees");
         List<EmployeeElement> requestElements = employeeSwitcherMapper.employeesToElements(employees);
 
         List<EmployeeElement> validatedElements = employeeValidation.validate(requestElements);
 
         List<EmployeeElement> correctElements = getCorrectEmployees(validatedElements);
 
-        List<EmployeeEntity> entities =
-                employeeRepository.saveAll(employeeSwitcherMapper.elementsToEntities(correctElements));
+        List<EmployeeEntity> entities = employeeSwitcherMapper.elementsToEntities(correctElements);
+        log.info("Start REST request to create employees");
 
         log.info("Successful created correct employees with ids: {}", getEntityIds(entities));
         List<EmployeeElement> elements = employeeSwitcherMapper.entityToElement(entities);
@@ -129,6 +132,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employeeRepository.deleteAllById(requestIds);
         log.info("Successful delete employees with ids: {}", requestIds);
+    }
+
+    @Override
+    public void sendMsg(String message) {
+//        List<EmployeeElement> employeeElements = employeeSwitcherMapper.entityToElement(employeeRepository.findAll());
+//        List<String> strings = employeeElements.stream().map(EmployeeElement::toString).collect(Collectors.toList());
+//        List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
+        List<Long> ids = Arrays.asList(141L, 24L);
+        employeeDeleteKafkaTemplate.send("employeesToDelete", "create", ids);
     }
 
 

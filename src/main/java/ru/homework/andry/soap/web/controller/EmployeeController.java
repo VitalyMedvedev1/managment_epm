@@ -40,4 +40,9 @@ public class EmployeeController {
     public void delete(@PathVariable List<Long> employeeIds) {
         employeeService.delete(employeeIds);
     }
+
+    @GetMapping("/producer/{message}")
+    public void test(@PathVariable String message) {
+        employeeService.sendMsg(message);
+    }
 }

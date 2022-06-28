@@ -1,5 +1,6 @@
 package ru.homework.andry.soap.element.employee;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.dliga.micro.employee_web_service.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,7 @@ import static ru.homework.andry.soap.constant.PropertiesValue.DEVELOPER_SALARY_R
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@JsonTypeName("DeveloperElement")
 public class DeveloperElement extends EmployeeElement {
 
     private String language;
