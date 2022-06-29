@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.homework.andry.soap.api.service.EmployeeService;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -40,4 +42,5 @@ public class EmployeeController {
     public void delete(@PathVariable List<Long> employeeIds) {
         employeeService.delete(employeeIds);
     }
+
 }

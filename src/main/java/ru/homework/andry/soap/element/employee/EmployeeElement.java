@@ -2,6 +2,8 @@ package ru.homework.andry.soap.element.employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.dliga.micro.employee_web_service.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.text.MessageFormat;
 import java.util.Optional;
+import java.util.UUID;
 
 import static ru.homework.andry.soap.constant.PropertiesValue.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
 import static ru.homework.andry.soap.constant.PropertiesValue.SALARY_ERROR_TEXT_MESSAGE;
@@ -16,12 +19,19 @@ import static ru.homework.andry.soap.constant.PropertiesValue.SALARY_ERROR_TEXT_
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = AnalyticsElement.class, name = "AnalyticsElement"),
+        @JsonSubTypes.Type(value = ManagerElement.class, name = "ManagerElement"),
+        @JsonSubTypes.Type(value = DeveloperElement.class, name = "DeveloperElement") }
+)
 public abstract class EmployeeElement {
     private Long id;
     private String firstName;
     private String lastName;
     private int age;
     private int salary;
+    private String uuid;
     private Position position;
 
     @JsonIgnore

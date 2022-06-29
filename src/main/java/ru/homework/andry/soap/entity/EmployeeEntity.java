@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "employees", schema = "soap")
@@ -38,6 +39,8 @@ public class EmployeeEntity {
     private String type;
     @Column(name = "project")
     private String project;
+    @Column(name = "uuid")
+    private String uuid;
 
     @Enumerated(EnumType.STRING)
     private Position position;

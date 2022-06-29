@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.homework.andry.soap.api.kafka.EmployeeSender;
 import ru.homework.andry.soap.api.service.EmployeeService;
 import ru.homework.andry.soap.api.validation.EmployeeValidation;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
@@ -31,6 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeSwitcherMapper employeeSwitcherMapper;
     private final EmployeeValidation employeeValidation;
+    private final EmployeeSender employeeSender;
 
     @Override
     public List<Employee> findAll() {
@@ -75,19 +77,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> create(List<Employee> employees) {
-        log.info("Start create employees");
+        log.info("Start REST request to create employees");
         List<EmployeeElement> requestElements = employeeSwitcherMapper.employeesToElements(employees);
 
         List<EmployeeElement> validatedElements = employeeValidation.validate(requestElements);
 
         List<EmployeeElement> correctElements = getCorrectEmployees(validatedElements);
 
-        List<EmployeeEntity> entities =
-                employeeRepository.saveAll(employeeSwitcherMapper.elementsToEntities(correctElements));
+        List<EmployeeEntity> entities = employeeSwitcherMapper.elementsToEntities(correctElements);
 
-        log.info("Successful created correct employees with ids: {}", getEntityIds(entities));
-        List<EmployeeElement> elements = employeeSwitcherMapper.entityToElement(entities);
-        return employeeSwitcherMapper.elementsToEmployees(elements);
+        if (!entities.isEmpty()) {
+            log.info("Put REST request create employees: {} to kafka", entities);
+            employeeSender.sendToCreate(entities);
+        }
+
+        return employeeSwitcherMapper.elementsToEmployees(validatedElements);
     }
 
     @Override
@@ -127,10 +131,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EntityNotFoundException("Employees didn't found");
         }
 
-        employeeRepository.deleteAllById(requestIds);
-        log.info("Successful delete employees with ids: {}", requestIds);
+        log.info("Put REST request delete employee with ids: {} to kafka", requestIds);
+        employeeSender.sendToDelete(requestIds);
     }
-
 
     private List<Long> getEntityIds(List<EmployeeEntity> entities) {
         return entities.stream()
