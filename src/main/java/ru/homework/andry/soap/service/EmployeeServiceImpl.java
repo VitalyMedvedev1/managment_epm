@@ -88,7 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (!entities.isEmpty()) {
             log.info("Put REST request create employees: {} to kafka", entities);
-            employeeSender.sendToUpsert(entities);
+            employeeSender.sendToCreate(entities);
         }
 
         return employeeSwitcherMapper.elementsToEmployees(validatedElements);
@@ -101,9 +101,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         List<Long> requestIds = getElementIds(requestElements);
 
-        List<EmployeeEntity> findingEntities = employeeRepository.findAllById(requestIds);
+        List<EmployeeEntity> entities = employeeRepository.findAllById(requestIds);
 
-        List<Long> foundEntityIds = getEntityIds(findingEntities);
+        List<Long> foundEntityIds = getEntityIds(entities);
 
         if (!foundEntityIds.containsAll(requestIds)) {
             throw new EntityNotFoundException("Employees didn't found");
@@ -113,12 +113,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         List<EmployeeElement> correctElements = getCorrectEmployees(validatedElements);
 
-        List<EmployeeEntity> entities = employeeSwitcherMapper.elementsToEntities(correctElements);
-        if (!entities.isEmpty()) {
-            log.info("Put REST request update employees: {} to kafka", entities);
-            employeeSender.sendToUpsert(entities);
-        }
+        employeeRepository.saveAll(employeeSwitcherMapper.elementsToEntities(correctElements));
 
+        log.info("Successful update employees with ids: {}", getElementIds(correctElements));
         return employeeSwitcherMapper.elementsToEmployees(validatedElements);
     }
 

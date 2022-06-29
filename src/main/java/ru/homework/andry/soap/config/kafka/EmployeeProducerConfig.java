@@ -24,7 +24,7 @@ public class EmployeeProducerConfig {
     private String bootstrapAddress;
 
     @Bean
-    public ProducerFactory<String, List<EmployeeEntity>> producerUpsertFactory() {
+    public ProducerFactory<String, EmployeeEntity> producerUpsertFactory() {
         Map<String, Object> configProps = Map.of(BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress,
                                                  KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
                                                  VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
@@ -33,7 +33,7 @@ public class EmployeeProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, List<EmployeeEntity>> kafkaUpsertTemplate() {
+    public KafkaTemplate<String, EmployeeEntity> kafkaUpsertTemplate() {
         return new KafkaTemplate<>(producerUpsertFactory());
     }
 

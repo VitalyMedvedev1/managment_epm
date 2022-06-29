@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.text.MessageFormat;
 import java.util.Optional;
+import java.util.UUID;
 
 import static ru.homework.andry.soap.constant.PropertiesValue.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
 import static ru.homework.andry.soap.constant.PropertiesValue.SALARY_ERROR_TEXT_MESSAGE;
@@ -30,6 +31,7 @@ public abstract class EmployeeElement {
     private String lastName;
     private int age;
     private int salary;
+    private String uuid;
     private Position position;
 
     @JsonIgnore
@@ -70,5 +72,4 @@ public abstract class EmployeeElement {
     public abstract boolean checkSalary();
 
     public abstract boolean isBlankRequiredField();
-
 }

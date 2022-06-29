@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EmployeeSender {
 
-    void sendToUpsert(List<EmployeeEntity> entities);
+    void sendToCreate(List<EmployeeEntity> entities);
 
     void sendToDelete(List<Long> ids);
 }

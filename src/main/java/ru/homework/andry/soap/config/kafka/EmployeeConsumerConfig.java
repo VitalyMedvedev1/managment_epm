@@ -32,21 +32,20 @@ public class EmployeeConsumerConfig {
     private String deleteGroup;
 
     @Bean
-    public ConsumerFactory<String, List<EmployeeEntity>> forUpsertConsumerFactory() {
+    public ConsumerFactory<String, EmployeeEntity> forUpsertConsumerFactory() {
         Map<String, Object> props = Map.of(BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress,
                                            GROUP_ID_CONFIG, upsertGroup,
                                            KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                                            VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
-        ObjectMapper om = new ObjectMapper();
-        JavaType type = om.getTypeFactory().constructParametricType(List.class, EmployeeEntity.class);
+
         return new DefaultKafkaConsumerFactory<>(props,
                                                  new StringDeserializer(),
-                                                 new JsonDeserializer<>(type, om, false));
+                                                 new JsonDeserializer<>(EmployeeEntity.class));
     }
 
     @Bean("upsertListener")
-    public ConcurrentKafkaListenerContainerFactory<String, List<EmployeeEntity>> kafkaListenerForUpsertContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, List<EmployeeEntity>> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, EmployeeEntity> kafkaListenerForUpsertContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, EmployeeEntity> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(forUpsertConsumerFactory());
         return factory;

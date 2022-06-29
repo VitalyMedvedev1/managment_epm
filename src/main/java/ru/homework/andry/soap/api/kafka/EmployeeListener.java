@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EmployeeListener {
 
-    void listenForUpsert(List<EmployeeEntity> entities);
+    void listenToCreate(EmployeeEntity entity);
 
-    void listenForDelete(List<Long> ids);
+    void listenToDelete(List<Long> ids);
 }

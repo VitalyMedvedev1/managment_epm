@@ -9,7 +9,7 @@ import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -23,11 +23,16 @@ public class EmployeeListenerImpl implements EmployeeListener {
             topics = "${employee.upsert.message.topic.name}",
             groupId = "${spring.kafka.consumer.upsert.group}",
             containerFactory = "upsertListener")
-    public void listenForUpsert(List<EmployeeEntity> entities) {
-        log.info("Start upsert from kafka employees: {}", entities.toString());
-
-        List<EmployeeEntity> savedEntities = employeeRepository.saveAll(entities);
-        log.info("Successful upsert from kafka employee with ids: {}", getEntityIds(savedEntities));
+    public void listenToCreate(EmployeeEntity entity) {
+        log.info("Start create new employee from kafka");
+        Optional<EmployeeEntity> foundEmployee = employeeRepository.findByUuid(entity.getUuid());
+        if (foundEmployee.isEmpty()) {
+            EmployeeEntity savedEmployee = employeeRepository.save(entity);
+            log.info("Successful create employee with id {} ", savedEmployee.getId());
+        }
+        else {
+            log.info("Employee with uuid: {} already exists", foundEmployee.get().getUuid());
+        }
     }
 
     @Override
@@ -35,16 +40,10 @@ public class EmployeeListenerImpl implements EmployeeListener {
             topics = "${employee.delete.message.topic.name}",
             groupId = "${spring.kafka.consumer.delete.group}",
             containerFactory = "deleteListener")
-    public void listenForDelete(List<Long> ids) {
+    public void listenToDelete(List<Long> ids) {
         log.info("Start delete from kafka employee with ids: {}", ids.toString());
 
         employeeRepository.deleteAllById(ids);
-        log.info("Successful delete employees");
-    }
-
-    private List<Long> getEntityIds(List<EmployeeEntity> entities) {
-        return entities.stream()
-                       .map(EmployeeEntity::getId)
-                       .collect(Collectors.toList());
+        log.info("Successful delete employee by ids: {}", ids);
     }
 }

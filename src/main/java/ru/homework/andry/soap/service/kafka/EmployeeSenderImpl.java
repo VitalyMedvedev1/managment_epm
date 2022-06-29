@@ -13,26 +13,29 @@ import java.util.List;
 @Slf4j
 public class EmployeeSenderImpl implements EmployeeSender {
 
-    private final KafkaTemplate<String, List<EmployeeEntity>> employeeUpsertKafkaTemplate;
+    private final KafkaTemplate<String, EmployeeEntity> employeeCreateKafkaTemplate;
     private final KafkaTemplate<String, List<Long>> employeeDeleteKafkaTemplate;
     private final String upsertTopic;
     private final String deleteTopic;
 
-    public EmployeeSenderImpl(KafkaTemplate<String, List<EmployeeEntity>> employeeUpsertKafkaTemplate,
+    public EmployeeSenderImpl(KafkaTemplate<String, EmployeeEntity> employeeCreateKafkaTemplate,
                               KafkaTemplate<String, List<Long>> employeeDeleteKafkaTemplate,
                               @Value("${employee.upsert.message.topic.name}") String upsertTopic,
                               @Value("${employee.delete.message.topic.name}") String deleteTopic) {
 
-        this.employeeUpsertKafkaTemplate = employeeUpsertKafkaTemplate;
+        this.employeeCreateKafkaTemplate = employeeCreateKafkaTemplate;
         this.employeeDeleteKafkaTemplate = employeeDeleteKafkaTemplate;
         this.upsertTopic = upsertTopic;
         this.deleteTopic = deleteTopic;
     }
 
     @Override
-    public void sendToUpsert(List<EmployeeEntity> entities) {
-        log.info("Sending employees: {} to upsert", entities.toString());
-        employeeUpsertKafkaTemplate.send(upsertTopic, entities);
+    public void sendToCreate(List<EmployeeEntity> entities) {
+        log.info("Start sending employees to kafka");
+        entities.forEach(entity -> {
+            employeeCreateKafkaTemplate.send(upsertTopic, String.valueOf(entity.getUuid()), entity);
+            log.info("Sent employee with name: {}", entity.getFirstName() + " " + entity.getLastName());
+        });
     }
 
     @Override
