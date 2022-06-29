@@ -42,5 +42,5 @@ public class EmployeeController {
     public void delete(@PathVariable List<Long> employeeIds) {
         employeeService.delete(employeeIds);
     }
-    
+
 }
