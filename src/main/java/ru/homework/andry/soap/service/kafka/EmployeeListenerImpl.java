@@ -25,6 +25,7 @@ public class EmployeeListenerImpl implements EmployeeListener {
             containerFactory = "upsertListener")
     public void listenForUpsert(List<EmployeeEntity> entities) {
         log.info("Start upsert from kafka employees: {}", entities.toString());
+
         List<EmployeeEntity> savedEntities = employeeRepository.saveAll(entities);
         log.info("Successful upsert from kafka employee with ids: {}", getEntityIds(savedEntities));
     }
@@ -36,6 +37,7 @@ public class EmployeeListenerImpl implements EmployeeListener {
             containerFactory = "deleteListener")
     public void listenForDelete(List<Long> ids) {
         log.info("Start delete from kafka employee with ids: {}", ids.toString());
+
         employeeRepository.deleteAllById(ids);
         log.info("Successful delete employees");
     }

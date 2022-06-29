@@ -22,6 +22,7 @@ public class EmployeeSenderImpl implements EmployeeSender {
                               KafkaTemplate<String, List<Long>> employeeDeleteKafkaTemplate,
                               @Value("${employee.upsert.message.topic.name}") String upsertTopic,
                               @Value("${employee.delete.message.topic.name}") String deleteTopic) {
+
         this.employeeUpsertKafkaTemplate = employeeUpsertKafkaTemplate;
         this.employeeDeleteKafkaTemplate = employeeDeleteKafkaTemplate;
         this.upsertTopic = upsertTopic;

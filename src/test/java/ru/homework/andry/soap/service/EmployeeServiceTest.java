@@ -12,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.homework.andry.soap.api.service.EmployeeService;
 import ru.homework.andry.soap.api.validation.EmployeeValidation;
 import ru.homework.andry.soap.constant.PropertiesValue;
-import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.mapper.EmployeeSwitcherMapper;
 import ru.homework.andry.soap.repository.EmployeeRepository;
@@ -20,15 +19,12 @@ import ru.homework.andry.soap.service.kafka.EmployeeSenderImpl;
 import ru.homework.andry.soap.validation.EmployeeValidationImpl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
+import static ru.homework.andry.soap.testdata.EmployeesTestData.getEmployees;
 import static ru.homework.andry.soap.testdata.ValueConstTestData.getValues;
 
 @DataJpaTest
-//@SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class EmployeeServiceTest {
 
