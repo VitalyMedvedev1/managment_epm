@@ -40,15 +40,16 @@ public class TaskServiceImpl implements TaskService {
         EmployeeEntity employee = findEmployee(employeeId);
 
         return taskMapper.entitiesToResponseElements(tasksRepository.findAllByEmployee(employee)
-                                                                    .orElse(Collections.emptyList()));
+                .orElse(Collections.emptyList()));
     }
 
     private EmployeeEntity findEmployee(Long employeeId) {
         log.debug("Finding employee by id: {}", employeeId);
         return employeeRepository.findById(employeeId)
-                                 .orElseThrow(() -> new EntityNotFoundException(MessageFormat.format(
-                                         "Employee with id: {0} not found",
-                                         employeeId)));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        MessageFormat.format(
+                                "Employee with id: {0} not found",
+                                employeeId)));
     }
 
     @Override
@@ -73,8 +74,8 @@ public class TaskServiceImpl implements TaskService {
 
     private List<UUID> mapIds(List<TaskEntity> taskEntities) {
         return taskEntities.stream()
-                           .map(TaskEntity::getId)
-                           .collect(Collectors.toList());
+                .map(TaskEntity::getId)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -111,13 +112,13 @@ public class TaskServiceImpl implements TaskService {
     private List<TaskEntity> findAllByIdInAndEmployee(List<UUID> requestIds, EmployeeEntity employee) {
         log.debug("Start finding employee tasks: {}, with id: {}", requestIds, employee.getId());
         return tasksRepository.findAllByIdInAndEmployee(requestIds, employee)
-                              .orElse(Collections.emptyList());
+                .orElse(Collections.emptyList());
     }
 
     private List<UUID> getRequestIds(List<TaskRequestUpdateElement> requestTasks) {
         return requestTasks.stream()
-                           .map(TaskRequestUpdateElement::getId)
-                           .collect(Collectors.toList());
+                .map(TaskRequestUpdateElement::getId)
+                .collect(Collectors.toList());
     }
 
 

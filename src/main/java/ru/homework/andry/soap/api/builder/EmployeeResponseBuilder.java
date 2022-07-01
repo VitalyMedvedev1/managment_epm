@@ -7,9 +7,6 @@ import io.dliga.micro.employee_web_service.GetEmployeesResponse;
 import java.util.List;
 
 public interface EmployeeResponseBuilder {
-    //todo название EmployeeResponseBuilder
-    // done
-
     GetEmployeesResponse buildGetEmployeesResponse (List<Employee> employees);
 
     CreateEmployeesResponse buildCreateEmployeesResponse (List<Employee> employees);

@@ -69,9 +69,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         try {
             return Position.fromValue(positionValue.toLowerCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
-            throw new BusinessLogicException(MessageFormat.format("Position must be in: {0}",
-                                                                  Arrays.stream(Position.values())
-                                                                        .collect(Collectors.toList())));
+            throw new BusinessLogicException(
+                    MessageFormat.format(
+                            "Position must be in: {0}",
+                            Arrays.stream(Position.values()).collect(Collectors.toList())));
         }
     }
 
@@ -137,20 +138,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private List<Long> getEntityIds(List<EmployeeEntity> entities) {
         return entities.stream()
-                       .map(EmployeeEntity::getId)
-                       .collect(Collectors.toList());
+                .map(EmployeeEntity::getId)
+                .collect(Collectors.toList());
     }
 
     private List<Long> getElementIds(List<EmployeeElement> elements) {
         return elements.stream()
-                       .map(EmployeeElement::getId)
-                       .collect(Collectors.toList());
+                .map(EmployeeElement::getId)
+                .collect(Collectors.toList());
     }
 
     private List<EmployeeElement> getCorrectEmployees(List<EmployeeElement> employeeElements) {
         log.debug("Get correct employees");
         return employeeElements.stream()
-                               .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
-                               .collect(Collectors.toList());
+                .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
+                .collect(Collectors.toList());
     }
 }

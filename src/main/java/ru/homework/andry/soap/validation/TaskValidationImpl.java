@@ -27,22 +27,23 @@ public class TaskValidationImpl implements TaskValidation {
     private void initMaxCountTask() {
 
         maxCountTask = Arrays.stream(Position.values())
-                             .collect(Collectors.toMap(p -> p,
-                                                       this::getMaxCountTasks,
-                                                       (prev, next) -> next,
-                                                       HashMap::new));
+                .collect(Collectors.toMap(
+                        p -> p,
+                        this::getMaxCountTasks,
+                        (prev, next) -> next,
+                        HashMap::new));
     }
 
     private int getMaxCountTasks(Position position) {
         return Integer.parseInt(properties.getProperty(position.name()
-                                                               .toLowerCase(Locale.ROOT)));
+                .toLowerCase(Locale.ROOT)));
     }
 
     @Override
     public boolean checkCountAssignTasks(int countRequest, EmployeeEntity employeeEntity) {
         return employeeEntity.getTasks().size() + countRequest
                 <= Optional.ofNullable(maxCountTask.get(employeeEntity.getPosition()))
-                           .orElse(0);
+                .orElse(0);
     }
 
     @Override
@@ -56,8 +57,8 @@ public class TaskValidationImpl implements TaskValidation {
 
     private List<UUID> getNotFoundIds(List<UUID> requestIds, List<UUID> foundIds) {
         return requestIds.stream()
-                         .filter(it -> !foundIds.contains(it))
-                         .collect(Collectors.toList());
+                .filter(it -> !foundIds.contains(it))
+                .collect(Collectors.toList());
     }
 }
 
