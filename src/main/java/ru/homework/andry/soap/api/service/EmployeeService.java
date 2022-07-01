@@ -16,4 +16,5 @@ public interface EmployeeService{
 
     void delete(List<Long> requestIds);
 
+    byte[] getForm(String uuid);
 }

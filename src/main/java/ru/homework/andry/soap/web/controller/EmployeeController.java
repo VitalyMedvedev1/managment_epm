@@ -2,12 +2,14 @@ package ru.homework.andry.soap.web.controller;
 
 import io.dliga.micro.employee_web_service.Employee;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.homework.andry.soap.api.service.EmployeeService;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -43,4 +45,23 @@ public class EmployeeController {
         employeeService.delete(employeeIds);
     }
 
+    @GetMapping("/{uuid}/form")
+    public ResponseEntity<Resource> getForm(@PathVariable String uuid) {
+
+//        Path path = Paths.get("C:\\Users\\vemedvedev\\Desktop\\ticket.pdf");
+//        try {
+//            Resource resource = new UrlResource(path.toUri());
+//            return ResponseEntity.ok()
+//                                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"javatpoint_pdf.pdf\"")
+//                                 .body(resource);
+//        } catch (MalformedURLException e) {
+//            throw new RuntimeException("Error:" + e.getMessage());
+//        }
+
+        byte[] form = employeeService.getForm(uuid);
+        File file = new File();
+        return ResponseEntity.ok()
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"javatpoint_pdf.pdf\"")
+                             .body(form);
+    }
 }

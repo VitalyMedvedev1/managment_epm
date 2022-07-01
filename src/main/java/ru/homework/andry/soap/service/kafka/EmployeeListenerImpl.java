@@ -25,6 +25,7 @@ public class EmployeeListenerImpl implements EmployeeListener {
             containerFactory = "upsertListener")
     public void listenToCreate(EmployeeEntity entity) {
         log.info("Start create new employee from kafka");
+
         Optional<EmployeeEntity> foundEmployee = employeeRepository.findByUuid(entity.getUuid());
         if (foundEmployee.isEmpty()) {
             EmployeeEntity savedEmployee = employeeRepository.save(entity);
