@@ -32,8 +32,7 @@ public class EmployeeResponseBuilderImpl implements EmployeeResponseBuilder {
     @Override
     public CreateEmployeesResponse buildCreateEmployeesResponse(List<Employee> employees) {
         CreateEmployeesResponse createEmployeesResponse = new CreateEmployeesResponse();
-        employees.forEach(
-                element -> {
+        employees.forEach(element -> {
                     element.setStatus(getResponseStatus(element.getErrorMessage()));
                     createEmployeesResponse.getEmployees().add(element);
                 });
