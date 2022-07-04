@@ -20,9 +20,7 @@ import static ru.homework.andry.soap.constant.PropertiesValue.QUEUE_SIZE_FOR_DEL
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class EmployeeSchedulerImpl {
-    //todo лучше пометить, как Configuration -> убрать интерфейс, назвать EmployeeSchedulerConfig или просто SchedulerConfig и отправить в пакет config
-    // done убрал и удалил интерфейс и переделал на @Component
+public class EmployeeScheduler {
 
     private final EmployeeRepository employeeRepository;
     private final Queue<EmployeeEntity> employees = new ConcurrentLinkedQueue<>();
@@ -53,8 +51,8 @@ public class EmployeeSchedulerImpl {
     }
 
     private void addEmployeeEntities() {
-        Page<EmployeeEntity> employeeEntityPage = employeeRepository.findAll(PageRequest.of(0,
-                                                                                            QUEUE_SIZE_FOR_DELETE_EMP));
+        Page<EmployeeEntity> employeeEntityPage =
+                employeeRepository.findAll(PageRequest.of(0, QUEUE_SIZE_FOR_DELETE_EMP));
 
         if (employeeEntityPage.stream().findFirst().isPresent()) {
             employees.addAll(employeeEntityPage.getContent());

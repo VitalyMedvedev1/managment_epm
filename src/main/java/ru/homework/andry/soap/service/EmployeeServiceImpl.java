@@ -147,7 +147,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         log.info("Start load form to employee with uuid: {}", uuid);
         EmployeeEntity entity = employeeRepository.findByUuid(uuid)
                                                   .orElseThrow(() -> new EntityNotFoundException(
-                                                          MessageFormat.format("Employee with uuid: {0} didn't find", uuid)));
+                                                          MessageFormat.format("Employee with uuid: {0} didn't find",
+                                                                               uuid)));
 
         byte[] generate = pdfGenerator.generate(templateName, getParameters(entity));
         return generate;
@@ -164,29 +165,27 @@ public class EmployeeServiceImpl implements EmployeeService {
                              Map.entry("project", entity.getProject()),
                              Map.entry("uuid", entity.getUuid()),
                              Map.entry("position", entity.getPosition()),
-                             Map.entry("tasks",
-                                       entity.getTasks()
-                                             .stream()
-                                             .map(TaskEntity::getDescription)
-                                             .collect(Collectors.toList())));
+                             Map.entry("tasks", entity.getTasks().stream()
+                                                      .map(TaskEntity::getDescription)
+                                                      .collect(Collectors.toList())));
     }
 
     private List<Long> getEntityIds(List<EmployeeEntity> entities) {
         return entities.stream()
-                .map(EmployeeEntity::getId)
-                .collect(Collectors.toList());
+                       .map(EmployeeEntity::getId)
+                       .collect(Collectors.toList());
     }
 
     private List<Long> getElementIds(List<EmployeeElement> elements) {
         return elements.stream()
-                .map(EmployeeElement::getId)
-                .collect(Collectors.toList());
+                       .map(EmployeeElement::getId)
+                       .collect(Collectors.toList());
     }
 
     private List<EmployeeElement> getCorrectEmployees(List<EmployeeElement> employeeElements) {
         log.debug("Get correct employees");
         return employeeElements.stream()
-                .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
-                .collect(Collectors.toList());
+                               .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
+                               .collect(Collectors.toList());
     }
 }

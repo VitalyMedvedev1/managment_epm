@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.homework.andry.soap.api.kafka.EmployeeListener;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.repository.EmployeeRepository;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class EmployeeListenerImpl implements EmployeeListener {
 
     private final EmployeeRepository employeeRepository;

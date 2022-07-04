@@ -18,9 +18,9 @@ public class SchedulerConfig {
     @Bean("empExecutor")
     public Executor deleteEmployeeTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(CORE_POOL_SIZE); //todo всегда ноль ?
-        executor.setMaxPoolSize(MAX_POOL_SIZE); //todo всегда ноль ?
-        executor.setQueueCapacity(QUEUE_CAPACITY);  //todo всегда ноль ?
+        executor.setCorePoolSize(CORE_POOL_SIZE); //todo всегда ноль ? - нет из пропертей значение
+        executor.setMaxPoolSize(MAX_POOL_SIZE); //todo всегда ноль ? - нет из пропертей значение
+        executor.setQueueCapacity(QUEUE_CAPACITY);  //todo всегда ноль ? - нет из пропертей значение
         executor.setThreadNamePrefix("Delete employee tread: ");
         executor.initialize();
         return executor;

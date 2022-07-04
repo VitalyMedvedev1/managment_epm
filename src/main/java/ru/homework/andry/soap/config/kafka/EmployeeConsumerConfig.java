@@ -57,11 +57,11 @@ public class EmployeeConsumerConfig {
                                            GROUP_ID_CONFIG, deleteGroup,
                                            KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                                            VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
-        ObjectMapper om = new ObjectMapper(); //todo название переменной
-        JavaType type = om.getTypeFactory().constructParametricType(List.class, Long.class);
+        ObjectMapper mapper = new ObjectMapper(); //todo название переменной // done
+        JavaType type = mapper.getTypeFactory().constructParametricType(List.class, Long.class);
         return new DefaultKafkaConsumerFactory<>(props, //todo перенос
                                                  new StringDeserializer(),
-                                                 new JsonDeserializer<>(type, om, false));
+                                                 new JsonDeserializer<>(type, mapper, false));
     }
 
     @Bean("deleteListener")

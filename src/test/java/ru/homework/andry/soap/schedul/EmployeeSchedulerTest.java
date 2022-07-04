@@ -17,11 +17,11 @@ import static ru.homework.andry.soap.constant.PropertiesValue.QUEUE_SIZE_FOR_DEL
 import static ru.homework.andry.soap.testdata.ValueConstTestData.getValues;
 
 @ExtendWith(MockitoExtension.class)
-class EmployeeSchedulerImplTest {
+class EmployeeSchedulerTest {
 
     public static final String QUEUE_SIZE_FOR_DELETE_EMP1 = "QUEUE_SIZE_FOR_DELETE_EMP";
     private final EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
-    private final EmployeeSchedulerImpl employeeScheduler = new EmployeeSchedulerImpl(employeeRepository);
+    private final EmployeeScheduler employeeScheduler = new EmployeeScheduler(employeeRepository);
     private final PropertiesValue propertiesValue = getValues();
 
     @BeforeEach
