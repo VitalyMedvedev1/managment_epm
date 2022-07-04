@@ -1,68 +1,61 @@
 package ru.homework.andry.soap.constant;
 
+import lombok.Getter;
 import org.apache.commons.lang3.Range;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
+import ru.homework.andry.soap.entity.EmployeeRestrictionsEntity;
+import ru.homework.andry.soap.repository.EmployeeRestrictionsRepository;
 
-@Component
-public final class PropertiesValue {
-    public static final int ERROR_CODE = 99;
-    public static int QUEUE_SIZE_FOR_DELETE_EMP;
-    public static int CORE_POOL_SIZE;
-    public static int MAX_POOL_SIZE;
-    public static int QUEUE_CAPACITY;
-    public static String NAMESPACE_URI;
-    public static String ROOT_WS_URL;
-    public static String XSD_FILE_PATH;
+import javax.annotation.PostConstruct;
+import java.util.List;
+
+@Configuration
+@Getter
+public class PropertiesValue {
+
+    @Autowired
+    private EmployeeRestrictionsRepository employeeRestrictionsRepository;
+
+    @Value("${delete.emp.queue.capacity}")
+    private int QUEUE_SIZE_FOR_DELETE_EMP;
+
+    @Value("${delete.emp.tread.core.poll.size}")
+    private int CORE_POOL_SIZE;
+
+    @Value("${delete.emp.tread.max.poll.size}")
+    private int MAX_POOL_SIZE;
+
+    @Value("${delete.emp.tread.queue.capacity}")
+    private int QUEUE_CAPACITY;
+
     public static Range<Integer> ANALYTICS_SALARY_RANGE;
     public static Range<Integer> DEVELOPER_SALARY_RANGE;
     public static Range<Integer> MANAGER_SALARY_RANGE;
+
     public static String SALARY_ERROR_TEXT_MESSAGE = "This salary is not suitable for position: {0}. ";
     public static String REQUIRED_FIELD_ERROR_TEXT_MESSAGE = "For position: {0}, required fields are not filled!";
 
-    public PropertiesValue(@Value("${config.analytics.min.salary}") int analyticsMinSalary,
-                           @Value("${config.analytics.max.salary}") int analyticsMaxSalary,
-                           @Value("${config.developer.min.salary}") int developerMinSalary,
-                           @Value("${config.developer.max.salary}") int developerMaxSalary,
-                           @Value("${config.manager.min.salary}") int managerMinSalary,
-                           @Value("${config.manager.mxn.salary}") int managerMaxSalary) {
-        ANALYTICS_SALARY_RANGE = Range.between(analyticsMinSalary, analyticsMaxSalary);
-        DEVELOPER_SALARY_RANGE = Range.between(developerMinSalary, developerMaxSalary);
-        MANAGER_SALARY_RANGE = Range.between(managerMinSalary, managerMaxSalary);
+    public static final int ERROR_CODE = 99;
+
+    @PostConstruct
+    void setEmployeeRestrictions() {
+        List<EmployeeRestrictionsEntity> restrictions = employeeRestrictionsRepository.findAll();
+        restrictions.forEach(this::setSalaryRestriction);
     }
 
-    @Value("${config.namespace.uri}")
-    private void setNamespaceUri(String namespaceUri) {
-        NAMESPACE_URI = namespaceUri;
-    }
-
-    @Value("${config.root.ws.url}")
-    private void setRootWsUrl(String rootWsUrl) {
-        ROOT_WS_URL = rootWsUrl;
-    }
-
-    @Value("${config.xsd.file.path}")
-    private void setXsdFilePath(String xsdFilePath) {
-        XSD_FILE_PATH = xsdFilePath;
-    }
-
-    @Value("${delete.emp.tread.core.poll.size}")
-    private void setCorePoolSize(int corePoolSize) {
-        CORE_POOL_SIZE = corePoolSize;
-    }
-
-    @Value("${delete.emp.tread.max.poll.size}")
-    private void setMaxPoolSize(int maxPoolSize) {
-        MAX_POOL_SIZE = maxPoolSize;
-    }
-
-    @Value("${delete.emp.tread.queue.capacity}")
-    private void setQueueCapacity(int queueCapacity) {
-        QUEUE_CAPACITY = queueCapacity;
-    }
-
-    @Value("${delete.emp.queue.capacity}")
-    private void setQueueSizeForDeleteEmp(int queueSizeForDeleteEmp) {
-        QUEUE_SIZE_FOR_DELETE_EMP = queueSizeForDeleteEmp;
+    private void setSalaryRestriction(EmployeeRestrictionsEntity restriction) {
+        switch (restriction.getPosition()){
+            case MANAGER:
+                MANAGER_SALARY_RANGE = Range.between(restriction.getMin_salary(), restriction.getMax_salary());
+                break;
+            case ANALYTICS:
+                ANALYTICS_SALARY_RANGE = Range.between(restriction.getMin_salary(), restriction.getMax_salary());
+                break;
+            default:
+                DEVELOPER_SALARY_RANGE = Range.between(restriction.getMin_salary(), restriction.getMax_salary());
+                break;
+        }
     }
 }

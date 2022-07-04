@@ -8,14 +8,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import ru.homework.andry.soap.constant.PropertiesValue;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static ru.homework.andry.soap.constant.PropertiesValue.QUEUE_SIZE_FOR_DELETE_EMP;
 
 @Slf4j
 @Component
@@ -24,6 +23,7 @@ public class EmployeeScheduler {
 
     private final EmployeeRepository employeeRepository;
     private final Queue<EmployeeEntity> employees = new ConcurrentLinkedQueue<>();
+    private final PropertiesValue propertiesValue;
 
     @PostConstruct
     private void add() {
@@ -52,7 +52,7 @@ public class EmployeeScheduler {
 
     private void addEmployeeEntities() {
         Page<EmployeeEntity> employeeEntityPage =
-                employeeRepository.findAll(PageRequest.of(0, QUEUE_SIZE_FOR_DELETE_EMP));
+                employeeRepository.findAll(PageRequest.of(0, propertiesValue.getQUEUE_SIZE_FOR_DELETE_EMP()));
 
         if (employeeEntityPage.stream().findFirst().isPresent()) {
             employees.addAll(employeeEntityPage.getContent());
