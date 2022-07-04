@@ -11,6 +11,5 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class TaskRequestCreateElement {
 
-    @NotNull(message = "Description is required")
     String description;
 }

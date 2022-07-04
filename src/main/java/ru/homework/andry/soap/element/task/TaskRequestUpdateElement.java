@@ -12,7 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TaskRequestUpdateElement {
 
-    @NotNull(message = "Id is required")
     UUID id;
     String description;
 }

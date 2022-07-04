@@ -50,14 +50,18 @@ public class PropertiesValue {
     private void setSalaryRestriction(EmployeeRestrictionsEntity restriction) {
         switch (restriction.getPosition()){
             case MANAGER:
-                MANAGER_SALARY_RANGE = Range.between(restriction.getMin_salary(), restriction.getMax_salary());
+                MANAGER_SALARY_RANGE = getSalaryRange(restriction);
                 break;
             case ANALYTICS:
-                ANALYTICS_SALARY_RANGE = Range.between(restriction.getMin_salary(), restriction.getMax_salary());
+                ANALYTICS_SALARY_RANGE = getSalaryRange(restriction);
                 break;
             default:
-                DEVELOPER_SALARY_RANGE = Range.between(restriction.getMin_salary(), restriction.getMax_salary());
+                DEVELOPER_SALARY_RANGE = getSalaryRange(restriction);
                 break;
         }
+    }
+
+    private Range<Integer> getSalaryRange(EmployeeRestrictionsEntity restriction) {
+        return Range.between(restriction.getMin_salary(), restriction.getMax_salary());
     }
 }
