@@ -1,5 +1,6 @@
 package ru.homework.andry.soap.constant;
 
+import io.dliga.micro.employee_web_service.Position;
 import lombok.Getter;
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import ru.homework.andry.soap.entity.EmployeeRestrictionsEntity;
 import ru.homework.andry.soap.repository.EmployeeRestrictionsRepository;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 @Getter
@@ -34,8 +37,10 @@ public class PropertiesValue {
     public static Range<Integer> DEVELOPER_SALARY_RANGE;
     public static Range<Integer> MANAGER_SALARY_RANGE;
 
-    public static String SALARY_ERROR_TEXT_MESSAGE = "This salary is not suitable for position: {0}. ";
-    public static String REQUIRED_FIELD_ERROR_TEXT_MESSAGE = "For position: {0}, required fields are not filled!";
+    private Map<Position, Integer> maxCountTask = new HashMap<>();
+
+    public static final String SALARY_ERROR_TEXT_MESSAGE = "This salary is not suitable for position: {0}. ";
+    public static final String REQUIRED_FIELD_ERROR_TEXT_MESSAGE = "For position: {0}, required fields are not filled!";
 
     public static final int ERROR_CODE = 99;
     public static final String KAFKA_UPSERT_TOPIC_NAME = "employeesToUpsert";
@@ -45,6 +50,8 @@ public class PropertiesValue {
     void setEmployeeRestrictions() {
         List<EmployeeRestrictionsEntity> restrictions = employeeRestrictionsRepository.findAll();
         restrictions.forEach(this::setSalaryRestriction);
+        restrictions.forEach(
+                rest -> setMaxCountTasksRestriction(rest.getPosition(), rest.getMax_count_tasks()));
     }
 
     private void setSalaryRestriction(EmployeeRestrictionsEntity restriction) {
@@ -63,5 +70,9 @@ public class PropertiesValue {
 
     private Range<Integer> getSalaryRange(EmployeeRestrictionsEntity restriction) {
         return Range.between(restriction.getMin_salary(), restriction.getMax_salary());
+    }
+
+    private void setMaxCountTasksRestriction(Position position, int taskCount) {
+        maxCountTask.put(position, taskCount);
     }
 }

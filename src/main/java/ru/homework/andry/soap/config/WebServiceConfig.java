@@ -16,9 +16,6 @@ import org.springframework.xml.xsd.XsdSchema;
 
 import java.util.List;
 
-import static ru.homework.andry.soap.constant.PropertiesValue.NAMESPACE_URI;
-import static ru.homework.andry.soap.constant.PropertiesValue.ROOT_WS_URL;
-
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
