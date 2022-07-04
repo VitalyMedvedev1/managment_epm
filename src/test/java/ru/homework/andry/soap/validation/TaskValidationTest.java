@@ -17,13 +17,6 @@ class TaskValidationTest {
 
     private final TaskValidationImpl validation = new TaskValidationImpl();
 
-    @BeforeEach
-    void addMaxTasksByPosition() {
-        validation.getMaxCountTask().putAll(getMaxCountTaskByPosition(1,
-                                                                      2,
-                                                                      3));
-    }
-
     @Test
     void checkCountAssignTasks_AddTasksToDeveloper_AlreadyHasMaximum() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.DEVELOPER);
