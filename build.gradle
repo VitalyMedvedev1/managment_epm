@@ -116,6 +116,9 @@ dependencies {
     implementation "org.postgresql:postgresql:$postgreSql"
     jaxb("org.glassfish.jaxb:jaxb-xjc")
 
+    implementation 'com.lowagie:itext:2.1.7'
+    implementation 'net.sf.jasperreports:jasperreports:6.19.0'
+
     implementation 'org.hibernate.validator:hibernate-validator-cdi:8.0.0.Alpha3'
 
     implementation 'org.springframework.kafka:spring-kafka:2.8.7'

@@ -12,15 +12,18 @@ import ru.homework.andry.soap.api.service.EmployeeService;
 import ru.homework.andry.soap.api.validation.EmployeeValidation;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
 import ru.homework.andry.soap.entity.EmployeeEntity;
+import ru.homework.andry.soap.entity.TaskEntity;
 import ru.homework.andry.soap.exeption.BusinessLogicException;
 import ru.homework.andry.soap.mapper.EmployeeSwitcherMapper;
 import ru.homework.andry.soap.repository.EmployeeRepository;
+import ru.homework.andry.soap.util.PdfGenerator;
 
 import javax.persistence.EntityNotFoundException;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +36,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeSwitcherMapper employeeSwitcherMapper;
     private final EmployeeValidation employeeValidation;
     private final EmployeeSender employeeSender;
+    private final PdfGenerator pdfGenerator;
+
+    private static final String templateName = "employeeProfile";
 
     @Override
     public List<Employee> findAll() {
@@ -136,22 +142,50 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeSender.sendToDelete(requestIds);
     }
 
+    @Override
+    public byte[] getForm(String uuid) {
+        log.info("Start load form to employee with uuid: {}", uuid);
+        EmployeeEntity entity = employeeRepository.findByUuid(uuid)
+                                                  .orElseThrow(() -> new EntityNotFoundException(
+                                                          MessageFormat.format("Employee with uuid: {0} didn't find",
+                                                                               uuid)));
+
+        byte[] generate = pdfGenerator.generate(templateName, getParameters(entity));
+        return generate;
+    }
+
+    private Map<String, Object> getParameters(EmployeeEntity entity) {
+        return Map.ofEntries(Map.entry("name", entity.getFirstName()),
+                             Map.entry("surname", entity.getLastName()),
+                             Map.entry("age", entity.getAge()),
+                             Map.entry("salary", entity.getSalary()),
+                             Map.entry("level", entity.getLevel()),
+                             Map.entry("language", entity.getLanguage()),
+                             Map.entry("type", entity.getType()),
+                             Map.entry("project", entity.getProject()),
+                             Map.entry("uuid", entity.getUuid()),
+                             Map.entry("position", entity.getPosition()),
+                             Map.entry("tasks", entity.getTasks().stream()
+                                                      .map(TaskEntity::getDescription)
+                                                      .collect(Collectors.toList())));
+    }
+
     private List<Long> getEntityIds(List<EmployeeEntity> entities) {
         return entities.stream()
-                .map(EmployeeEntity::getId)
-                .collect(Collectors.toList());
+                       .map(EmployeeEntity::getId)
+                       .collect(Collectors.toList());
     }
 
     private List<Long> getElementIds(List<EmployeeElement> elements) {
         return elements.stream()
-                .map(EmployeeElement::getId)
-                .collect(Collectors.toList());
+                       .map(EmployeeElement::getId)
+                       .collect(Collectors.toList());
     }
 
     private List<EmployeeElement> getCorrectEmployees(List<EmployeeElement> employeeElements) {
         log.debug("Get correct employees");
         return employeeElements.stream()
-                .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
-                .collect(Collectors.toList());
+                               .filter(employee -> StringUtils.isBlank(employee.getErrorMessage()))
+                               .collect(Collectors.toList());
     }
 }

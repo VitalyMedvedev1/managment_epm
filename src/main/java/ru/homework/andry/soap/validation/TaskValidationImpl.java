@@ -2,11 +2,13 @@ package ru.homework.andry.soap.validation;
 
 import io.dliga.micro.employee_web_service.Position;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.homework.andry.soap.api.validation.TaskValidation;
+import ru.homework.andry.soap.constant.PropertiesValue;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import javax.annotation.PostConstruct;
@@ -16,33 +18,15 @@ import java.util.stream.Collectors;
 @Component
 @Getter
 @Slf4j
+@RequiredArgsConstructor
 public class TaskValidationImpl implements TaskValidation {
 
-    @Autowired
-    @Qualifier("countTasks")
-    private Properties properties;
-    private Map<Position, Integer> maxCountTask = new HashMap<>();
-
-    @PostConstruct
-    private void initMaxCountTask() {
-
-        maxCountTask = Arrays.stream(Position.values())
-                .collect(Collectors.toMap(
-                        p -> p,
-                        this::getMaxCountTasks,
-                        (prev, next) -> next,
-                        HashMap::new));
-    }
-
-    private int getMaxCountTasks(Position position) {
-        return Integer.parseInt(properties.getProperty(position.name()
-                .toLowerCase(Locale.ROOT)));
-    }
+    private final PropertiesValue propertiesValue;
 
     @Override
     public boolean checkCountAssignTasks(int countRequest, EmployeeEntity employeeEntity) {
         return employeeEntity.getTasks().size() + countRequest
-                <= Optional.ofNullable(maxCountTask.get(employeeEntity.getPosition()))
+                <= Optional.ofNullable(propertiesValue.getMaxCountTask().get(employeeEntity.getPosition()))
                 .orElse(0);
     }
 
