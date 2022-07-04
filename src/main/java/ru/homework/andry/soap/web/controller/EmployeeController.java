@@ -3,13 +3,11 @@ package ru.homework.andry.soap.web.controller;
 import io.dliga.micro.employee_web_service.Employee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.homework.andry.soap.api.service.EmployeeService;
 
-import java.io.File;
 import java.util.List;
 
 @RestController

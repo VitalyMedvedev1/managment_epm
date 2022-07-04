@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.homework.andry.soap.api.service.EmployeeService;
 import ru.homework.andry.soap.api.validation.EmployeeValidation;
-import ru.homework.andry.soap.constant.PropertiesValue;
+import ru.homework.andry.soap.constant.PropertyValues;
 import ru.homework.andry.soap.mapper.EmployeeMapper;
 import ru.homework.andry.soap.mapper.EmployeeSwitcherMapper;
 import ru.homework.andry.soap.repository.EmployeeRepository;
@@ -22,7 +22,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.getEmployees;
-import static ru.homework.andry.soap.testdata.ValueConstTestData.getValues;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -33,8 +32,6 @@ class EmployeeServiceTest {
     public static final int UPDATE_SALARY = 155000;
     @Autowired
     private EmployeeRepository employeeRepository;
-
-    private PropertiesValue propertiesValue = getValues();
 
     @MockBean
     private EmployeeValidation employeeValidation;
@@ -49,7 +46,9 @@ class EmployeeServiceTest {
     void initService() {
         employeeService = new EmployeeServiceImpl(employeeRepository,
                                                   new EmployeeSwitcherMapper(Mappers.getMapper(EmployeeMapper.class)),
-                                                  new EmployeeValidationImpl(), employeeSender);
+                                                  new EmployeeValidationImpl(),
+                                                  employeeSender,
+                                                  null);
     }
 
     @Test

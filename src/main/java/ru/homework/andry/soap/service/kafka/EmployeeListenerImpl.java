@@ -12,8 +12,7 @@ import ru.homework.andry.soap.repository.EmployeeRepository;
 import java.util.List;
 import java.util.Optional;
 
-import static ru.homework.andry.soap.constant.PropertiesValue.KAFKA_DELETE_TOPIC_NAME;
-import static ru.homework.andry.soap.constant.PropertiesValue.KAFKA_UPSERT_TOPIC_NAME;
+import static ru.homework.andry.soap.constant.AppValues.*;
 
 @Service
 @Slf4j
@@ -34,8 +33,7 @@ public class EmployeeListenerImpl implements EmployeeListener {
         if (foundEmployee.isEmpty()) {
             EmployeeEntity savedEmployee = employeeRepository.save(entity);
             log.info("Successful create employee with id {} ", savedEmployee.getId());
-        }
-        else {
+        } else {
             log.info("Employee with uuid: {} already exists", foundEmployee.get().getUuid());
         }
     }

@@ -2,10 +2,10 @@ package ru.homework.andry.soap.constant;
 
 import io.dliga.micro.employee_web_service.Position;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import ru.homework.andry.soap.entity.EmployeeRestrictionsEntity;
 import ru.homework.andry.soap.repository.EmployeeRestrictionsRepository;
 
@@ -14,37 +14,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Configuration
+@Component
 @Getter
-public class PropertiesValue {
+@RequiredArgsConstructor
+public class RepositoryValues {
 
-    @Autowired
-    private EmployeeRestrictionsRepository employeeRestrictionsRepository;
-
-    @Value("${delete.emp.queue.capacity}")
-    private int QUEUE_SIZE_FOR_DELETE_EMP;
-
-    @Value("${delete.emp.tread.core.poll.size}")
-    private int CORE_POOL_SIZE;
-
-    @Value("${delete.emp.tread.max.poll.size}")
-    private int MAX_POOL_SIZE;
-
-    @Value("${delete.emp.tread.queue.capacity}")
-    private int QUEUE_CAPACITY;
+    private final EmployeeRestrictionsRepository employeeRestrictionsRepository;
 
     public static Range<Integer> ANALYTICS_SALARY_RANGE;
     public static Range<Integer> DEVELOPER_SALARY_RANGE;
     public static Range<Integer> MANAGER_SALARY_RANGE;
 
     private Map<Position, Integer> maxCountTask = new HashMap<>();
-
-    public static final String SALARY_ERROR_TEXT_MESSAGE = "This salary is not suitable for position: {0}. ";
-    public static final String REQUIRED_FIELD_ERROR_TEXT_MESSAGE = "For position: {0}, required fields are not filled!";
-
-    public static final int ERROR_CODE = 99;
-    public static final String KAFKA_UPSERT_TOPIC_NAME = "employeesToUpsert";
-    public static final String KAFKA_DELETE_TOPIC_NAME = "employeesToDelete";
 
     @PostConstruct
     void setEmployeeRestrictions() {
@@ -55,7 +36,7 @@ public class PropertiesValue {
     }
 
     private void setSalaryRestriction(EmployeeRestrictionsEntity restriction) {
-        switch (restriction.getPosition()){
+        switch (restriction.getPosition()) {
             case MANAGER:
                 MANAGER_SALARY_RANGE = getSalaryRange(restriction);
                 break;

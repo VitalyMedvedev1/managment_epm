@@ -20,6 +20,11 @@ import java.util.List;
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
 
+    public static final String EMPLOYEES_PORT = "EmployeesPort";
+    public static final String EMPLOYEE_WEB_SERVICE = "http://dliga.io/micro/employee-web-service";
+    public static final String TARGET_NAMESPACE = "/ws";
+    public static final String EMPLOYEES_XSD = "xsd/employees.xsd";
+
     @Override
     public void addInterceptors(List<EndpointInterceptor> interceptors) {
         PayloadValidatingInterceptor validatingInterceptor = new PayloadValidatingInterceptor();
@@ -40,15 +45,15 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean(name = "employees")
     public DefaultWsdl11Definition defaultWsdl11EmployeesDefinition(XsdSchema employeesSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("EmployeesPort");
-        wsdl11Definition.setLocationUri("http://dliga.io/micro/employee-web-service");
-        wsdl11Definition.setTargetNamespace("/ws");
+        wsdl11Definition.setPortTypeName(EMPLOYEES_PORT);
+        wsdl11Definition.setLocationUri(EMPLOYEE_WEB_SERVICE);
+        wsdl11Definition.setTargetNamespace(TARGET_NAMESPACE);
         wsdl11Definition.setSchema(employeesSchema);
         return wsdl11Definition;
     }
 
     @Bean
     public XsdSchema employeesSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("xsd/employees.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource(EMPLOYEES_XSD));
     }
 }
