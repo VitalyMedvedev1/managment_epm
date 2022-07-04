@@ -34,7 +34,7 @@ public class TaskTestData {
 
     private static TaskEntity getTask(EmployeeEntity employee) {
         return new TaskEntity(UUID.randomUUID(),
-                              "",
+                              "desc",
                               employee);
     }
 
@@ -48,7 +48,7 @@ public class TaskTestData {
     }
 
     private static TaskRequestCreateElement getTaskRequestCreate(EmployeeEntity employee) {
-        return new TaskRequestCreateElement("");
+        return new TaskRequestCreateElement("desc");
     }
 
     public static List<TaskRequestUpdateElement> getTasksRequestUpdate(int count, UUID id, String description) {

@@ -1,8 +1,10 @@
 package ru.homework.andry.soap.validation;
 
 import io.dliga.micro.employee_web_service.Position;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import ru.homework.andry.soap.AbstractSpringContext;
+import ru.homework.andry.soap.api.validation.TaskValidation;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.ArrayList;
@@ -13,14 +15,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.getEmployeeEntity;
 import static ru.homework.andry.soap.testdata.TaskTestData.*;
 
-class TaskValidationTest {
+class TaskValidationTest extends AbstractSpringContext {
 
-    private final TaskValidationImpl validation = new TaskValidationImpl();
+    @Autowired
+    private TaskValidation validation;
 
     @Test
     void checkCountAssignTasks_AddTasksToDeveloper_AlreadyHasMaximum() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.DEVELOPER);
-        employee.getTasks().addAll(getTaskEntities(1, null));
+        employee.getTasks().addAll(getTaskEntities(3, null));
 
         boolean result = validation.checkCountAssignTasks(1, employee);
 
@@ -30,7 +33,7 @@ class TaskValidationTest {
     @Test
     void checkCountAssignTasks_AddTasksToManager_AlreadyHasMaximum() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.MANAGER);
-        employee.getTasks().addAll(getTaskEntities(3, null));
+        employee.getTasks().addAll(getTaskEntities(1, null));
 
         boolean result = validation.checkCountAssignTasks(1, employee);
 
@@ -51,7 +54,7 @@ class TaskValidationTest {
     void checkCountAssignTasks_AddTasksToDeveloper_MoreTaskCome() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.DEVELOPER);
 
-        boolean result = validation.checkCountAssignTasks(2, employee);
+        boolean result = validation.checkCountAssignTasks(4, employee);
 
         assertThat(result).isFalse();
     }
@@ -60,7 +63,7 @@ class TaskValidationTest {
     void checkCountAssignTasks_AddTasksToManager_MoreTaskCome() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.MANAGER);
 
-        boolean result = validation.checkCountAssignTasks(4, employee);
+        boolean result = validation.checkCountAssignTasks(2, employee);
 
         assertThat(result).isFalse();
     }
@@ -78,7 +81,7 @@ class TaskValidationTest {
     void checkCountAssignTasks_AddTasksToDeveloper_AvailableCount() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.DEVELOPER);
 
-        boolean result = validation.checkCountAssignTasks(1, employee);
+        boolean result = validation.checkCountAssignTasks(3, employee);
 
         assertThat(result).isTrue();
     }
@@ -87,7 +90,7 @@ class TaskValidationTest {
     void checkCountAssignTasks_AddTasksToManager_AvailableCount() {
         EmployeeEntity employee = getEmployeeEntity(1, Position.MANAGER);
 
-        boolean result = validation.checkCountAssignTasks(3, employee);
+        boolean result = validation.checkCountAssignTasks(1, employee);
 
         assertThat(result).isTrue();
     }

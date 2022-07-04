@@ -7,5 +7,6 @@
             <gs:salary>160000</gs:salary>
             <gs:position>manager</gs:position>
             <gs:project>VTB</gs:project>
+            <gs:uuid>VTB</gs:uuid>
         </gs:employees>
     </gs:createEmployeesRequest>

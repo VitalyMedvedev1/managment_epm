@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import ru.homework.andry.soap.AbstractSpringContext;
 import ru.homework.andry.soap.api.service.EmployeeService;
 import ru.homework.andry.soap.api.validation.EmployeeValidation;
 import ru.homework.andry.soap.constant.PropertyValues;
@@ -23,33 +24,18 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.getEmployees;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class EmployeeServiceTest {
+class EmployeeServiceTest extends AbstractSpringContext {
 
     public static final String UPDATE_PROJECT = "OTP";
     public static final String UPDATE_DEVELOPER_LEVEL = "senior";
     public static final int UPDATE_SALARY = 155000;
+
     @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @MockBean
-    private EmployeeValidation employeeValidation;
-
     private EmployeeService employeeService;
 
     @MockBean
     private EmployeeSenderImpl employeeSender;
 
-
-    @BeforeEach
-    void initService() {
-        employeeService = new EmployeeServiceImpl(employeeRepository,
-                                                  new EmployeeSwitcherMapper(Mappers.getMapper(EmployeeMapper.class)),
-                                                  new EmployeeValidationImpl(),
-                                                  employeeSender,
-                                                  null);
-    }
 
     @Test
     void create_TwoEmployees_OneDeveloperOneAnalytic() {
