@@ -4,7 +4,7 @@ import io.dliga.micro.employee_web_service.Employee;
 
 import java.util.List;
 
-public interface EmployeeService{
+public interface EmployeeService {
 
     List<Employee> findAll();
 

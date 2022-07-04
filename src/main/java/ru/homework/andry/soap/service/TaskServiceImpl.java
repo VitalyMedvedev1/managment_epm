@@ -40,6 +40,9 @@ public class TaskServiceImpl implements TaskService {
         log.info("Start finding task by employee id: {}", employeeId);
         EmployeeEntity employee = findEmployee(employeeId);
 
+        List<TaskEntity> entities = tasksRepository.findAllByEmployee(employee)
+                                                       .orElse(Collections.emptyList());
+
         return taskMapper.entitiesToResponseElements(tasksRepository.findAllByEmployee(employee)
                                                                     .orElse(Collections.emptyList()));
     }

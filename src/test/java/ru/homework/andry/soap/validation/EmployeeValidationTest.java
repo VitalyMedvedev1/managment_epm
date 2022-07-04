@@ -5,8 +5,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import ru.homework.andry.soap.AbstractSpringContext;
 import ru.homework.andry.soap.api.validation.EmployeeValidation;
-import ru.homework.andry.soap.constant.PropertiesValue;
+import ru.homework.andry.soap.constant.PropertyValues;
 import ru.homework.andry.soap.element.employee.EmployeeElement;
 
 import java.text.MessageFormat;
@@ -15,16 +17,13 @@ import java.util.stream.Collectors;
 
 import static io.dliga.micro.employee_web_service.Position.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.homework.andry.soap.constant.PropertiesValue.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
-import static ru.homework.andry.soap.constant.PropertiesValue.SALARY_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.AppValues.*;
 import static ru.homework.andry.soap.testdata.EmployeesTestData.*;
-import static ru.homework.andry.soap.testdata.ValueConstTestData.getValues;
 
-@ExtendWith(MockitoExtension.class)
-class EmployeeValidationTest {
+class EmployeeValidationTest extends AbstractSpringContext {
 
-    private final EmployeeValidation employeeValidation = new EmployeeValidationImpl();
-    private final PropertiesValue propertiesValue = getValues();
+    @Autowired
+    private  EmployeeValidation employeeValidation;
 
     @Test
     void validate_EmployeesWithThreeDevelopers_SalaryAndFieldCorrect() {

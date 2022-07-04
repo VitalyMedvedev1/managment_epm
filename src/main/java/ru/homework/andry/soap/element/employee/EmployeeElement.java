@@ -11,20 +11,13 @@ import lombok.NoArgsConstructor;
 
 import java.text.MessageFormat;
 import java.util.Optional;
-import java.util.UUID;
 
-import static ru.homework.andry.soap.constant.PropertiesValue.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
-import static ru.homework.andry.soap.constant.PropertiesValue.SALARY_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.AppValues.REQUIRED_FIELD_ERROR_TEXT_MESSAGE;
+import static ru.homework.andry.soap.constant.AppValues.SALARY_ERROR_TEXT_MESSAGE;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = AnalyticsElement.class, name = "AnalyticsElement"),
-        @JsonSubTypes.Type(value = ManagerElement.class, name = "ManagerElement"),
-        @JsonSubTypes.Type(value = DeveloperElement.class, name = "DeveloperElement") }
-)
 public abstract class EmployeeElement {
     private Long id;
     private String firstName;

@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class EmployeesTestData {
@@ -82,6 +83,7 @@ public class EmployeesTestData {
                 "java",
                 "business",
                 "VTB",
+                UUID.randomUUID().toString(),
                 position,
                 new HashSet<>());
     }

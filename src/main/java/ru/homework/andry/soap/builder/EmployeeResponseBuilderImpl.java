@@ -12,7 +12,7 @@ import ru.homework.andry.soap.api.builder.EmployeeResponseBuilder;
 
 import java.util.List;
 
-import static ru.homework.andry.soap.constant.PropertiesValue.ERROR_CODE;
+import static ru.homework.andry.soap.constant.AppValues.ERROR_CODE;
 
 @Component
 @RequiredArgsConstructor

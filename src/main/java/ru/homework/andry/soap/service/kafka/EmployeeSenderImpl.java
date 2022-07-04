@@ -2,7 +2,6 @@ package ru.homework.andry.soap.service.kafka;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ru.homework.andry.soap.api.kafka.EmployeeSender;
@@ -10,8 +9,7 @@ import ru.homework.andry.soap.entity.EmployeeEntity;
 
 import java.util.List;
 
-import static ru.homework.andry.soap.constant.PropertiesValue.KAFKA_DELETE_TOPIC_NAME;
-import static ru.homework.andry.soap.constant.PropertiesValue.KAFKA_UPSERT_TOPIC_NAME;
+import static ru.homework.andry.soap.constant.AppValues.*;
 
 @Service
 @Slf4j

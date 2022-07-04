@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.homework.andry.soap.constant.PropertiesValue;
+import ru.homework.andry.soap.constant.PropertyValues;
 import ru.homework.andry.soap.entity.EmployeeEntity;
 import ru.homework.andry.soap.repository.EmployeeRepository;
 
@@ -23,7 +23,7 @@ public class EmployeeScheduler {
 
     private final EmployeeRepository employeeRepository;
     private final Queue<EmployeeEntity> employees = new ConcurrentLinkedQueue<>();
-    private final PropertiesValue propertiesValue;
+    private final PropertyValues propertyValues;
 
     @PostConstruct
     private void add() {
@@ -52,7 +52,7 @@ public class EmployeeScheduler {
 
     private void addEmployeeEntities() {
         Page<EmployeeEntity> employeeEntityPage =
-                employeeRepository.findAll(PageRequest.of(0, propertiesValue.getQUEUE_SIZE_FOR_DELETE_EMP()));
+                employeeRepository.findAll(PageRequest.of(0, propertyValues.getQUEUE_SIZE_FOR_DELETE_EMP()));
 
         if (employeeEntityPage.stream().findFirst().isPresent()) {
             employees.addAll(employeeEntityPage.getContent());
