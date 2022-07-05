@@ -19,7 +19,7 @@ public class TaskEntity {
     @Column(name = "id", nullable = false)
     @GeneratedValue
     @EqualsAndHashCode.Include
-    private UUID id; //todo отступ // done
+    private UUID id;
 
     @Column(name = "description")
     private String description;

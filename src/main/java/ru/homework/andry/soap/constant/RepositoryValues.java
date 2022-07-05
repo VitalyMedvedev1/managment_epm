@@ -31,7 +31,7 @@ public class RepositoryValues {
     void setEmployeeRestrictions() {
         List<EmployeeRestrictionsEntity> restrictions = employeeRestrictionsRepository.findAll();
         restrictions.forEach(this::setSalaryRestriction);
-        restrictions.forEach(
+        restrictions.forEach( //todo перенос
                 rest -> setMaxCountTasksRestriction(rest.getPosition(), rest.getMax_count_tasks()));
     }
 

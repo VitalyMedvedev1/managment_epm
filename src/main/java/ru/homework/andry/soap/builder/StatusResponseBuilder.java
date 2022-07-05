@@ -19,7 +19,7 @@ public class StatusResponseBuilder {
 
     public static Status build() {
         Status status = new Status();
-        status.setErrorCode(errorCode); //todo тут всегда ноль
+        status.setErrorCode(errorCode);
         status.setErrorMessage(errorMessage);
         return status;
     }

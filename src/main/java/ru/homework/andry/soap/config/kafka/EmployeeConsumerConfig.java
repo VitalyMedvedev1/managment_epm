@@ -38,7 +38,7 @@ public class EmployeeConsumerConfig {
                                            KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                                            VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
 
-        return new DefaultKafkaConsumerFactory<>(props, //todo перенос
+        return new DefaultKafkaConsumerFactory<>(props,
                                                  new StringDeserializer(),
                                                  new JsonDeserializer<>(EmployeeEntity.class));
     }
@@ -57,9 +57,9 @@ public class EmployeeConsumerConfig {
                                            GROUP_ID_CONFIG, deleteGroup,
                                            KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                                            VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
-        ObjectMapper mapper = new ObjectMapper(); //todo название переменной // done
+        ObjectMapper mapper = new ObjectMapper();
         JavaType type = mapper.getTypeFactory().constructParametricType(List.class, Long.class);
-        return new DefaultKafkaConsumerFactory<>(props, //todo перенос
+        return new DefaultKafkaConsumerFactory<>(props,
                                                  new StringDeserializer(),
                                                  new JsonDeserializer<>(type, mapper, false));
     }
