@@ -45,22 +45,6 @@ public class EmployeeController {
 
     @GetMapping("/{uuid}/form")
     public ResponseEntity<Resource> getForm(@PathVariable String uuid) {
-
-//        Path path = Paths.get("C:\\Users\\vemedvedev\\Desktop\\ticket.pdf");
-//        try {
-//            Resource resource = new UrlResource(path.toUri());
-//            return ResponseEntity.ok()
-//                                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"javatpoint_pdf.pdf\"")
-//                                 .body(resource);
-//        } catch (MalformedURLException e) {
-//            throw new RuntimeException("Error:" + e.getMessage());
-//        }
-
-//        byte[] form = employeeService.getForm(uuid);
-//        File file = new File();
-//        return ResponseEntity.ok()
-//                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"javatpoint_pdf.pdf\"")
-//                             .body(form);
-        return null;
+        return employeeService.getForm(uuid);
     }
 }

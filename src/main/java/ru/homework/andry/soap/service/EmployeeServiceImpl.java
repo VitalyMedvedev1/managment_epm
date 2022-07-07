@@ -5,6 +5,9 @@ import io.dliga.micro.employee_web_service.Position;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.homework.andry.soap.api.kafka.EmployeeSender;
@@ -20,10 +23,7 @@ import ru.homework.andry.soap.util.PdfGenerator;
 
 import javax.persistence.EntityNotFoundException;
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeSender employeeSender;
     private final PdfGenerator pdfGenerator;
 
-    private static final String templateName = "employeeProfile";
+    private static final String templateName = "employee_form_template";
 
     @Override
     public List<Employee> findAll() {
@@ -143,32 +143,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public byte[] getForm(String uuid) {
+    public ResponseEntity<Resource> getForm(String uuid) {
         log.info("Start load form to employee with uuid: {}", uuid);
         EmployeeEntity entity = employeeRepository.findByUuid(uuid)
                                                   .orElseThrow(() -> new EntityNotFoundException(
                                                           MessageFormat.format("Employee with uuid: {0} didn't find",
                                                                                uuid)));
 
-        byte[] generate = pdfGenerator.generate(templateName, getParameters(entity));
-        return generate;
+        Map<String, Object> parameters = new HashMap<>() {{
+            put("uuid", entity.getUuid());
+        }};
+
+        Resource resource = pdfGenerator.generate(templateName, parameters);
+
+        return ResponseEntity.ok()
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + uuid + ".pdf\"")
+                             .body(resource);
     }
 
-    private Map<String, Object> getParameters(EmployeeEntity entity) {
-        return Map.ofEntries(Map.entry("name", entity.getFirstName()),
-                             Map.entry("surname", entity.getLastName()),
-                             Map.entry("age", entity.getAge()),
-                             Map.entry("salary", entity.getSalary()),
-                             Map.entry("level", entity.getLevel()),
-                             Map.entry("language", entity.getLanguage()),
-                             Map.entry("type", entity.getType()),
-                             Map.entry("project", entity.getProject()),
-                             Map.entry("uuid", entity.getUuid()),
-                             Map.entry("position", entity.getPosition()),
-                             Map.entry("tasks", entity.getTasks().stream()
-                                                      .map(TaskEntity::getDescription)
-                                                      .collect(Collectors.toList())));
-    }
 
     private List<Long> getEntityIds(List<EmployeeEntity> entities) {
         return entities.stream()
