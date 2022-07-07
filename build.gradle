@@ -73,8 +73,8 @@ flyway {
 //    user = 'postgres'
 //    password = '5413399'
     url = 'jdbc:postgresql://localhost:5432/postgres'
-    user = 'root'
-    password = 'root'
+    user = 'postgres'
+    password = '5413399'
     schemas = 'soap'
     locations = ['classpath:db/migration,db/data']
 }

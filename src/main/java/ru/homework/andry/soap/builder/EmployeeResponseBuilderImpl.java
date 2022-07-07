@@ -15,7 +15,6 @@ import java.util.List;
 import static ru.homework.andry.soap.constant.AppValues.ERROR_CODE;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class EmployeeResponseBuilderImpl implements EmployeeResponseBuilder {
 
